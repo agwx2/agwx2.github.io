@@ -1,0 +1,478 @@
+<html>
+	<head>
+		<title>Anuv Gupta</title>
+		<link rel="icon" type="image/png" href="./img/logo.png">
+		<style>
+			@font-face {
+  				font-family: CenturyGothic;
+  				src: url("./style/centurygothic.ttf");
+  				font-weight: bold;
+			}
+			body {
+				background-color: #000000;
+				color: white;
+				text-decoration: none;
+				text-align: center;
+				font-family: CenturyGothic;
+				font-size: 1.15em;
+				text-shadow: 0px 0px 30px #000000;
+				z-index: 0;
+			}
+			.bodyBG {
+				position: fixed;
+				height: 100%;
+				width: 100%;
+				left: 0;
+				top: 0;
+				z-index: 0;
+				transition: opacity 0.6s ease-in-out;
+   				-moz-transition: opacity 0.6s ease-in-out;
+   				-ms-transition: opacity 0.6s ease-in-out;
+   				-webkit-transition: opacity 0.6s ease-in-out;
+   				-o-transition: opacity 0.6s ease-in-out;
+			}
+			#menu {
+				position: fixed;
+				height: 10.4%;
+				top: 0;
+				right: 0;
+				left: 0;
+				z-index: 2;
+			}
+			#menuBG {
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				z-index: -2;
+				background-color: #000000;
+				border-style: solid;
+				border-color: #dfdfdf;
+    			border-width: 0 0 1 0;
+				transition: opacity 0.3s ease-in-out;
+   				-moz-transition: opacity 0.3s ease-in-out;
+   				-ms-transition: opacity 0.3s ease-in-out;
+   				-webkit-transition: opacity 0.3s ease-in-out;
+   				-o-transition: opacity 0.3s ease-in-out;
+			}
+			#menuTableContainer {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				transition: height 0.3s ease-in-out;
+   				-moz-transition: height 0.3s ease-in-out;
+   				-ms-transition: height 0.3s ease-in-out;
+   				-webkit-transition: height 0.3s ease-in-out;
+   				-o-transition: height 0.3s ease-in-out;
+			}
+			#menuTable {
+				width: 100%;
+				height: 100%;
+				opacity: 1;
+				padding: 0 20 0 20;
+				text-align: center;
+			}
+			#menuLogoTD {
+				width: 5%;
+				opacity: 0;
+				z-index: 20;
+				transition: opacity 0.2s ease-in-out;
+   				-moz-transition: opacity 0.2s ease-in-out;
+   				-ms-transition: opacity 0.2s ease-in-out;
+   				-webkit-transition: opacity 0.2s ease-in-out;
+   				-o-transition: opacity 0.2s ease-in-out;
+			}
+			#menuIconTD {
+				width: 5%;
+				opacity: 0;
+				z-index: 20;
+				transition: opacity 0.2s ease-in-out;
+   				-moz-transition: opacity 0.2s ease-in-out;
+   				-ms-transition: opacity 0.2s ease-in-out;
+   				-webkit-transition: opacity 0.2s ease-in-out;
+   				-o-transition: opacity 0.2s ease-in-out;
+			}
+			#main {
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 108%;
+				z-index: 1;
+			}
+			#mainText1 {
+				font-family: CenturyGothic;
+				font-size: 270%;
+				margin: 0;
+				padding 0;
+				border: 0;
+			}
+			#vDown {
+				z-index: 5;
+				text-align: center;
+				height: 100%;
+				width: 4%;
+				border: solid 2px rgba(256, 256, 256, 0.8);
+				background-color: rgba(0, 0, 0, 0.2);
+				border-radius: 100%;
+				opacity: 0.85;
+				transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
+   				-moz-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
+   				-ms-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
+   				-webkit-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
+   				-o-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
+			}
+			#vDownImg {
+				height: 60%;
+				transition: opacity 0.4s ease-in-out;
+   				-moz-transition: opacity 0.4s ease-in-out;
+   				-ms-transition: opacity 0.4s ease-in-out;
+   				-webkit-transition: opacity 0.4s ease-in-out;
+   				-o-transition: opacity 0.4s ease-in-out;
+			}
+			#mainBG {
+				width: 100%;
+				height: 100%;
+				background-color: #000000;
+			}
+			#mainCT {
+				position: absolute;
+				width: 100%;
+				height: 400%;
+				opacity: 0;
+				padding: 10 30 10 30;
+				text-align: center;
+				transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
+   				-moz-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
+   				-ms-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
+   				-webkit-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
+   				-o-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
+			}
+			#aboutMeTable {
+				width: 106%;
+				height: 100%;
+				border-collapse: collapse;
+				background-color: rgba(0, 0, 0, 0.5);
+				border-radius: 15px;
+			}
+			#aboutMeTable td {
+				padding: 5 0 5 17;
+			}
+			#aboutMeImg {
+				border: 8px solid rgba(0, 0, 0, 0.2);
+				border-radius: 15px 0 0 15px;
+				height: 420px;
+			}
+			#famImg {
+				height: 215px;
+				border: 7px solid white;
+			}
+			#mainText3TD {
+				position: relative;
+				width: 60%;
+				height: 2%;
+				text-align: center;
+			}
+			.card {
+				margin: 3% 3% 3% 3%;
+  				text-align: center;
+  				height: 90%;
+  				width: 90%;
+  				box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
+  				-moz-box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
+  				-ms-box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
+  				-webkit-box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
+  				-o-box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
+			}
+			#2 {
+				height: 25%;
+			}
+		</style>
+
+		<script src = "./js/jquery-2.1.4.min.js"></script>
+		<script src = "./js/jquery-ui.min.js"></script>
+		<script src = "./js/background-blur.min.js"></script>
+		<script src = "./js/functions.js"></script>
+		<script src = "./js/velocity.min.js"></script>
+
+		<script type = "text/javascript">
+			var vDownActive = false;
+			function initBG() {
+				_('bodyBG2').style.opacity = 0;
+				_('bodyBG3').style.opacity = 0;
+				$('#bodyBG1').backgroundBlur({
+					imageURL : './img/IMG_8312-n2.jpg',
+					blurAmount : 0,
+					imageClass : 'bg-blur',
+					duration: 1000,
+					endOpacity: 1
+				});
+				$('#bodyBG2').backgroundBlur({
+					imageURL : './img/IMG_1753.jpg',
+					blurAmount : 0,
+					imageClass : 'bg-blur',
+					duration: 1000,
+					endOpacity: 1
+				});
+				$('#bodyBG3').backgroundBlur({
+					imageURL : './img/IMG_8615.jpg',
+					blurAmount : 0,
+					imageClass : 'bg-blur',
+					duration: 1000,
+					endOpacity: 1
+				});
+			}
+			function initSize() {
+				_('mainImg').style.width = 186.5 * (window.innerWidth/1280);
+				_('mainImg').style.height = 1.03 * 186.5 * (window.innerWidth/1280);
+				
+				var h1 = 0;
+				var w1 = 0;
+				if ((window.innerHeight/window.innerWidth) >= 0.56338028169) {
+					h1 = window.innerHeight;
+					w1 = 1136 * (window.innerHeight/640);
+				} else {
+					w1 = window.innerWidth;
+					h1 = 640 * (window.innerWidth/1136);
+				}
+				_('bodyBG1').style.width = w1;
+				_('bodyBG1').style.height = h1;
+				_('bodyBG3').style.width = w1;
+				_('bodyBG3').style.height = h1;
+				
+				if ((window.innerHeight/window.innerWidth) >= 0.74691358024) {
+					h1 = window.innerHeight;
+					w1 = 2592 * (window.innerHeight/1936);
+				} else {
+					w1 = window.innerWidth;
+					h1 = 1936 * (window.innerWidth/2592);
+				}
+				_('bodyBG2').style.width = w1;
+				_('bodyBG2').style.height = h1;
+				
+				var s1 = ((window.innerWidth + window.innerHeight) * 0.02216624685) + 'px';
+				_('mainText1').style.fontSize = s1;
+				_('mainText3').style.fontSize = s1;
+				_('mainText2A').style.fontSize = ((window.innerWidth + window.innerHeight) * 0.01863979848) + 'px';
+				_('mainText2B').style.fontSize = ((window.innerWidth + window.innerHeight) * 0.00856423173) + 'px';
+				_('mainText2C').style.fontSize = ((window.innerWidth + window.innerHeight) * 0.00726423173) + 'px';
+				
+				_('aboutMeImg').style.height = ((window.innerWidth + window.innerHeight) * 0.21158690176) + 'px';
+				_('vDownImg').style.height = ((window.innerWidth + window.innerHeight) * 0.02367758186) + 'px';
+				//_('famImg').style.height = ((window.innerWidth + window.innerHeight) * 1) + 'px';
+			}
+			function setEvents() {
+				$("#menuLogoTD").hover(function() {
+					_("menuLogoTD").style.opacity = 1;
+				}, function() {
+					_("menuLogoTD").style.opacity = 0.7;
+				});
+				$("#menuIconTD").hover(function() {
+					_("menuIconTD").style.opacity = 1;
+				}, function() {
+					_("menuIconTD").style.opacity = 0.7;
+				});
+				$("#vDown").hover(function() {
+					if(!vDownActive) {
+						vDownActive = true;
+						_("vDown").style.borderRadius = "20px";
+						_("vDown").style.width = "14%";
+						_("vDownImg").style.opacity = 0;
+						setTimeout(function () {
+							_("vDownImg").src = './img/aboutme.png';
+							_("vDownImg").style.opacity = 1;
+							vDownActive = false;
+						}, 400);
+					}
+				}, function() {
+					vDownActive = true;
+					_("vDownImg").style.opacity = 0;
+					setTimeout(function () {
+						_("vDown").style.borderRadius = "100%";
+						_("vDown").style.width = "4%";
+						_("vDownImg").src = './img/down.png';
+						_("vDownImg").style.opacity = 1;
+						vDownActive = false;
+					}, 500);
+				});
+				$("#vDown").click(function() {
+					$('body').animate({
+        				scrollTop: ($('#2').offset().top + 5),
+    				}, 1200, 'easeInOutExpo');
+				});
+				$("#menuLogoTD").click(function() {
+  			    	$('body').animate({
+        				scrollTop: $("#main").offset().top,
+    				}, 1200, 'easeInOutExpo');
+				});
+				$(window).scroll(function() {
+					if ($(window).scrollTop() > 5) _("menuBG").style.opacity = 0.6;
+    				else _("menuBG").style.opacity = 0;
+    				if ($(window).scrollTop() > 20) _("menuTableContainer").style.height = "72%";
+    				else _("menuTableContainer").style.height = "95%";
+    				
+    				if ($(window).scrollTop() < $('#mainText1').offset().top) {
+    					if (_('bodyBG1').style.opacity == 0) {
+    						_('bodyBG1').style.opacity = 1;
+    						_('bodyBG2').style.opacity = 0;
+    						_('bodyBG3').style.opacity = 0;
+    					}
+    				}
+    				else if ($(window).scrollTop() < $('#3').offset().top) {
+    					if (_('bodyBG2').style.opacity == 0) {
+    						_('bodyBG1').style.opacity = 0;
+    						_('bodyBG2').style.opacity = 1;
+    						_('bodyBG3').style.opacity = 0;
+    					}
+    				}
+    				else if ($(window).scrollTop() < $('#6').offset().top) {
+    					if (_('bodyBG3').style.opacity == 0) {
+    						_('bodyBG1').style.opacity = 0;
+    						_('bodyBG2').style.opacity = 0;
+    						_('bodyBG3').style.opacity = 1;
+    					}
+    				}
+				});
+			}
+			function loadPage() {
+				//console.log("w: " + window.innerWidth);
+				//console.log("h: " + window.innerHeight);
+				initSize();
+				initBG();
+				resizePage();
+				setEvents();
+				setTimeout(function () {
+					_("mainCT").style.opacity = 1;
+					_("menuLogoTD").style.opacity = 0.7;
+					_("menuIconTD").style.opacity = 0.7;
+				}, 200);
+			}
+			function resizePage() {
+				$('bodyBG1').replaceWith('<div id = "bodyBG1" class = "bodyBG"></div>');
+				$('bodyBG2').replaceWith('<div id = "bodyBG2" class = "bodyBG"></div>');
+				$('bodyBG3').replaceWith('<div id = "bodyBG3" class = "bodyBG"></div>');
+				initSize();
+				initBG();
+			}
+			$(window).on("orientationchange", resizePage);
+			$(window).resize(resizePage);
+			$(document).ready(loadPage);
+		</script>
+	</head>
+	<body>
+		<div id = "bodyBG1" class = "bodyBG"></div>
+		<div id = "bodyBG2" class = "bodyBG"></div>
+		<div id = "bodyBG3" class = "bodyBG"></div>
+		<center>
+			<div id = "menu">
+				<table id = "menuTableContainer">
+					<tr>
+						<td>
+							<div id = "menuBG"></div>
+							<table id = "menuTable">
+								<tr>
+									<td id = "menuLogoTD"><img id = "menuLogoIMG" src = "./img/logo.png"/></td>
+									<td width = "70%"></td>
+									<td id = "menuIconTD"><img id = "menuIconIMG" src = "./img/menuIcon.png"/></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id = "main">
+				<table id = "mainCT">
+					<tr id = "1" height = "25%">
+						<td colspan = "16">
+							<table width = "100%" height = "100%">
+								<tr height = "20%"><td></td></tr>
+								<tr height = "20%">
+									<td style = "text-align: center;">
+										<img id = "mainImg" src = "./img/IMG_3397-clear.png"/><br/>
+										<span id = "mainText1">anuv gupta</span><br/>
+									</td>
+								</tr>
+								<tr height = "8%">
+									<td>
+										<center>
+											<div id = "vDown">
+												<img id = "vDownImg" src = "./img/down.png"/>
+											</div>
+										</center>
+									</td>
+								</tr>
+								<tr height = "15%"><td></td></tr>
+							</table>
+						</td>
+					</tr>
+					<tr id = "2" height = "25%">
+						<td colspan = "3"></td>
+						<td colspan = "10" style = 'position: relative;'>
+							<center>
+								<table id = 'aboutMeTable'>
+									<tr>
+										<td rowspan = '10' style = 'padding: 0; margin: 0;'><img id = 'aboutMeImg' src = './img/IMG_1891-small2.jpg'/></td>
+										<td rowspan = '1' style = 'padding: 10 5 5 16;'><span id = "mainText2A">a little bit about me</span></td>
+									</tr>
+									<tr>
+										<td rowspan = '1'><span id = "mainText2B">i'm a musician and developer from mountain view, california</span></td>
+									</tr>
+									<tr>
+										<td rowspan = '8'>
+											<center><img id = 'famImg' height = '70%' src = './img/P1030672-cropped.jpg'/><br/><br/></center>
+											<span id = "mainText2C">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo, augue sed commodo dignissim, leo odio tincidunt orci, vitae blandit libero enim eu tellus. Cras iaculis urna quam, eget rhoncus felis maximus vitae. Maecenas ut odio varius, posuere dolor ac, pulvinar lorem.</span>
+										</td>
+									</tr>
+								</table>
+							</center>
+						</td>
+						<td colspan = "3"></td>
+					</tr>
+					<tr id = "3" height = "5%">
+						<td id = "spaceText" colspan = "16">
+							<span>&nbsp;</span>
+						</td>
+					</tr>
+					<tr id = "4" height = "2%">
+						<td id = "mainText3TD" colspan = "16">
+							<span id = "mainText3" style = "font-size: 300%; color: white;">projects</span>
+						</td>
+					</tr>
+					<tr id = "5" height = "13%">
+						<td colspan = "4" width = "25%">
+							<div id = "card1" class = "card" bgcolor = "green">
+								<span>1</span><br/>
+								<span>2</span><br/>
+							</div>
+						</td>
+						<td colspan = "4" width = "25%">
+							<div id = "card2" class = "card" bgcolor = "red">
+								<span>1</span><br/>
+								<span>2</span><br/>
+							</div>
+						</td>
+						<td colspan = "4" width = "25%">
+							<div id = "card3" class = "card" bgcolor = "blue">
+								<span>1</span><br/>
+								<span>2</span><br/>
+							</div>
+						</td>
+						<td colspan = "4" width = "25%">
+							<div id = "card4" class = "card" bgcolor = "yellow">
+								<span>1</span><br/>
+								<span>2</span><br/>
+							</div>
+						</td>
+					</tr>
+					<tr id = "6" height = "30%">
+						<td id = "mainText4" colspan = "16"><!-- HELLO4 --></td>
+					</tr>
+				</table>
+			<div>
+		</center>
+	</body>
+</html>
