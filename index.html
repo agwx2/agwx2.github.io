@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>Anuv Gupta</title>
-		<link rel="icon" type="image/png" href="./img/logo.png">
+		<link rel = "icon" type = "image/png" href = "./img/favicon.png">
 		<style>
 			@font-face {
   				font-family: CenturyGothic;
@@ -15,7 +15,7 @@
 				text-align: center;
 				font-family: CenturyGothic;
 				font-size: 1.15em;
-				text-shadow: 0px 0px 30px #000000;
+				text-shadow: 0 0 30px #000000;
 				z-index: 0;
 			}
 			.bodyBG {
@@ -111,7 +111,7 @@
 				padding 0;
 				border: 0;
 			}
-			#vDown {
+			#vDown1 {
 				z-index: 5;
 				text-align: center;
 				height: 100%;
@@ -120,19 +120,42 @@
 				background-color: rgba(0, 0, 0, 0.2);
 				border-radius: 100%;
 				opacity: 0.85;
-				transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
-   				-moz-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
-   				-ms-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
-   				-webkit-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
-   				-o-transition: opacity 0.4s ease-in-out, border-radius 0.4s ease-in-out, width 0.4s ease-in-out;
+				transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-moz-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-ms-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-webkit-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-o-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
 			}
-			#vDownImg {
+			#vDown1Img {
 				height: 60%;
-				transition: opacity 0.4s ease-in-out;
-   				-moz-transition: opacity 0.4s ease-in-out;
-   				-ms-transition: opacity 0.4s ease-in-out;
-   				-webkit-transition: opacity 0.4s ease-in-out;
-   				-o-transition: opacity 0.4s ease-in-out;
+				transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-moz-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-ms-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-webkit-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-o-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+			}
+			#vDown2 {
+				z-index: 5;
+				text-align: center;
+				height: 100%;
+				width: 3.3%;
+				border: solid 2px rgba(256, 256, 256, 0.8);
+				background-color: rgba(0, 0, 0, 0.2);
+				border-radius: 100%;
+				opacity: 0.85;
+				transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-moz-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-ms-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-webkit-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-o-transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out, width 0.4s ease-in-out;
+			}
+			#vDown2Img {
+				height: 60%;
+				transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-moz-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-ms-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-webkit-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
+   				-o-transition: opacity 0.2s ease-in-out, width 0.4s ease-in-out;
 			}
 			#mainBG {
 				width: 100%;
@@ -152,20 +175,20 @@
    				-webkit-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
    				-o-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
 			}
+			#mainCT tr {
+				width: 100%;
+			}
 			#aboutMeTable {
-				width: 106%;
+				width: 100%;
 				height: 100%;
 				border-collapse: collapse;
 				background-color: rgba(0, 0, 0, 0.5);
 				border-radius: 15px;
 			}
-			#aboutMeTable td {
-				padding: 5 0 5 17;
-			}
 			#aboutMeImg {
 				border: 8px solid rgba(0, 0, 0, 0.2);
 				border-radius: 15px 0 0 15px;
-				height: 420px;
+				height: 100%;
 			}
 			#famImg {
 				height: 215px;
@@ -188,9 +211,6 @@
   				-webkit-box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
   				-o-box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
 			}
-			#2 {
-				height: 25%;
-			}
 		</style>
 
 		<script src = "./js/jquery-2.1.4.min.js"></script>
@@ -200,7 +220,8 @@
 		<script src = "./js/velocity.min.js"></script>
 
 		<script type = "text/javascript">
-			var vDownActive = false;
+			var vDown1Active = false;
+			var vDown2Active = false;
 			function initBG() {
 				_('bodyBG2').style.opacity = 0;
 				_('bodyBG3').style.opacity = 0;
@@ -227,6 +248,12 @@
 				});
 			}
 			function initSize() {
+				var hL = (window.innerWidth + window.innerHeight) * 0.01511335012;
+				_('menuIconIMG').style.height = hL;
+				_('menuIconIMG').style.width = hL;
+				_('menuLogoIMG').style.height = hL;
+				_('menuLogoIMG').style.width = ((window.innerWidth + window.innerHeight) * 0.02770780856) + 'px';
+			
 				_('mainImg').style.width = 186.5 * (window.innerWidth/1280);
 				_('mainImg').style.height = 1.03 * 186.5 * (window.innerWidth/1280);
 				
@@ -262,8 +289,21 @@
 				_('mainText2C').style.fontSize = ((window.innerWidth + window.innerHeight) * 0.00726423173) + 'px';
 				
 				_('aboutMeImg').style.height = ((window.innerWidth + window.innerHeight) * 0.21158690176) + 'px';
-				_('vDownImg').style.height = ((window.innerWidth + window.innerHeight) * 0.02367758186) + 'px';
-				//_('famImg').style.height = ((window.innerWidth + window.innerHeight) * 1) + 'px';
+				_('aboutMeImg').style.borderWidth = ((window.innerWidth + window.innerHeight) * 0.0046302267) + 'px';
+				_('aboutMeTable').style.height = ((window.innerWidth + window.innerHeight) * 0.21158690176) + 'px';
+				_('famImg').style.height = ((window.innerWidth + window.innerHeight) * 0.12586901763) + 'px';
+				_('famImg').style.borderWidth = ((window.innerWidth + window.innerHeight) * 0.00362644836) + 'px';
+				
+				var v1h = (window.innerWidth + window.innerHeight) * 0.02367758186;
+				_('vDown1Img').style.width = v1h + 'px';
+				_('vDown1Img').style.height = v1h + 'px';
+				_('vDown1').style.width = v1h + 'px';
+				_('vDown1').style.height = v1h + 'px';
+				var v2h = (window.innerWidth + window.innerHeight) * 0.02027758186;
+				_('vDown2Img').style.width = v2h + 'px';
+				_('vDown2Img').style.height = v2h + 'px';
+				_('vDown2').style.width = v2h + 'px';
+				_('vDown2').style.height = v2h + 'px';
 			}
 			function setEvents() {
 				$("#menuLogoTD").hover(function() {
@@ -276,32 +316,72 @@
 				}, function() {
 					_("menuIconTD").style.opacity = 0.7;
 				});
-				$("#vDown").hover(function() {
-					if(!vDownActive) {
-						vDownActive = true;
-						_("vDown").style.borderRadius = "20px";
-						_("vDown").style.width = "14%";
-						_("vDownImg").style.opacity = 0;
+				$("#vDown1").hover(function() {
+					if(!vDown1Active) {
+						vDown1Active = true;
+						var v1h = (window.innerWidth + window.innerHeight) * 0.07103274559;
+						_("vDown1").style.borderRadius = "20px";
+						_("vDown1").style.width = (v1h * 1.1) + 'px';
+						_('vDown1Img').style.width = v1h + 'px';
+						_("vDown1Img").style.opacity = 0;
 						setTimeout(function () {
-							_("vDownImg").src = './img/aboutme.png';
-							_("vDownImg").style.opacity = 1;
-							vDownActive = false;
+							_("vDown1Img").src = './img/aboutme.png';
+							//_("vDown1").innerHTML = '<span id = "vDown1Img" style = "display:block; font-size: 33; font-family: CenturyGothic;color: rgba(256, 256, 256, 0.9); padding: 2 1 5 1;">about me</span>';
+							_("vDown1Img").style.opacity = 1;
+							vDown1Active = false;
 						}, 400);
 					}
 				}, function() {
-					vDownActive = true;
-					_("vDownImg").style.opacity = 0;
+					vDown1Active = true;
+					var v1h = (window.innerWidth + window.innerHeight) * 0.02367758186;
+					_("vDown1Img").style.opacity = 0;
+					_('vDown1Img').style.width = v1h + 'px';
+					//_("vDown1").innerHTML = '<img id = "vDown1Img" src = "./img/down.png"/>';
+					_("vDown1").style.width = v1h + 'px';
 					setTimeout(function () {
-						_("vDown").style.borderRadius = "100%";
-						_("vDown").style.width = "4%";
-						_("vDownImg").src = './img/down.png';
-						_("vDownImg").style.opacity = 1;
-						vDownActive = false;
-					}, 500);
+						_("vDown1").style.borderRadius = "100%";
+						_("vDown1Img").src = './img/down.png';
+						_("vDown1Img").style.opacity = 1;
+						vDown1Active = false;
+					}, 400);
 				});
-				$("#vDown").click(function() {
+				$("#vDown1").click(function() {
 					$('body').animate({
-        				scrollTop: ($('#2').offset().top + 5),
+        				scrollTop: ($('#2spacer1').offset().top + 5),
+    				}, 1200, 'easeInOutExpo');
+				});
+				$("#vDown2").hover(function() {
+					if(!vDown2Active) {
+						vDown2Active = true;
+						var v2h = (window.innerWidth + window.innerHeight) * 0.05299208059;
+						_("vDown2").style.borderRadius = "20px";
+						_("vDown2").style.width = (v2h * 1.1) + 'px';
+						_('vDown2Img').style.width = v2h + 'px';
+						_("vDown2Img").style.opacity = 0;
+						setTimeout(function () {
+							_("vDown2Img").src = './img/projects.png';
+							//_("vDown2").innerHTML = '<span id = "vDown2Img" style = "display:block; font-size: 33; font-family: CenturyGothic;color: rgba(256, 256, 256, 0.9); padding: 2 1 5 1;">about me</span>';
+							_("vDown2Img").style.opacity = 1;
+							vDown2Active = false;
+						}, 400);
+					}
+				}, function() {
+					vDown2Active = true;
+					var v2h = (window.innerWidth + window.innerHeight) * 0.02027758186;
+					_("vDown2Img").style.opacity = 0;
+					_('vDown2Img').style.width = v2h + 'px';
+					//_("vDown2").innerHTML = '<img id = "vDown2Img" src = "./img/down.png"/>';
+					_("vDown2").style.width = v2h + 'px';
+					setTimeout(function () {
+						_("vDown2").style.borderRadius = "100%";
+						_("vDown2Img").src = './img/down.png';
+						_("vDown2Img").style.opacity = 1;
+						vDown2Active = false;
+					}, 400);
+				});
+				$("#vDown2").click(function() {
+					$('body').animate({
+        				scrollTop: ($('#3spacer1').offset().top + 5),
     				}, 1200, 'easeInOutExpo');
 				});
 				$("#menuLogoTD").click(function() {
@@ -322,7 +402,7 @@
     						_('bodyBG3').style.opacity = 0;
     					}
     				}
-    				else if ($(window).scrollTop() < $('#3').offset().top) {
+    				else if ($(window).scrollTop() < $('#2spacer2').offset().top) {
     					if (_('bodyBG2').style.opacity == 0) {
     						_('bodyBG1').style.opacity = 0;
     						_('bodyBG2').style.opacity = 1;
@@ -386,8 +466,8 @@
 			</div>
 			<div id = "main">
 				<table id = "mainCT">
-					<tr id = "1" height = "25%">
-						<td colspan = "16">
+					<tr id = "1" height = "24%">
+						<td colspan = "100">
 							<table width = "100%" height = "100%">
 								<tr height = "20%"><td></td></tr>
 								<tr height = "20%">
@@ -399,77 +479,92 @@
 								<tr height = "8%">
 									<td>
 										<center>
-											<div id = "vDown">
-												<img id = "vDownImg" src = "./img/down.png"/>
+											<div id = "vDown1">
+												<img id = "vDown1Img" src = "./img/down.png"/>
 											</div>
 										</center>
 									</td>
 								</tr>
-								<tr height = "15%"><td></td></tr>
+								<tr height = "15%" style = 'position: relative;'><td><hr style = 'position: absolute; opacity: 0.6; bottom: 5;'/></td></tr>
 							</table>
 						</td>
 					</tr>
-					<tr id = "2" height = "25%">
-						<td colspan = "3"></td>
-						<td colspan = "10" style = 'position: relative;'>
-							<center>
-								<table id = 'aboutMeTable'>
-									<tr>
-										<td rowspan = '10' style = 'padding: 0; margin: 0;'><img id = 'aboutMeImg' src = './img/IMG_1891-small2.jpg'/></td>
-										<td rowspan = '1' style = 'padding: 10 5 5 16;'><span id = "mainText2A">a little bit about me</span></td>
-									</tr>
-									<tr>
-										<td rowspan = '1'><span id = "mainText2B">i'm a musician and developer from mountain view, california</span></td>
-									</tr>
-									<tr>
-										<td rowspan = '8'>
-											<center><img id = 'famImg' height = '70%' src = './img/P1030672-cropped.jpg'/><br/><br/></center>
-											<span id = "mainText2C">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo, augue sed commodo dignissim, leo odio tincidunt orci, vitae blandit libero enim eu tellus. Cras iaculis urna quam, eget rhoncus felis maximus vitae. Maecenas ut odio varius, posuere dolor ac, pulvinar lorem.</span>
-										</td>
-									</tr>
-								</table>
+					<tr id = "1spacer1" height = '1%'><td colspan = '100' width = '100%'><span><hr style = 'opacity: 0.6;'/></span></td></tr>
+					<tr id = "2spacer1" height = '4.5%'><td colspan = '100' width = '100%'><span>&nbsp;</span></td></tr>
+					<tr id = "2" height = "15%">
+						<td colspan = "35"></td>
+						<td colspan = "30">
+							<table id = 'aboutMeTable'>
+								<tr>
+									<td rowspan = '3' height = '100%' style = 'padding: 0 2% 0 0; margin: 0;'><img id = 'aboutMeImg' src = './img/IMG_1891-small2.jpg'/></td>
+									<td style = 'padding: 1% 0 0 0;'><span id = "mainText2A">a little bit about me</span></td>
+								</tr>
+								<tr>
+									<td style = 'padding: 0 0 0 0.9%;'><span id = "mainText2B">i'm a musician and developer from mountain view, california</span></td>
+								</tr>
+								<tr>
+									<td style = 'padding: 0 2% 0 0;'>
+										<center><img id = 'famImg' src = './img/P1030672-cropped.jpg'/></center>
+										<div id = "mainText2C" style = 'padding: 2% 0 0 0;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo, augue sed commodo dignissim, leo odio tincidunt orci, vitae blandit libero enim eu.</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td colspan = "35"></td>
+					</tr>
+					<tr id = "2spacer2" height = '4%'>
+						<td colspan = '100' height = '0.2%'>
+							<center style = 'height: 35%;'>
+								<div id = "vDown2">
+									<img id = "vDown2Img" src = "./img/down.png"/>
+								</div>
 							</center>
 						</td>
-						<td colspan = "3"></td>
 					</tr>
-					<tr id = "3" height = "5%">
-						<td id = "spaceText" colspan = "16">
-							<span>&nbsp;</span>
-						</td>
-					</tr>
-					<tr id = "4" height = "2%">
-						<td id = "mainText3TD" colspan = "16">
+					<tr id = "3spacer1" height = "3.9%"><td id = "spaceText" colspan = "100"><span><hr style = 'opacity: 0.6;'/></span></td></tr>
+					<!-- <tr id = "3spacer2" height = "2.5%"><td bgcolor = 'red' id = "spaceText" colspan = "100"><span>&nbsp;</span></td></tr> -->
+					<tr id = "3" height = "2.5%">
+						<td id = "mainText3TD" colspan = "100">
 							<span id = "mainText3" style = "font-size: 300%; color: white;">projects</span>
 						</td>
 					</tr>
 					<tr id = "5" height = "13%">
-						<td colspan = "4" width = "25%">
-							<div id = "card1" class = "card" bgcolor = "green">
-								<span>1</span><br/>
-								<span>2</span><br/>
-							</div>
+						<td colspan = "100">
+							<table height = '100%' width = '100%'>
+								<tr>
+									<td>
+										<div id = "card1" class = "card">
+											<span>1</span><br/>
+											<span>2</span><br/>
+										</div>
+									</td>
+									<td>
+										<div id = "card2" class = "card">
+											<span>1</span><br/>
+											<span>2</span><br/>
+										</div>
+									</td>
+									<td>
+										<div id = "card3" class = "card">
+											<span>1</span><br/>
+											<span>2</span><br/>
+										</div>
+									</td>
+									<td>
+										<div id = "card4" class = "card">
+											<span>1</span><br/>
+											<span>2</span><br/>
+										</div>
+									</td>
+								</tr>
+							</table>
 						</td>
-						<td colspan = "4" width = "25%">
-							<div id = "card2" class = "card" bgcolor = "red">
-								<span>1</span><br/>
-								<span>2</span><br/>
-							</div>
-						</td>
-						<td colspan = "4" width = "25%">
-							<div id = "card3" class = "card" bgcolor = "blue">
-								<span>1</span><br/>
-								<span>2</span><br/>
-							</div>
-						</td>
-						<td colspan = "4" width = "25%">
-							<div id = "card4" class = "card" bgcolor = "yellow">
-								<span>1</span><br/>
-								<span>2</span><br/>
-							</div>
-						</td>
+						<!--
+						
+						-->
 					</tr>
-					<tr id = "6" height = "30%">
-						<td id = "mainText4" colspan = "16"><!-- HELLO4 --></td>
+					<tr id = "6" colspan = "100" height = "32%">
+						<td id = "mainText4"><!-- HELLO4 --></td>
 					</tr>
 				</table>
 			<div>
