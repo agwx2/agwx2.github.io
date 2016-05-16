@@ -1,6 +1,6 @@
 @font-face {
 	font-family: CenturyGothic;
-	src: url("./style/centurygothic.ttf");
+	src: url("./centurygothic.ttf");
 	font-weight: bold;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 .bodyBG {
-	background: url('./img/IMG_8312-n2.jpg') no-repeat center center fixed;
+	background: url('../img/IMG_8312-n2.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
