@@ -33,7 +33,7 @@
 			}
 			#menu {
 				position: fixed;
-				height: 10.4%;
+				height: 65px;
 				top: 0;
 				right: 0;
 				left: 0;
@@ -167,7 +167,7 @@
 				width: 100%;
 				height: 400%;
 				opacity: 0;
-				padding: 10 30 10 30;
+				padding: 10 0 10 0;
 				text-align: center;
 				transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
    				-moz-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
@@ -175,8 +175,10 @@
    				-webkit-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
    				-o-transition: opacity 0.7s ease-in-out, height 0.7s ease-in-out;
 			}
-			#mainCT tr {
+			#mainCT td {
 				width: 100%;
+				padding: 0;
+				margin: 0;
 			}
 			#aboutMeTable {
 				width: 100%;
@@ -257,11 +259,13 @@
 				});
 			}
 			function initSize() {
+				/*
 				var hL = (window.innerWidth + window.innerHeight) * 0.01511335012;
 				_('menuIconIMG').style.height = hL;
 				_('menuIconIMG').style.width = hL;
 				_('menuLogoIMG').style.height = hL;
 				_('menuLogoIMG').style.width = ((window.innerWidth + window.innerHeight) * 0.02770780856) + 'px';
+				*/
 			
 				_('mainImg').style.width = 186.5 * (window.innerWidth/1280);
 				_('mainImg').style.height = 1.03 * 186.5 * (window.innerWidth/1280);
@@ -475,17 +479,17 @@
 			</div>
 			<div id = "main">
 				<table id = "mainCT">
-					<tr id = "1" height = "24%">
-						<td colspan = "100">
+					<tr id = "1" height = "20%" width = '100%'>
+						<td colspan = "100" width = '100%'>
 							<table width = "100%" height = "100%">
-								<tr height = "20%"><td></td></tr>
-								<tr height = "20%">
+								<tr height = "33%"><td></td></tr>
+								<tr height = "48%">
 									<td style = "text-align: center;">
 										<img id = "mainImg" src = "./img/IMG_3397-clear.png"/><br/>
 										<span id = "mainText1">anuv gupta</span><br/>
 									</td>
 								</tr>
-								<tr height = "8%">
+								<tr height = "19%">
 									<td>
 										<center>
 											<div id = "vDown1">
@@ -494,15 +498,11 @@
 										</center>
 									</td>
 								</tr>
-								<tr height = "15%" style = 'position: relative;'><td><hr style = 'position: absolute; opacity: 0.6; bottom: 5;'/></td></tr>
 							</table>
 						</td>
 					</tr>
-					<tr id = "1spacer1" height = '1%'><td colspan = '100' width = '100%'><span><hr style = 'opacity: 0.6;'/></span></td></tr>
-					<tr id = "2spacer1" height = '4.5%'><td colspan = '100' width = '100%'><span>&nbsp;</span></td></tr>
-					<tr id = "2" height = "15%">
-						<td colspan = "35"></td>
-						<td colspan = "30">
+					<tr id = "2" height = "18%" bgcolor = 'black'>
+						<td colspan = "100">
 							<table id = 'aboutMeTable'>
 								<tr>
 									<td rowspan = '3' height = '100%' style = 'padding: 0 2% 0 0; margin: 0;'><img id = 'aboutMeImg' src = './img/IMG_1891-small2.jpg'/></td>
@@ -519,7 +519,6 @@
 								</tr>
 							</table>
 						</td>
-						<td colspan = "35"></td>
 					</tr>
 					<tr id = "2spacer2" height = '4%'>
 						<td colspan = '100' height = '0.2%'>
@@ -534,7 +533,7 @@
 					<!-- <tr id = "3spacer2" height = "2.5%"><td bgcolor = 'red' id = "spaceText" colspan = "100"><span>&nbsp;</span></td></tr> -->
 					<tr id = "3" height = "2.5%">
 						<td id = "mainText3TD" colspan = "100">
-							<span id = "mainText3" style = "font-size: 300%; color: white;">projects</span>
+							<span id = "mainText3" style = "font-size: 300%; color: white;">pursuits</span>
 						</td>
 					</tr>
 					<tr id = "5" height = "43%">
@@ -623,8 +622,8 @@
 							</table>
 						</td>
 					</tr>
-					<tr id = "6" colspan = "100" height = "2.1%">
-						<td id = "mainText4"><!-- HELLO4 --></td>
+					<tr id = "6" colspan = "100" height = "8.6%">
+						<td id = "mainText4">HELLO4</td>
 					</tr>
 				</table>
 			<div>
