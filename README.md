@@ -1,6 +1,6 @@
 # anuvgupta.github.io
 This is my github pages site.  
-*Visit [anuvgupta.tk](http://anuvgupta.tk/)*  
+*Visit [anuv.me](http://anuv.me/)*  
   
 Libraries Used  
 &nbsp;&nbsp;&nbsp;•&nbsp;[jQuery](https://jquery.com/) - v2.1.4  
