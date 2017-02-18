@@ -231,7 +231,7 @@ app
                     text-transform uppercase
                     letter-spacing 1.5px
                     font-size 20px
-                    color #666
+                    color #555
                 @query window width < 400
                     html welcome to my<br/>headspace
                 @query window width >= 400
