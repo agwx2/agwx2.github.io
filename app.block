@@ -1,0 +1,257 @@
+    *
+
+// anuv.me blockfile
+
+// define custom blocks
+!break
+    init
+        {
+            return Block('span').add('br');
+        }
+    load
+        {
+            data('val', function (val) {
+                for (var i = 1; i < val; i++)
+                    block.add('br');
+            });
+        }
+!text
+    init
+        {
+            return Block('span');
+        }
+    load
+        {
+            data('val', function (val) {
+                block.node().appendChild(document.createTextNode(val));
+            });
+            data('html', function (html) {
+                block.html(html);
+            });
+        }
+!image
+    init
+        {
+            return Block('div');
+        }
+    load
+        {
+            var src = data('src');
+            var height = data('height');
+            var width = data('width');
+            var alt = data('alt');
+            if (src != null) {
+                block.css('background-image', "url('" + src + "')")
+                    .css('background-repeat', 'no-repeat')
+                    .css('background-size', 'contain')
+                ;
+            }
+            if (height !== null) block.css('height', height);
+            else block.css('height', 'auto');
+            if (width !== null) block.css('width', width);
+            else block.css('width', 'auto');
+            if (alt !== null) block.attribute('title', alt);
+        }
+// app content layer
+app
+    css
+        background #000 url(img/peruT5.jpg) no-repeat bottom right fixed
+        background-size cover
+        height 100%
+        width 100%
+    @query window width < 1050
+        css
+            // background-image url(img/peruT6.jpg)
+            background url(img/peruT5.jpg) no-repeat bottom left fixed
+            background-size cover
+    @query window width >= 1050
+        css
+            // background-image url(img/peruT5.jpg)
+            background url(img/peruT5.jpg) no-repeat bottom right fixed
+            background-size cover
+    block cover
+        :open
+            {
+                block
+                    .css('opacity', '1')
+                    .child('title')
+                        .css('opacity', '1')
+                    .sibling('line1')
+                        // .css('bottom', '13%')
+                ;
+            }
+        css
+            background-color rgba(0, 0, 0, 0.05)
+            position relative
+            opacity 0
+            transition opacity 1s ease-in-out
+        div title
+            css
+                border-radius 5px
+                height 400px
+                max-width 350px
+                margin-bottom 60px
+                width 85%
+                background-color #fdfdfd
+                display inline-table
+                box-shadow 0 1px 12px 0 rgba(170, 170, 170 , 0.8)
+                opacity 0
+                transition opacity 0.4s ease
+                position relative
+                z-index 2
+                padding 5px 0
+            div line1
+                css
+                    position absolute
+                    left 0
+                    top 105px
+                    height 1px
+                    width 90px
+                    background-color #e0e0e0
+                @query window width < 400
+                    css
+                        opacity 0
+                @query window width >= 400
+                    css
+                        opacity 1
+            div line2
+                css
+                    position absolute
+                    right 0
+                    top 105px
+                    height 1px
+                    width 90px
+                    background-color #e0e0e0
+                @query window width < 400
+                    css
+                        opacity 0
+                @query window width >= 400
+                    css
+                        opacity 1
+            div profile
+                image image
+                    src img/me7.jpeg
+                    height 120px
+                    width 120px
+                    css
+                        border-radius 100%
+                css
+                    display inline-block
+                @query window width < 400
+                    css
+                        margin 25px auto 15px auto
+                @query window width >= 400
+                    css
+                        margin 45px auto 15px auto
+            text name
+                val Anuv
+                css
+                    text-transform uppercase
+                    letter-spacing 8px
+                    font-size 34px
+                    color #555
+                    display block
+                    margin-bottom 10px
+            text detail
+                css
+                    text-transform lowercase
+                    letter-spacing 1px
+                    font-size 19px
+                    color #777
+                    display block
+                @query window width < 400
+                    html Artist ∙ Adventurer<br/>Dreamer
+                    css
+                        margin-bottom 0
+                @query window width >= 400
+                    html Artist ∙ Adventurer ∙ Dreamer
+                    css
+                        margin-bottom 10px
+            block connect
+                @query window width < 400
+                    css
+                        margin-bottom 0
+                        height 75px
+                @query window width >= 400
+                    css
+                        margin-bottom 5px
+                        height 85px
+                span images
+                    !social-icon
+                        init
+                            {
+                                return Block('div')
+                                    .add(Block('a', 'link')
+                                        .add('image', 1)
+                                        .data({
+                                            target: '_blank'
+                                        })
+                                    )
+                                    .css({
+                                        display: 'inline-block',
+                                        margin: '0 10px',
+                                        cursor: 'pointer',
+                                        transition: 'opacity 0.25s ease'
+                                    })
+                                    .on('mouseover', function (e, b) {
+                                        b.css('opacity', '0.7');
+                                    })
+                                    .on('mouseout', function (e, b) {
+                                        b.css('opacity', '0.4');
+                                    })
+                                    .on('mouseout')
+                                ;
+                            }
+                        load
+                            {
+                                data('src', function (src) {
+                                    block.child('link/image').data({
+                                        src: src,
+                                        height: '55px',
+                                        width: '55px'
+                                    });
+                                });
+                                data('href', function (href) {
+                                    block.child('link').data({
+                                        href: href
+                                    });
+                                });
+                            }
+                    social-icon instagram
+                        src img/instagram.png
+                        href https://instagram.com/_anuv
+                    social-icon github
+                        src img/github.png
+                        href https://github.com/anuvgupta
+                    social-icon soundcloud
+                        src img/soundcloud.png
+                        href https://soundcloud.com/ajvibe
+            text hook
+                css
+                    text-transform uppercase
+                    letter-spacing 1.5px
+                    font-size 20px
+                    color #666
+                @query window width < 400
+                    html welcome to my<br/>headspace
+                @query window width >= 400
+                    html welcome to my headspace
+        div line1
+            css
+                left 0
+                right 0
+                top 50%
+                bottom 60%
+                font-size 53px
+                color white
+                font-family 'Source Sans Pro'
+                text-shadow 0 0 40px #111
+                width 100%
+                position absolute
+                transition bottom 1.3s ease-in-out
+            div line
+                css
+                    width 2px
+                    height 100%
+                    background-color #fdfdfd
+                    margin 0 auto
