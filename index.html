@@ -14,6 +14,7 @@
                 height: 100%;
                 width: 100%;
                 margin: 0;
+                background-color: #efefef;
             }
 
             * {
@@ -29,8 +30,8 @@
                     block.load(function () {
                         block.fill(document.body);
                         setTimeout(function () {
-                            // block.css('transition', 'opacity 0.5s ease');
-                            // block.css('opacity', '1');
+                            block.css('transition', 'opacity 0.5s ease');
+                            block.css('opacity', '1');
                             block.child('cover').on('open');
                         }, 20);
                         Block.queries();
