@@ -9,16 +9,17 @@
 		<link rel = 'icon' type = 'image/png' href = 'img/brackets.png'/>
 		<style type = 'text/css'>
             @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
-
-            html, body {
-                height: 100%;
-                width: 100%;
-                margin: 0;
-                background-color: #efefef;
-            }
-
             * {
                 font-family: 'Source Sans Pro', Arial, sans-serif;
+            }
+            html, body {
+                margin: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #efefef;
+            }
+            ::-webkit-scrollbar {
+                display: none;
             }
         </style>
         <script type = 'text/javascript' src = 'js/jquery-1.12.4.min.js'></script>
@@ -30,9 +31,7 @@
                     block.load(function () {
                         block.fill(document.body);
                         setTimeout(function () {
-                            block.css('transition', 'opacity 0.5s ease');
-                            block.css('opacity', '1');
-                            block.child('cover').on('open');
+                            block.on('open');
                         }, 20);
                         Block.queries();
                     }, 'app', 'jQuery');

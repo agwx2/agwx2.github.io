@@ -54,39 +54,57 @@
         }
 // app content layer
 app
+    :open
+        {
+            block
+                .css('transition', 'opacity 0.5s ease')
+                .css('opacity', '1')
+                .child('intro')
+                    .css('opacity', '1')
+                    .child('card')
+                        .css('opacity', '1')
+            ;
+        }
     css
-        background #000 url(img/peruT5.jpg) no-repeat bottom right fixed
-        background-size cover
-        height 100%
         width 100%
         opacity 0
-        transiiton opacity 1s ease
-    @query window width < 1050
-        css
-            // background-image url(img/peruT6.jpg)
-            background url(img/peruT5.jpg) no-repeat bottom left fixed
-            background-size cover
-    @query window width >= 1050
-        css
-            // background-image url(img/peruT5.jpg)
-            background url(img/peruT5.jpg) no-repeat bottom right fixed
-            background-size cover
-    block cover
-        :open
-            {
+        transition opacity 1s ease
+        position relative
+    div background
+        {
+            $('<img/>').attr('src', 'img/peruT5.jpg').load(function () {
+                $(this).remove();
                 block
+                    .css('background-image', 'url(img/peruT5.jpg)')
                     .css('opacity', '1')
-                    .child('title')
-                        .css('opacity', '1')
-                    .sibling('line1')
-                        // .css('bottom', '13%')
                 ;
-            }
+            });
+        }
+        css
+            background #eee no-repeat bottom right scroll
+            background-size cover
+            width 100%
+            margin 0
+            position fixed
+            top 0
+            left 0
+            right 0
+            bottom 0
+            opacity 0
+            transition opacity 1s ease
+        @query window width < 1050
+            css
+                background-position bottom left
+        @query window width >= 1050
+            css
+                background-position bottom right
+    block intro
         css
             background-color rgba(0, 0, 0, 0.05)
-            position relative
+            position fixed
             opacity 0
-        div title
+            z-index 0
+        div card
             css
                 border-radius 5px
                 height 400px
@@ -99,16 +117,15 @@ app
                 opacity 0
                 transition opacity 0.8s ease
                 position relative
-                z-index 2
                 padding 5px 0
             div line1
                 css
                     position absolute
                     left 0
                     top 105px
-                    height 1px
+                    height 1.2px
                     width 90px
-                    background-color #e0e0e0
+                    background-color #eaeaea
                 @query window width < 400
                     css
                         opacity 0
@@ -120,9 +137,9 @@ app
                     position absolute
                     right 0
                     top 105px
-                    height 1px
+                    height 1.2px
                     width 90px
-                    background-color #e0e0e0
+                    background-color #eaeaea
                 @query window width < 400
                     css
                         opacity 0
@@ -195,7 +212,7 @@ app
                                         transition: 'opacity 0.25s ease'
                                     })
                                     .on('mouseover', function (e, b) {
-                                        b.css('opacity', '0.7');
+                                        b.css('opacity', '0.65');
                                     })
                                     .on('mouseout', function (e, b) {
                                         b.css('opacity', '0.4');
@@ -237,22 +254,202 @@ app
                     html welcome to my<br/>headspace
                 @query window width >= 400
                     html welcome to my headspace
-        div line1
+        div down
             css
-                left 0
-                right 0
-                top 50%
-                bottom 60%
-                font-size 53px
-                color white
-                font-family 'Source Sans Pro'
-                text-shadow 0 0 40px #111
-                width 100%
                 position absolute
-                transition bottom 1.3s ease-in-out
-            div line
+                width 100%
+                height 90px
+            @query window height < 850
                 css
-                    width 2px
-                    height 100%
-                    background-color #fdfdfd
+                    top 80%
+            @query window height >= 850
+                css
+                    top 75%
+            div wrap
+                css
                     margin 0 auto
+                    cursor pointer
+                    width 90px
+                    transition opacity 0.2s ease
+                image image
+                    src img/downW3.png
+                    height 90px
+                    width 90px
+                :mouseover
+                    css
+                        opacity 0.9
+                :mouseout
+                    css
+                        opacity 0.6
+                {
+                    block.on('mouseout');
+                }
+                :click
+                    {
+                        $('body').stop().animate({
+                            // scrollTop: block.parent(1).sibling('about').$().offset().top
+                            scrollTop: 770
+                        }, 800, 'swing', function () { });
+                    }
+        {
+            $(window).scroll(function () {
+                var percentage = $(this).scrollTop() / window.innerHeight;
+                var opacity = -1.74 * percentage + 1;
+                block.css('opacity', opacity.toString());
+            });
+        }
+    div spacer
+        css
+            width 100%
+            position relative
+            z-index -1
+        @query window width != 0
+            {
+                block.css('height', (window.innerHeight - 0) + 'px');
+            }
+    div about
+        css
+            width 100%
+            position relative
+            height 800px
+            z-index 1
+        div bg
+            css
+                position absolute
+                top 15%
+                height 85%
+                background-color #eee
+                width 100%
+            {
+                $(window).scroll(function () {
+                    var speed = 1/2.5;
+                    speed = $(this).scrollTop() / window.innerHeight / 2;
+                    var offset = ($(this).scrollTop() - window.innerHeight * 0.15) * speed;
+                    if (offset < 0) offset = 0;
+                    block.parent().sibling('background').css({
+                        bottom: offset + 'px',
+                        top: '-' + offset + 'px'
+                    });
+                });
+            }
+        div page1
+            css
+                position relative
+                margin 0 auto
+                background-color #fff
+                box-shadow 0 2px 4px 0 rgba(190, 190, 190, 0.8)
+            @query window width >= 1200
+                css
+                    height 740px
+                    width 70%
+                    border-radius 10px
+            @query window width < 1200
+                css
+                    height 640px
+                    width 70%
+                    border-radius 10px
+            @query window width < 900
+                css
+                    height 640px
+                    width 100%
+                    border-radius 0
+            div title
+                css
+                    width 100%
+                    text-align center
+                    padding-top 35px
+                text t1
+                    css
+                        text-transform uppercase
+                        letter-spacing 4px
+                        font-size 48px
+                        color #606060
+                    @query window width < 500
+                        html I&nbsp;am Anuv
+                    @query window width >= 500
+                        html I&nbsp;am Anuv&nbsp;Gupta
+                break br1
+                    // break
+                text t2
+                    css
+                        text-transform lowercase
+                        letter-spacing 3px
+                        font-size 30px
+                        color #606060
+                    @query window width >= 500
+                        html Creative — Passionate — Unique
+                        css
+                            font-size 30px
+                    @query window width < 500
+                        html Creative — Passionate — Unique
+                        css
+                            font-size 20px
+                    @query window width < 400
+                        html Creative — Passionate<br/>Unique
+                        css
+                            font-size 21px
+            div hr1
+                css
+                    width 100%
+                    max-width 600px
+                    margin 18px auto 22px
+                    display block
+                    opacity 0.4
+                    height 1px
+                    background-color #bbb
+                    border-radius 2px
+            div about
+                css
+                    width 90%
+                    max-width 700px
+                    margin 10px auto
+                    text-align center
+                    padding 0 20px
+                text text
+                    css
+                        letter-spacing 1px
+                        font-size 18px
+                        color #555
+                    {
+                        var birthday = 955539000;
+                        var now = Math.floor(Date.now() / 1000);
+                        var age = Math.floor((now - birthday) * 3.171e-8);
+                        block.html(
+                            "I'm " + age + " years old, a high school student from Mountain View, California, an artist, singer, songwriter, photographer, musician, web developer, software intern, competitive programmer, world traveler, teacher, and lifelong learner.<br/><br/>" +
+                            "And I have one simple philosophy."
+                        );
+                    }
+            div image
+                css
+                    width 100%
+                    position absolute
+                    bottom 0
+                    left 0
+                    right 0
+                    background #fff url(img/peru2.jpg) no-repeat bottom right scroll
+                    background-size cover
+                @query window width >= 900
+                    css
+                        top 340px
+                        border-radius 0 0 10px 10px
+                @query window width < 900
+                    css
+                        top 330px
+                        border-radius 0
+                @query window width < 610
+                    css
+                        top 390px
+                @query window width < 400
+                    css
+                        top 440px
+                block description
+                    text text
+                        val live
+                        css
+                            text-transform uppercase
+                            font-size 95px
+                            color white
+                            font-weight normal
+                            letter-spacing 20px
+                            display block
+                            margin-bottom 20px
