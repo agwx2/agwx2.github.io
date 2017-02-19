@@ -287,14 +287,14 @@ app
                 :click
                     {
                         $('body').stop().animate({
-                            // scrollTop: block.parent(1).sibling('about').$().offset().top
-                            scrollTop: 770
+                            scrollTop: block.parent(1).sibling('about').$().offset().top
+                            // scrollTop: 770
                         }, 800, 'swing', function () { });
                     }
         {
             $(window).scroll(function () {
                 var percentage = $(this).scrollTop() / window.innerHeight;
-                var opacity = -1.74 * percentage + 1;
+                var opacity = -1.75 * percentage + 1;
                 block.css('opacity', opacity.toString());
             });
         }
@@ -337,7 +337,7 @@ app
                 position relative
                 margin 0 auto
                 background-color #fff
-                box-shadow 0 2px 4px 0 rgba(190, 190, 190, 0.8)
+                box-shadow 0 3px 4px 0 rgba(190, 190, 190, 0.7)
             @query window width >= 1200
                 css
                     height 740px
@@ -415,7 +415,7 @@ app
                         var now = Math.floor(Date.now() / 1000);
                         var age = Math.floor((now - birthday) * 3.171e-8);
                         block.html(
-                            "I'm " + age + " years old, a high school student from Mountain View, California, an artist, singer, songwriter, photographer, musician, web developer, software intern, competitive programmer, world traveler, teacher, and lifelong learner.<br/><br/>" +
+                            "I'm " + age + " years old, a high school student from Mountain View, California, an artist, singer, songwriter, photographer, musician, web developer, software intern, competitive programmer, world traveler, leader, and lifelong learner.<br/><br/>" +
                             "And I have one simple philosophy."
                         );
                     }
@@ -446,10 +446,16 @@ app
                     text text
                         val live
                         css
-                            text-transform uppercase
-                            font-size 95px
+                            text-transform lowercase
                             color white
                             font-weight normal
                             letter-spacing 20px
                             display block
                             margin-bottom 20px
+                            text-shadow 0 0 15px #999
+                        @query window width < 1200
+                            css
+                                font-size 95px
+                        @query window width >= 1200
+                            css
+                                font-size 125px
