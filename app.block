@@ -72,10 +72,10 @@ app
         position relative
     div background
         {
-            $('<img/>').attr('src', 'img/peruT5.jpg').load(function () {
+            $('<img/>').attr('src', 'img/peru2T5.jpg').load(function () {
                 $(this).remove();
                 block
-                    .css('background-image', 'url(img/peruT5.jpg)')
+                    .css('background-image', 'url(img/peru2T5.jpg)')
                     .css('opacity', '1')
                 ;
             });
