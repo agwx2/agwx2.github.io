@@ -243,7 +243,7 @@ app
                         href https://github.com/anuvgupta
                     social-icon soundcloud
                         src img/soundcloud.png
-                        href https://soundcloud.com/ajvibe
+                        href https://soundcloud.com/anuvgupta
             text hook
                 css
                     text-transform uppercase
