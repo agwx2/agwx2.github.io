@@ -1,5 +1,5 @@
-# anuv.me
-This is my personal website.  
+# anuvgupta.github.io
+This is my github pages site.  
 *Visit [anuv.me](http://anuv.me/)*  
 
 Libraries Used  
