@@ -52,6 +52,56 @@
             else block.css('width', 'auto');
             if (alt !== null) block.attribute('title', alt);
         }
+!social-icon
+    init
+        {
+            return Block('div')
+                .add(Block('a', 'link')
+                    .add('image', 1)
+                    .data({
+                        target: '_blank'
+                    })
+                )
+                .css({
+                    display: 'inline-block',
+                    margin: '0 10px 10px',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.25s ease'
+                })
+                .on('mouseover', function (e, b) {
+                    b.css('opacity', '0.7');
+                })
+                .on('mouseout', function (e, b) {
+                    b.css('opacity', '0.45');
+                })
+                .on('mouseout')
+            ;
+        }
+    load
+        {
+            var src = 'img/social-icons/' + block.mark() + '.png';
+            data('src', function (_src) {
+                src = _src;
+            });
+            block.child('link/image').data({
+                src: src,
+                height: '55px',
+                width: '55px'
+            });
+            data('href', function (href) {
+                block.child('link').data({
+                    href: href
+                });
+            });
+            data('target', function (target) {
+                block.child('link').data({
+                    target: target
+                });
+            });
+            data('alt', function (alt) {
+                block.attribute('title', alt);
+            });
+        }
 // app content layer
 app
     :open
@@ -70,10 +120,11 @@ app
         opacity 0
         transition opacity 1s ease
         position relative
+        padding-bottom 20px
+        overflow-x hidden
     div background
         {
-            $('<img/>').attr('src', 'img/peru2T5.jpg').load(function () {
-                $(this).remove();
+            app.loadImage('img/peru2T5.jpg', function () {
                 block
                     .css('background-image', 'url(img/peru2T5.jpg)')
                     .css('opacity', '1')
@@ -176,7 +227,7 @@ app
                     text-transform lowercase
                     letter-spacing 1px
                     font-size 19px
-                    color #777
+                    color #5e5e5e
                     display block
                 @query window width < 400
                     html Artist ∙ Adventurer<br/>Dreamer
@@ -196,61 +247,31 @@ app
                         margin-bottom 5px
                         height 85px
                 span images
-                    !social-icon
-                        init
-                            {
-                                return Block('div')
-                                    .add(Block('a', 'link')
-                                        .add('image', 1)
-                                        .data({
-                                            target: '_blank'
-                                        })
-                                    )
-                                    .css({
-                                        display: 'inline-block',
-                                        margin: '0 10px',
-                                        cursor: 'pointer',
-                                        transition: 'opacity 0.25s ease'
-                                    })
-                                    .on('mouseover', function (e, b) {
-                                        b.css('opacity', '0.65');
-                                    })
-                                    .on('mouseout', function (e, b) {
-                                        b.css('opacity', '0.4');
-                                    })
-                                    .on('mouseout')
-                                ;
-                            }
-                        load
-                            {
-                                data('src', function (src) {
-                                    block.child('link/image').data({
-                                        src: src,
-                                        height: '55px',
-                                        width: '55px'
-                                    });
-                                });
-                                data('href', function (href) {
-                                    block.child('link').data({
-                                        href: href
-                                    });
-                                });
-                            }
-                    social-icon instagram
-                        src img/instagram.png
-                        href https://instagram.com/_anuv
-                    social-icon github
-                        src img/github.png
-                        href https://github.com/anuvgupta
+                    // social-icon instagram
+                    //     href https://instagram.com/_anuv
                     social-icon soundcloud
-                        src img/soundcloud.png
-                        href https://soundcloud.com/ajvibe
+                        alt SoundCloud
+                        href https://soundcloud.com/anuvgupta
+                        css
+                            margin-bottom 0
+                    social-icon linkedin
+                        alt LinkedIn
+                        href https://www.linkedin.com/in/anuvgupta
+                        css
+                            margin-bottom 0
+                    social-icon github
+                        alt GitHub
+                        href https://github.com/anuvgupta
+                        css
+                            margin-bottom 0
             text hook
                 css
                     text-transform uppercase
                     letter-spacing 1.5px
-                    font-size 20px
-                    color #555
+                    font-size 19px
+                    color #444
+                    display block
+                    margin-top -3px
                 @query window width < 400
                     html welcome to my<br/>headspace
                 @query window width >= 400
@@ -288,17 +309,19 @@ app
                 :click
                     {
                         $('body').stop().animate({
-                            scrollTop: block.parent(1).sibling('about').$().offset().top
+                            scrollTop: block.parent(1).sibling('about').$().offset().top - (window.innerHeight / 15)
                             // scrollTop: 770
                         }, 800, 'swing', function () { });
                     }
         {
             $(window).scroll(function () {
-                var percentage = $(this).scrollTop() / window.innerHeight;
-                var opacity = -1.75 * percentage + 1;
-                block.css('opacity', opacity.toString());
-                if (opacity <= 0.01) block.css('display', 'none');
-                else block.css('display', 'table');
+                // if (!app.mobileAndTablet()) {
+                    var percentage = $(this).scrollTop() / window.innerHeight;
+                    var opacity = -1.75 * percentage + 1;
+                    block.css('opacity', opacity.toString());
+                    if (opacity <= 0.01) block.css('display', 'none');
+                    else block.css('display', 'table');
+                // }
             });
         }
     div spacer
@@ -314,8 +337,17 @@ app
         css
             width 100%
             position relative
-            height 800px
             z-index 1
+            overflow hidden
+        @query window width >= 1200
+            css
+                height 840px
+        @query window width < 1200
+            css
+                height 740px
+        @query window width < 900
+            css
+                height 750px
         div bg1
             css
                 position absolute
@@ -325,23 +357,31 @@ app
                 width 100%
             {
                 $(window).scroll(function () {
-                    var speed = 1/2.5;
-                    speed = $(this).scrollTop() / window.innerHeight / 2.5;
-                    var offset = ($(this).scrollTop() - window.innerHeight * 0.15) * speed;
-                    if (offset < 0) offset = 0;
-                    block.parent().sibling('background').css({
-                        bottom: offset + 'px',
-                        top: '-' + offset + 'px'
-                    });
+                    // if (!app.mobileAndTablet()) {
+                        var speed = 1/2.5;
+                        speed = $(this).scrollTop() / window.innerHeight / 2.5;
+                        var offset = ($(this).scrollTop() - window.innerHeight * 0.15) * speed;
+                        if (offset < 0) offset = 0;
+                        block.parent().sibling('background').css({
+                            bottom: offset + 'px',
+                            top: '-' + offset + 'px'
+                        });
+                    // }
                 });
             }
         div bg2
             css
                 position absolute
                 top 80%
-                height 20%
                 background-color #eee
                 width 100%
+                height 200px
+            // @query window width >= 1200
+            //     css
+            //         height 160px
+            // @query window width < 1200
+            //     css
+            //         height 140px
         div page
             css
                 position relative
@@ -415,7 +455,7 @@ app
                     margin 10px auto
                     text-align center
                     padding 0 20px
-                text text
+                text text1
                     css
                         letter-spacing 1px
                         font-size 18px
@@ -424,11 +464,14 @@ app
                         var birthday = 955539000;
                         var now = Math.floor(Date.now() / 1000);
                         var age = Math.floor((now - birthday) * 3.171e-8);
-                        block.html(
-                            "I'm " + age + " years old, a high school student from Mountain View, California, an artist, singer, songwriter, photographer, musician, web developer, software intern, competitive programmer, world traveler, leader, and lifelong learner.<br/><br/>" +
-                            "And I have one simple philosophy."
-                        );
+                        block.html("I'm " + age + " years old, a high school student from Silicon Valley, California, an artist, singer, songwriter, photographer, musician, web developer, software intern, competitive programmer, world traveler, leader, and lifelong learner.<br/><br/>");
                     }
+                text text2
+                    css
+                        letter-spacing 1px
+                        font-size 19px
+                        color #555
+                    val And I have one simple philosophy.
             div image
                 css
                     width 100%
@@ -472,12 +515,14 @@ app
     div pursuits
         css
             width 100%
-            height 900px
+            // height 900px
             background-color white
             z-index 5
+            margin-bottom 25px
+            position relative
         block title
             css
-                padding-top 32px
+                padding-top 40px
                 height auto
             text text
                 val pursuits
@@ -488,7 +533,841 @@ app
         div content
             css
                 width 100%
-    div connect
+            block spacer
+                css
+                    height 55px
+                    margin-bottom 5px
+                hr hr1
+                    css
+                        opacity 0.45
+                        width 110px
+            block line
+                css
+                    height 20px
+                    width 92%
+                    padding 0 4%
+                text text
+                    css
+                        // letter-spacing 1px
+                        font-size 28px
+                        color #444
+                    html a&nbsp;jack&nbsp;of&nbsp;all&nbsp;trades&nbsp;can still&nbsp;be&nbsp;a&nbsp;master&nbsp;of&nbsp;some
+            block description
+                css
+                    margin-top 18px
+                    margin-bottom 55px
+                    height 40px
+                    width 92%
+                    padding 0 4%
+                text text
+                    css
+                        letter-spacing 1px
+                        color #333
+                        font-size 18px
+                    html
+                        `
+                            There&nbsp;are&nbsp;various&nbsp;ways&nbsp;to&nbsp;express creativity&nbsp;and&nbsp;experience&nbsp;life.<br/>
+                            Here&nbsp;are&nbsp;the&nbsp;results&nbsp;of&nbsp;my&nbsp;favorite interests&nbsp;and&nbsp;pastimes.
+                        `
+            div tiles
+                css
+                    font-size 0
+                    position relative
+                    overflow hidden
+                !tile
+                    init
+                        {
+                            var topblock = Block('div');
+                            topblock
+                                .key('split', 1)
+                                .css({
+                                    display: 'inline-block',
+                                    margin: '0',
+                                    position: 'relative'
+                                })
+                                .query('window height != 0', function () {
+                                    block.css('width', (window.innerWidth / parseInt(block.key('split'))) + 'px');
+                                })
+                                .query('window width > 1200', function () {
+                                    if (parseInt(block.key('split')) == 1)
+                                        block.css('height', '500px');
+                                    else block.css('height', '400px');
+
+                                })
+                                .query('window width < 1200', function () {
+                                    if (parseInt(block.key('split')) == 1)
+                                        block.css('height', '450px');
+                                    else block.css('height', '350px');
+                                })
+                                .query('window width < 1000', function () {
+                                    if (parseInt(block.key('split')) == 1)
+                                        block.css('height', '350px');
+                                    else block.css('height', '250px');
+                                })
+                                .query('window width < 700', function () {
+                                    if (parseInt(block.key('split')) == 1)
+                                        block.css('height', '300px');
+                                    else block.css('height', '200px');
+                                })
+                                .query('window width < 550', function () {
+                                    if (parseInt(block.key('split')) == 1)
+                                        block.css('height', '250px');
+                                    else block.css('height', '150px');
+                                })
+                                .add(Block('div', 'background1')
+                                    .css({
+                                        background: 'url("img/pursuits/default.jpg") no-repeat center center scroll',
+                                        backgroundSize: 'cover',
+                                        height: '100%',
+                                        width: '100%',
+                                        position: 'absolute',
+                                        top: '0',
+                                        left: '0',
+                                        zIndex: '1',
+                                        opacity: '1'
+                                    })
+                                )
+                                .add(Block('div', 'background2')
+                                    .css({
+                                        background: 'url("img/pursuits/default.jpg") no-repeat center center scroll',
+                                        backgroundSize: 'cover',
+                                        height: '100%',
+                                        width: '100%',
+                                        position: 'absolute',
+                                        top: '0',
+                                        left: '0',
+                                        zIndex: '2',
+                                        opacity: '0.5',
+                                        transition: 'opacity 0.3s ease'
+                                    })
+                                    .on('show', function (e, b) {
+                                        b.css('opacity', '0.98');
+                                    })
+                                    .on('hide', function (e, b) {
+                                        b.css('opacity', '0.02');
+                                    })
+                                )
+                                .add(Block('div', 'background3')
+                                    .css({
+                                        background: '#000',
+                                        backgroundSize: 'cover',
+                                        height: '100%',
+                                        width: '100%',
+                                        position: 'absolute',
+                                        top: '0',
+                                        left: '0',
+                                        zIndex: '3',
+                                        opacity: '0'
+                                    })
+                                )
+                                .add(Block('a', 'link')
+                                    .add(Block('block', 1)
+                                        .add(Block('text', 1)
+                                            .html('')
+                                            .css({
+                                                display: 'block',
+                                                height: 'auto',
+                                                color: '#eee',
+                                                textDecoration: 'none',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '8px',
+                                                textShadow: '0px 0px 25px rgba(0, 0, 0, 1)',
+                                                opacity: '0',
+                                                transition: 'opacity 0.45s ease'
+                                            })
+                                            .on('show', function (e, b) {
+                                                b.css('opacity', '1');
+                                            })
+                                            .on('hide', function (e, b) {
+                                                b.css('opacity', '0');
+                                            })
+                                            .query('window width > 1250', function () {
+                                                if (block.parent(2).key('split') == 1)
+                                                    block.css('font-size', '65px');
+                                                else block.css('font-size', '60px');
+                                            })
+                                            .query('window width < 1250', function () {
+                                                if (block.parent(2).key('split') == 1)
+                                                    block.css('font-size', '60px');
+                                                else block.css('font-size', '40px');
+                                            })
+                                            .query('window width < 700', function () {
+                                                if (block.parent(2).key('split') == 1)
+                                                    block.css('font-size', '50px').css('letter-spacing', '8px');
+                                                else block.css('font-size', '30px').css('letter-spacing', '8px');
+                                            })
+                                            .query('window width < 600', function () {
+                                                if (block.parent(2).key('split') == 1)
+                                                    block.css('font-size', '40px').css('letter-spacing', '8px');
+                                                else block.css('font-size', '20px').css('letter-spacing', '4px');
+                                            })
+                                        )
+                                    )
+                                    // .data({ href: '#' })
+                                    .css({
+                                        position: 'absolute',
+                                        top: '0',
+                                        left: '0',
+                                        width: '100%',
+                                        height: '100%',
+                                        textDecoration: 'none',
+                                        zIndex: '5'
+                                    })
+                                    .on('mouseover', function (e, b) {
+                                        b.sibling('background2').on('show');
+                                        b.child('block/text').on('show');
+                                    })
+                                    .on('mouseout', function (e, b) {
+                                        b.sibling('background2').on('hide');
+                                        b.child('block/text').on('hide');
+                                    })
+                                    // .on('click', function (e, b) {
+                                    //     var radius = 3 * (window.innerHeight > window.innerWidth ? window.innerHeight : window.innerWidth);
+                                    //     var x = e.pageX - b.parent(1).$().offset().left;
+                                    //     var y = e.pageY - b.parent(1).$().offset().top;
+                                    //     var ripple = b.parent(1).child('ripple');
+                                    //     var w = 100;
+                                    //     var h = 100;
+                                    //     var opacity = 10;
+                                    //     var speed = 65;
+                                    //     var grow;
+                                    //     grow = function () {
+                                    //         speed -= 0.005;
+                                    //         if (speed <= 5)
+                                    //             speed = 5;
+                                    //         w += speed;
+                                    //         h += speed;
+                                    //         x -= speed / 2;
+                                    //         y -= speed / 2;
+                                    //         ripple.css({
+                                    //             left: x + 'px',
+                                    //             top: y + 'px',
+                                    //             height: h + 'px',
+                                    //             width: w + 'px'
+                                    //         });
+                                    //         opacity += 3;
+                                    //         if (opacity > 100)
+                                    //             opacity = 100;
+                                    //         ripple.css('background-color', 'rgba(255, 255, 255, ' + (opacity / 100) + ')');
+                                    //         if (w < radius || h < radius || opacity < 1)
+                                    //             setTimeout(grow, 10);
+                                    //         else b.parent(1).child('pages').on('show');
+                                    //     };
+                                    //     grow();
+                                    // })
+                                    .on('click', function (e, b) {
+                                        var fullwidth = 3 * (window.innerHeight > window.innerWidth ? window.innerHeight : window.innerWidth);
+                                        var x = topblock.$().offset().left - b.parent(1).$().offset().left + 100;
+                                        var y = topblock.$().offset().top - b.parent(1).$().offset().top + 100;
+                                        var ripple = b.parent(1).child('ripple');
+                                        var w = topblock.$().width() - 200;
+                                        var h = topblock.$().height() - 200;
+                                        var opacity = 40;
+                                        var speed = 50;
+                                        var grow;
+                                        grow = function () {
+                                            speed -= 0.005;
+                                            if (speed <= 5)
+                                                speed = 5;
+                                            w += speed;
+                                            h += speed;
+                                            x -= speed / 2;
+                                            y -= speed / 2;
+                                            ripple.css({
+                                                left: x + 'px',
+                                                top: y + 'px',
+                                                height: h + 'px',
+                                                width: w + 'px'
+                                            });
+                                            opacity += 3;
+                                            if (opacity > 100)
+                                                opacity = 100;
+                                            ripple.css('background-color', 'rgba(255, 255, 255, ' + (opacity / 100) + ')');
+                                            if (w < fullwidth || h < fullwidth || opacity < 1)
+                                                setTimeout(grow, 10);
+                                            else b.parent(1).child('pages').on('show');
+                                        };
+                                        grow();
+                                    })
+                                )
+                            ;
+                            return topblock;
+                        }
+                    load
+                        {
+                            data('split', function (split) {
+                                block.key('split', parseInt(split));
+                            });
+                            data('img', function (img) {
+                                var b = block;
+                                app.loadImage('img/pursuits/' + img + '.png', function () {
+                                    b.child('background1').css('background-image', 'url("img/pursuits/' + img + '.png")');
+                                    app.loadImage('img/pursuits/' + img + '-b.png', function () {
+                                        b.child('background2').css('background-image', 'url("img/pursuits/' + img + '-b.png")')
+                                            .on('hide')
+                                            .sibling('background3').css('opacity', '0.05')
+                                        ;
+                                        // block.child('link').attribute('href', block.mark());
+                                        block.child('link/block/text').on('hide').html('').data(block.mark().charAt(0).toUpperCase() + block.mark().slice(1));
+                                        data('text', function (text) {
+                                            block.child('link/block/text').html('').data(text);
+                                        });
+                                    });
+
+                                });
+                            });
+                            data('bgpos', function (bgpos) {
+                                block.child('background1').css('background-position', bgpos)
+                                    .sibling('background2').css('background-position', bgpos)
+                                ;
+                            });
+                        }
+                tile music
+                    img band
+                    split 1
+                tile design
+                    img palm
+                    split 2
+                    bgpos center center
+                tile programming
+                    img computers
+                    split 2
+                    bgpos center top
+                tile education
+                    img sfhs
+                    split 2
+                tile photography
+                    img speedlimit
+                    split 2
+                    bgpos center right
+                tile dance
+                    img fanaa
+                    split 1
+                    bgpos bottom center
+                div ripple
+                    css
+                        // border-radius 100%
+                        background-color rgba(255, 255, 255, 0)
+                        height 1px
+                        width 1px
+                        position absolute
+                        top 300px
+                        left 300px
+                        z-index 10
+                div pages
+                    css
+                        height 100%
+                        width 100%
+                        background-color white
+                        // background-color blue
+                        display none
+                        opacity 0
+                        position absolute
+                        top 0
+                        left 0
+                        z-index 20
+                        transition opacity 0.2s ease
+                    :show
+                        {
+                            setTimeout(function () {
+                                block.css('display', 'block');
+                                setTimeout(function () {
+                                    block.css('opacity', '1');
+                                }, 10);
+                            }, 10);
+                        }
+                    :hide
+                        {
+                            setTimeout(function () {
+                                block.css('opacity', '0');
+                                setTimeout(function () {
+                                    block.css('display', 'none');
+                                }, 210);
+                            }, 10);
+                        }
+                    block block
+                        div div
+                            css
+                                height 80px
+                                width 80px
+                                background-color #ccc
+                                margin 0 auto
+                                border-radius 10px
+    div why
         css
             width 100%
-            height 290px
+            padding-top 30px
+            margin-bottom 40px
+            overflow auto
+        div imgtop
+            css
+                float right
+                height auto
+                width auto
+                background-color white
+                margin 65px 70px 10px 50px
+                opacity 0.95
+                border-radius 5px
+                box-shadow 0 2px 3px 0 rgba(170, 170, 170 , 0.3)
+                transition box-shadow 0.4s ease
+                cursor pointer
+            @query window width > 1350
+                css
+                    margin-top 5px
+                    display block
+            @query window width < 1350
+                css
+                    margin-top 65px
+                    display block
+            @query window width < 1190
+                css
+                    display none
+            image image
+                src img/room.jpg
+                width 450
+                height 255
+                css
+                    width 450px
+                    height 255px
+                    border-radius 5px 5px 0 0
+            div caption
+                css
+                    width 200px
+                    padding 8px 30px
+                    // text-align right
+                text text
+                    val my creative space
+            :mouseover
+                css
+                    box-shadow 0 2px 6px 0 rgba(170, 170, 170 , 0.5)
+            :mouseout
+                css
+                    box-shadow 0 2px 3px 0 rgba(170, 170, 170 , 0.3)
+        div title
+            @query window width > 550
+                css
+                    padding-left 70px
+            @query window width < 550
+                css
+                    padding-left 40px
+            text text
+                val Why?
+                css
+                    font-size 45px
+                    color #555
+                    text-transform lowercase
+                    letter-spacing 2px
+                @query window width > 1450
+                    css
+                        font-size 49px
+                @query window width < 1450
+                    css
+                        font-size 45px
+        div text
+            css
+                font-size 18px
+                color #444
+            @query window width > 550
+                css
+                    padding 15px 80px
+            @query window width < 550
+                css
+                    padding 15px 40px
+            text text
+                html
+                    `
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        People often ask me why I do so many things.
+                        I believe that there exists an infinity of ways to enjoy, express, and experience life.
+                        So why not go after them all? A jack of all trades may be a master of none, but oftentimes better than a master of just one.
+                        And how? There are so many perspectives on creating art, but personally, I look around and wonder, “What’s missing from the world?” and if im struck by inspiration, I make it.
+                        I go and take whatever steps I have to take, learn what I need to know, and then go create. Song, drawing, app, recipe, website, poem, whatever it is.
+                        Why? Creation is the most beautiful, fulfilling thing that I know; the simple action of bringing into being something that has never existed before, born of my own imagination, a manifestation of my own self expressed in art, is exhilarating.
+                        And we’re all immensely capable – so why not take a shot at it, and realize your thoughts?
+                    `
+                @query window width > 1450
+                    css
+                        font-size 20px
+                @query window width < 1450
+                    css
+                        font-size 18px
+        div imgbottomwrap
+            @query window width > 550
+                css
+                    margin 20px 80px
+            @query window width < 550
+                css
+                    margin 20px 40px
+            div imgbottom
+                css
+                    margin 0
+                    height auto
+                    width 98%
+                    background-color white
+                    opacity 0.95
+                    border-radius 5px
+                    box-shadow 0 1px 6px 0 rgba(170, 170, 170 , 0.2)
+                    transition box-shadow 0.4s ease
+                    cursor pointer
+                @query window width > 1190
+                    css
+                        display none
+                @query window width < 1190
+                    css
+                        display block
+                image image
+                    src img/room.jpg
+                    width 700
+                    height 395
+                    css
+                        width 700px
+                        height 395px
+                        border-radius 5px 5px 0 0
+                    {
+                        setTimeout(function () {
+                            block.css({
+                                width: '100%',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center center'
+                            });
+                        }, 200);
+                    }
+                    @query window width > 720
+                        css
+                            height 395px
+                    @query window width < 720
+                        css
+                            height 295px
+                    @query window width < 550
+                        css
+                            height 205px
+                div caption
+                    css
+                        width 200px
+                        padding 12px 30px
+                    text text
+                        val my creative space
+                :mouseover
+                    css
+                        box-shadow 0 2px 6px 0 rgba(170, 170, 170 , 0.5)
+                :mouseout
+                    css
+                        box-shadow 0 2px 3px 0 rgba(170, 170, 170 , 0.3)
+    div resume
+        css
+            width 100%
+            // height 900px
+            background-color white
+            padding-top 25px
+            padding-bottom 45px
+            position relative
+        block title
+            css
+                padding-top 15px
+                height auto
+            text text
+                // val résumé
+                val resume
+                css
+                    font-size 60px
+                    opacity 0.65
+                    text-transform uppercase
+        div content
+            css
+                width 100%
+            block spacer
+                css
+                    height 55px
+                    margin-bottom 5px
+                hr hr1
+                    css
+                        opacity 0.45
+                        width 110px
+            block line
+                css
+                    height 20px
+                    width 90%
+                    padding 0 5%
+                    margin-bottom 25px
+                text text
+                    css
+                        // letter-spacing 1px
+                        font-size 26px
+                        color #444
+                        display block
+                        margin-bottom 5px
+                    html "The&nbsp;only&nbsp;source&nbsp;of knowledge&nbsp;is&nbsp;experience."
+                text author
+                    css
+                        color #333
+                        font-style italic
+                        font-size 23px
+                        opacity 0.9
+                    val Albert Einstein
+            block button
+                css
+                    width auto
+                    // height 50px
+                    border-radius 4px
+                    padding 16px 43px
+                    margin 0 auto
+                    cursor pointer
+                    position relative
+                    background-color rgba(76, 147, 219, 1)
+                    // border 2px solid rgba(140, 209, 163, 0.9)
+                    transition background-color 0.25s ease, opacity 0.2s ease
+                :mouseover
+                    css
+                        background-color rgba(76, 147, 219, 0.85)
+                :mouseout
+                    css
+                        background-color rgba(76, 147, 219, 1)
+                a button
+                    href https://drive.google.com/open?id=0B6HEUTBOMYjgdVJaYWlCZnpBNGs
+                    target _blank
+                    css
+                        text-decoration none
+                        width auto
+                        position absolute
+                        height 100%
+                        width 100%
+                        top 0
+                        left 0
+                text text
+                    val Résumé
+                    css
+                        font-size 24px
+                        color white
+            block description
+                css
+                    margin-top 30px
+                    height 40px
+                    width 88%
+                    padding 0 6%
+                text text
+                    css
+                        letter-spacing 1px
+                        color #333
+                        font-size 19px
+                    @query window width > 700
+                        html
+                            `
+                                Please read my résumé for a more detailed look<br/>into how I've pursued my various passions.
+                                I am always<br/>open to new projects and opportunities, whether it be<br/>a job, internship, volunteer position, class, etc.
+                            `
+                    @query window width < 700
+                        html
+                            `
+                                Please read my résumé for a more detailed look into how I've pursued my various passions.
+                                I am always open to new projects and opportunities, whether it be a job, internship, volunteer position, class, etc.
+                            `
+    div contact
+        css
+            padding 25px 0
+            font-size 0px
+        block title
+            css
+                padding 5px 0 10px
+                height auto
+            text text
+                val Contact
+                css
+                    font-size 50px
+                    opacity 0.65
+                    text-transform lowercase
+                    letter-spacing 1px
+        div spacer
+            css
+                height 30px
+                width 120px
+                margin 0 auto
+                border-bottom 2px solid #d0d0d0
+        div left
+            css
+                width 44%
+                min-height 120px
+                height auto
+                display inline-block
+                padding-left 5%
+                // padding-right 1%
+                float left
+            text text
+                val profiles
+                css
+                    font-size 30px
+                    letter-spacing 1px
+                    opacity 0.75
+                    color #222
+            div div
+                css
+                    padding-top 20px
+                social-icon github
+                    alt GitHub
+                    href https://github.com/anuvgupta
+                social-icon soundcloud
+                    alt SoundCloud
+                    href https://soundcloud.com/anuvgupta
+                social-icon vsco
+                    alt VSCO
+                    href https://vsco.co/anuvgupta
+                div break
+                    @query window width > 1030
+                        css
+                            display inline-block
+                    @query window width < 1030
+                        css
+                            display block
+                            height 12px
+                social-icon spotify
+                    alt Spotify
+                    href https://open.spotify.com/user/agwx2
+                social-icon youtube
+                    alt YouTube
+                    href https://www.youtube.com/channel/UCcNHYtKwbFnnO6BTFTSmapA
+                social-icon devpost
+                    alt DevPost
+                    href https://devpost.com/anuvgupta
+        div middle
+            css
+                width 2%
+                height 120px
+                display inline-block
+            div line
+                css
+                    width 2px
+                    height 120px
+                    background-color #d0d0d0
+                    // border-radius 2px 2px 0 0
+                    margin 0 auto
+            @query window height != 0
+                {
+                    var height = block.sibling('right').$().height();
+                    block.css('height', height + 'px');
+                    block.child('line').css('height', height + 'px');
+                }
+        div right
+            css
+                width 44%
+                min-height 120px
+                height auto
+                display inline-block
+                float right
+                // padding-left 1%
+                padding-right 5%
+                text-align right
+            text text
+                val social
+                css
+                    font-size 30px
+                    letter-spacing 1px
+                    opacity 0.75
+                    color #222
+            div div
+                css
+                    padding-top 20px
+                social-icon facebook
+                    href https://www.facebook.com/profile.php?id=100008309120856
+                social-icon instagram
+                    href https://instagram.com/_anuv
+                social-icon linkedin
+                    href https://linkedin.com/in/anuvgupta
+                div break
+                    @query window width > 1030
+                        css
+                            display inline-block
+                    @query window width < 1030
+                        css
+                            display block
+                            height 12px
+                social-icon snapchat
+                    // href https://open.spotify.com/user/agwx2
+                social-icon gplus
+                    href https://plus.google.com/+AnuvGupta
+                social-icon twitter
+                    // href https://devpost.com/anuvgupta
+        div linewrap
+            css
+                margin -10px auto
+                width 90%
+                border-bottom 2px solid #d0d0d0
+            div line
+                css
+                    width 2px
+                    height 40px
+                    background-color #d0d0d0
+                    // border-radius 0 0 2px 2px
+                    margin 0 auto
+        div bottom
+            css
+                padding-top 30px
+            div title
+                css
+                    margin 0 auto
+                    width 100px
+                    text-align center
+                text text
+                    val business
+                    css
+                        font-size 30px
+                        letter-spacing 1px
+                        opacity 0.75
+                        color #222
+            div icons
+                css
+                    margin 20px auto
+                    width auto
+                    text-align center
+                social-icon email
+                    alt Business Email
+                    href mailto:me@anuv.me
+                    target _self
+                social-icon iphone
+                    alt iPhone
+                    href tel:+1-408-784-9195
+                    target _self
+                social-icon sfhs
+                    alt School Email
+                    href mailto:anuvgupta@sfhs.com
+                    target _self
+                social-icon phone
+                    alt Home Phone
+                    href tel:+1-408-261-2675
+                    target _self
+                social-icon gmail
+                    alt Personal Gmail
+                    href mailto:anuv.ca@gmail.com
+                    target _self
+        block copyright
+            title Design: Anuv (Not HTML5 UP)
+            css
+                height 30px
+                margin-top 80px
+                text-align center
+                font-size 18px
+                cursor pointer
+            // div div
+            //     title Not HTML5 UP
+            //     css
+            //         color #777
+            //         font-size 15px
+            //         cursor pointer
+            //         margin 5px 0
+            //     text text
+            //         html Website Design by Anuv
+            text text1
+                css
+                    color #888
+                    font-size inherit
+                {
+                    block.html('&copy; ' + (new Date().getFullYear()) + ' Anuv Gupta');
+                }
+            text text2
+                css
+                    color #ccc
+                    font-size 20px
+                html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            text text3
+                css
+                    color #888
+                    font-size inherit
+                html All Rights Reserved
