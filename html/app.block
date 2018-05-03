@@ -122,6 +122,146 @@ app
         position relative
         padding-bottom 20px
         overflow-x hidden
+    div menu
+        css
+            position fixed
+            z-index 100
+            top -55px
+            left 0
+            right 0
+            width 100%
+            height 55px
+            padding-right 180px
+            transition height 0.5s ease, top 0.6s ease
+            text-align right
+        block bg
+            css
+                position absolute
+                top 0
+                left 0
+                right 0
+                bottom 0
+                height 50%
+                z-index -1
+                background-color rgba(5, 5, 5, 0)
+                transition background-color 0.4s ease, height 0.5s ease
+            :hide
+                {
+                    block.css('height', '50%').css('background-color', 'rgba(5, 5, 5, 0)').parent().css('height', '60px').css('top', '-80px');
+                }
+            :show
+                {
+                    block.css('background-color', 'rgba(70, 70, 70, 0.975)').css('height', '100%').parent().css('height', '60px').css('top', '0');
+                }
+            {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > block.parent().sibling('about').$().offset().top - 100)
+                        block.on('show');
+                    else block.on('hide');
+                });
+            }
+        !menu-item
+            init
+                {
+                    return Block('block')
+                        .class('menu-item')
+                        .css({
+                            minWidth: '70px',
+                            width: 'auto',
+                            height: '100%',
+                            display: 'inline-table',
+                            cursor: 'pointer',
+                            opacity: '0.9',
+                            position: 'relative',
+                            zIndex: '100'
+                        })
+                        .add(Block('block', 'content')
+                            .css({
+                                backgroundColor: 'rgba(0, 0, 0, 0)',
+                                transition: 'opacity 0.2s ease, background-color 0.2s ease',
+                                borderRadius: '5px',
+                                textShadow: '0px 0px 40px rgba(50, 50, 50, 1)',
+                                height: '65%',
+                                padding: '0 15px',
+                                width: 'auto'
+                            })
+                            .add(Block('text', 1)
+                                .data('')
+                                .css({
+                                    textTransform: 'uppercase',
+                                    fontSize: '17px',
+                                    cursor: 'pointer',
+                                    color: 'white',
+                                    fontFamily: 'Source Sans Pro',
+                                    fontWeight: '400',
+                                    // letterSpacing: '1px'
+                                })
+                            )
+                            .on('mouseover', function (e, b) {
+                                b.css('opacity', '1').css('background-color', 'rgba(200, 200, 200, 0.15)');
+                            })
+                            .on('mouseout', function (e, b) {
+                                b.css('opacity', '0.9').css('background-color', 'rgba(200, 200, 200, 0)');
+                            })
+                        )
+                    ;
+                }
+            load
+                {
+                    data('val', function (val) {
+                        block.child('content/text').html('').data(val);
+                    });
+                    data('scrolltop', function (st) {
+                        block.on('click', function () {
+                            $('html, body').stop().animate({ scrollTop: st }, 1200, 'swing');
+                        });
+                    });
+                    data('page', function (page) {
+                        block.on('click', function () {
+                            $('html, body').stop().animate({ scrollTop: window.app.block.child(page).$().offset().top - 100 }, 1200, 'swing');
+                        });
+                    });
+                    data('pageID', function (pageID) {
+                        block.on('click', function () {
+                            $('html, body').stop().animate({ scrollTop: $('#' + pageID).offset().top - 100 }, 1200, 'swing');
+                        });
+                    });
+                }
+        div spacer
+            css
+                width 30px
+                height 100%
+                position relative
+                float right
+        menu-item pursuits
+            val Pursuits
+            page pursuits
+        menu-item resume
+            val Resume
+            page resume
+        menu-item contact
+            val Contact
+            page contact
+        block logo
+            css
+                width 90px
+                position absolute
+                left 0
+                top 0
+                bottom 0
+                cursor pointer
+            image img
+                height 32px
+                width 32px
+                src img/icon-w.png
+                css
+                    display inline-block
+            :click
+                {
+                    $('html, body').stop().animate({
+                        scrollTop: 0
+                    }, 800, 'swing', function () { });
+                }
     div background
         {
             app.loadImage('img/peru2T5.jpg', function () {
@@ -222,6 +362,7 @@ app
                     color #555
                     display block
                     margin-bottom 10px
+                    font-weight 300
             text detail
                 css
                     text-transform lowercase
@@ -261,7 +402,8 @@ app
                             margin-bottom 0
                     social-icon github
                         alt GitHub
-                        href https://github.com/anuvgupta
+                        // href https://github.com/anuvgupta
+                        href http://github.anuv.me
                         css
                             margin-bottom 0
             text hook
@@ -308,21 +450,21 @@ app
                 }
                 :click
                     {
-                        $('body').stop().animate({
+                        $('html, body').stop().animate({
                             scrollTop: block.parent(1).sibling('about').$().offset().top - (window.innerHeight / 15)
                             // scrollTop: 770
                         }, 800, 'swing', function () { });
                     }
         {
-            $(window).scroll(function () {
-                // if (!app.mobileAndTablet()) {
+            // if (!(app.mobile() || app.mobileAndTablet())) {
+                $(window).scroll(function () {
                     var percentage = $(this).scrollTop() / window.innerHeight;
                     var opacity = -1.75 * percentage + 1;
                     block.css('opacity', opacity.toString());
                     if (opacity <= 0.01) block.css('display', 'none');
                     else block.css('display', 'table');
-                // }
-            });
+                });
+            // }
         }
     div spacer
         css
@@ -357,7 +499,7 @@ app
                 width 100%
             {
                 $(window).scroll(function () {
-                    // if (!app.mobileAndTablet()) {
+                    if (!(app.mobile() || app.mobileAndTablet())) {
                         var speed = 1/2.5;
                         speed = $(this).scrollTop() / window.innerHeight / 2.5;
                         var offset = ($(this).scrollTop() - window.innerHeight * 0.15) * speed;
@@ -366,7 +508,11 @@ app
                             bottom: offset + 'px',
                             top: '-' + offset + 'px'
                         });
-                    // }
+                    } else {
+                        if ($(this).scrollTop() > block.parent().$().offset().top - 100)
+                            block.parent().sibling('background').css('display', 'none');
+                        else block.parent().sibling('background').css('display', 'block');
+                    }
                 });
             }
         div bg2
@@ -501,7 +647,7 @@ app
                         css
                             text-transform lowercase
                             color white
-                            font-weight normal
+                            font-weight 300
                             letter-spacing 20px
                             display block
                             margin-bottom 20px
@@ -548,21 +694,22 @@ app
                     padding 0 4%
                 text text
                     css
-                        // letter-spacing 1px
+                        letter-spacing 1px
                         font-size 28px
-                        color #444
-                    html a&nbsp;jack&nbsp;of&nbsp;all&nbsp;trades&nbsp;can still&nbsp;be&nbsp;a&nbsp;master&nbsp;of&nbsp;some
+                        color #666
+                        font-weight 500
+                    html a&nbsp;jack&nbsp;of&nbsp;all&nbsp;trades&nbsp;may master&nbsp;more&nbsp;than&nbsp;one
             block description
                 css
                     margin-top 18px
-                    margin-bottom 55px
+                    margin-bottom 40px
                     height 40px
                     width 92%
                     padding 0 4%
                 text text
                     css
                         letter-spacing 1px
-                        color #333
+                        color #555
                         font-size 18px
                     html
                         `
@@ -574,6 +721,8 @@ app
                     font-size 0
                     position relative
                     overflow hidden
+                    height auto
+                    transition height 0.2s ease
                 !tile
                     init
                         {
@@ -592,7 +741,6 @@ app
                                     if (parseInt(block.key('split')) == 1)
                                         block.css('height', '500px');
                                     else block.css('height', '400px');
-
                                 })
                                 .query('window width < 1200', function () {
                                     if (parseInt(block.key('split')) == 1)
@@ -756,6 +904,8 @@ app
                                     //     grow();
                                     // })
                                     .on('click', function (e, b) {
+                                        topblock.sibling('ripple').css('display', 'block');
+                                        // topblock.sibling('pages').on('top');
                                         var fullwidth = 3 * (window.innerHeight > window.innerWidth ? window.innerHeight : window.innerWidth);
                                         var x = topblock.$().offset().left - b.parent(1).$().offset().left + 100;
                                         var y = topblock.$().offset().top - b.parent(1).$().offset().top + 100;
@@ -763,7 +913,7 @@ app
                                         var w = topblock.$().width() - 200;
                                         var h = topblock.$().height() - 200;
                                         var opacity = 40;
-                                        var speed = 50;
+                                        var speed = 90;
                                         var grow;
                                         grow = function () {
                                             speed -= 0.005;
@@ -785,7 +935,7 @@ app
                                             ripple.css('background-color', 'rgba(255, 255, 255, ' + (opacity / 100) + ')');
                                             if (w < fullwidth || h < fullwidth || opacity < 1)
                                                 setTimeout(grow, 10);
-                                            else b.parent(1).child('pages').on('show');
+                                            else b.parent(1).child('pages').on('show', { title: b.parent().mark() });
                                         };
                                         grow();
                                     })
@@ -813,7 +963,6 @@ app
                                             block.child('link/block/text').html('').data(text);
                                         });
                                     });
-
                                 });
                             });
                             data('bgpos', function (bgpos) {
@@ -837,13 +986,13 @@ app
                     img sfhs
                     split 2
                 tile photography
-                    img speedlimit
+                    img speedlimit2
                     split 2
                     bgpos center right
                 tile dance
-                    img fanaa
+                    img fanaa2
                     split 1
-                    bgpos bottom center
+                    bgpos bottom right
                 div ripple
                     css
                         // border-radius 100%
@@ -855,44 +1004,1985 @@ app
                         left 300px
                         z-index 10
                 div pages
+                    {
+                        // setTimeout(function () {
+                        //     block.on('show', { title: 'programming' });
+                        // }, 50);
+                    }
                     css
                         height 100%
                         width 100%
                         background-color white
-                        // background-color blue
                         display none
                         opacity 0
-                        position absolute
-                        top 0
-                        left 0
+                        // position absolute
+                        // top 0
+                        // left 0
                         z-index 20
                         transition opacity 0.2s ease
                     :show
                         {
+                            var section = data.title;
+                            block.child('bar/title').html('').data(section).key('title', section);
+                            var tiles = block.parent().children();
+                            block.child('content').on('show', { section: section });
+                            block.on('top');
                             setTimeout(function () {
                                 block.css('display', 'block');
                                 setTimeout(function () {
                                     block.css('opacity', '1');
                                 }, 10);
+                                for (var c in tiles) {
+                                    if (c != 'pages') tiles[c].css('display', 'none');
+                                }
                             }, 10);
                         }
                     :hide
                         {
+                            block.sibling('ripple').css('display', 'none');
                             setTimeout(function () {
+                                block.sibling('ripple').css('display', 'none');
                                 block.css('opacity', '0');
                                 setTimeout(function () {
+                                    var tiles = block.parent().children();
+                                    for (var c in tiles) {
+                                        if (c != 'pages') tiles[c].css('display', 'inline-block');
+                                    }
                                     block.css('display', 'none');
+                                    block.sibling('ripple').css('display', 'none');
                                 }, 210);
                             }, 10);
                         }
-                    block block
-                        div div
+                    :top
+                        {
+                            $('html, body').stop().animate({
+                                scrollTop: block.parent().$().offset().top - 80
+                            }, 400, 'swing', function () {
+                                // setTimeout(function () {
+                                //     app.logScroll(block.parent(2).$().offset().top);
+                                // }, 500);
+                            });
+                        }
+                    div spacer1
+                        css
+                            height 0px
+                    div bar
+                        css
+                            width 100%
+                            position relative
+                        @query window width > 655
                             css
-                                height 80px
-                                width 80px
-                                background-color #ccc
-                                margin 0 auto
-                                border-radius 10px
+                                height 90px
+                        @query window width <= 655
+                            css
+                                height 65px
+                        text title
+                            val title
+                            css
+                                color #666
+                                font-size 70px
+                                text-transform uppercase
+                            @query window width > 800
+                                css
+                                    padding-left 90px
+                            @query window width <= 800
+                                css
+                                    padding-left 40px
+                                    font-size 70px
+                            @query window width <= 655
+                                css
+                                    padding-left 40px
+                                    font-size 50px
+                                // {
+                                //     if (Block.is.set(block.key('title')) && block.key('title').length > 8)
+                                //         block.css('font-size', '50px');
+                                //     else block.css('font-size', '70px');
+                                // }
+                        block image
+                            css
+                                top 15px
+                                right 100px
+                                width 70px
+                                height 70px
+                                position absolute
+                                opacity 0.5
+                                cursor pointer
+                                transition opacity 0.2s ease
+                            :mouseover
+                                css
+                                    opacity 0.6
+                            :mouseout
+                                css
+                                    opacity 0.5
+                            :click
+                                {
+                                    block.parent(1).on('hide');
+                                }
+                            image img
+                                src img/pursuits.png
+                                height 60px
+                                width 60px
+                                css
+                                    height 100%
+                                    width 100%
+                            @query window width > 800
+                                css
+                                    right 100px
+                                    height 60px
+                                    width 60px
+                            @query window width <= 800
+                                css
+                                    right 30px
+                                    height 60px
+                                    width 60px
+                            @query window width <= 655
+                                css
+                                    right 30px
+                                    height 45px
+                                    width 45px
+                    hr line
+                        css
+                            margin-left 90px
+                            opacity 0.7
+                        @query window width > 800
+                            {
+                                block.css({
+                                    width: (window.innerWidth - 90 - 100) + 'px',
+                                    marginLeft: '90px'
+                                });
+                            }
+                        @query window width <= 800
+                            {
+                                block.css({
+                                    width: (window.innerWidth - 60) + 'px',
+                                    marginLeft: '30px'
+                                });
+                            }
+                    div content
+                        css
+                            width auto
+                        @query window width > 800
+                            css
+                                padding 15px 90px 30px
+                        @query window width <= 800
+                            css
+                                padding 15px 35px 30px
+                        :show
+                            {
+                                event.stopPropagation();
+                                var children = block.children();
+                                for (var c in children) {
+                                    children[c].css('display', 'none');
+                                }
+                                setTimeout(function () {
+                                    Block.queries();
+                                }, 50);
+                                children[data.section].css('display', 'block');
+                                setTimeout(function () {
+                                    Block.queries();
+                                }, 50);
+                            }
+                        div music
+                            css
+                                position relative
+                                padding-top 30px
+                            div personal
+                                css
+                                    margin 0 auto
+                                    background-color #eaeaea
+                                    position relative
+                                    overflow hidden
+                                    max-width 1260px
+                                @query window width > 1300
+                                    css
+                                        max-width 1260px
+                                        text-align left
+                                        padding 0
+                                        // float none
+                                        width 99%
+                                    {
+                                        block.child('content').css('width', (block.$().width() - 450 - 27 - 9) + 'px');
+                                    }
+                                @query window width <= 1300
+                                    css
+                                        max-width 800px
+                                        text-align center
+                                        padding 4px 12px 10px
+                                        // float left
+                                    {
+                                        block.child('content').css('width', '95%');
+                                        block.css('width', (block.parent(1).sibling('line').$().width() - 35) + 'px');
+                                    }
+                                block image
+                                    css
+                                        height 450px
+                                        width 450px
+                                        max-height 450px
+                                        max-width 450px
+                                        display inline-table
+                                        opacity 0.9
+                                    @query window width > 1300
+                                        css
+                                            margin 0
+                                            float left
+                                    @query window width <= 1300
+                                        css
+                                            margin 0 auto
+                                            float none
+                                    @query window width <= 565
+                                        {
+                                            var size = block.parent().$().width();
+                                            block.css({
+                                                width: (size) + 'px',
+                                                height: (size) + 'px'
+                                            });
+                                        }
+                                    image image
+                                        src img/me-e2.png
+                                        height 450px
+                                        width 450px
+                                        css
+                                            margin 0 auto
+                                            height 92%
+                                            width 92%
+                                div content
+                                    css
+                                        height auto
+                                        padding 16px 10px 18px 12px
+                                        float left
+                                        display inline-block
+                                    text t1
+                                        val Music is the most powerful way to express and feel emotion.
+                                        css
+                                            font-size 30px
+                                            color #777
+                                            font-weight 500
+                                        @query window width > 1400
+                                            css
+                                                font-size 30px
+                                        @query window width <= 1400
+                                            css
+                                                font-size 26px
+                                        @query window width <= 1305
+                                            css
+                                                font-size 23px
+                                    break br2
+                                        // break
+                                    div spacer1
+                                        css
+                                            height 10px
+                                    text t2
+                                        html
+                                            `
+                                                I spend most of my free time listening to indie/alternative rock, hip hop, classic rock, and other genres, singing at the top of my voice and practicing guitar riffs along to songs, collaborating with my friends and my a capella group to create mashups and cover songs, and writing and recording my own music.
+                                            `
+                                        css
+                                            font-size 18px
+                                            color #404040
+                                    div spacer2
+                                        css
+                                            height 20px
+                                    text t3
+                                        html
+                                            `
+                                                Check out the music on my profiles below:
+                                            `
+                                        css
+                                            font-size 19px
+                                            color #404040
+                                            font-style italic
+                                    div profiles
+                                        css
+                                            width 95%
+                                            margin 7px auto 0
+                                            height 160px
+                                            font-size 17px
+                                            color #555
+                                        @query window width > 1400
+                                            css
+                                                margin 7px auto 0
+                                        @query window width <= 1400
+                                            css
+                                                margin 0 auto 0
+                                                height 160px
+                                        @query window width <= 1300
+                                            css
+                                                height auto
+                                        block youtube
+                                            css
+                                                display inline-table
+                                            @query window width > 930
+                                                css
+                                                    width 33%
+                                                    margin-top 0
+                                            @query window width <= 930
+                                                css
+                                                    width 50%
+                                                    margin-top 20px
+                                            @query window width <= 660
+                                                css
+                                                    width 60%
+                                                    margin-top 30px
+                                            a link
+                                                href https://www.youtube.com/channel/UCcNHYtKwbFnnO6BTFTSmapA
+                                                target _blank
+                                                div img
+                                                    css
+                                                        opacity 0.3
+                                                        cursor pointer
+                                                        transition opacity 0.2s ease
+                                                    image image
+                                                        src img/social-icons/youtube-plain.png
+                                                        height 160px
+                                                        width 160px
+                                                        css
+                                                            margin 0 auto 20px
+                                                    :mouseover
+                                                        css
+                                                            opacity 0.45
+                                                    :mouseout
+                                                        css
+                                                            opacity 0.3
+                                            text text
+                                                css
+                                                    display block
+                                                @query window width > 1345
+                                                    html live performances and<br/>produced videos of original<br/>music and covers
+                                                    css
+                                                        margin-top -10px
+                                                @query window width <= 1345
+                                                    html live performances and produced videos of original music and covers
+                                                    css
+                                                        margin-top -17px
+                                        block soundcloud
+                                            css
+                                                display inline-table
+                                            @query window width > 930
+                                                css
+                                                    width 33%
+                                                    margin-top 0
+                                            @query window width <= 930
+                                                css
+                                                    width 50%
+                                                    margin-top 20px
+                                            @query window width <= 660
+                                                css
+                                                    width 60%
+                                                    margin-top 30px
+                                            a link
+                                                href https://soundcloud.com/anuvgupta
+                                                target _blank
+                                                div img
+                                                    css
+                                                        opacity 0.3
+                                                        cursor pointer
+                                                        transition opacity 0.2s ease
+                                                    image image
+                                                        src img/social-icons/soundcloud-plain.png
+                                                        height 160px
+                                                        width 160px
+                                                        css
+                                                            margin 0 auto 20px
+                                                    :mouseover
+                                                        css
+                                                            opacity 0.45
+                                                    :mouseout
+                                                        css
+                                                            opacity 0.3
+                                            text text
+                                                css
+                                                    display block
+                                                @query window width > 1345
+                                                    html studio recordings and<br/>productions of original music,<br/>covers, and mashups
+                                                    css
+                                                        margin-top -10px
+                                                @query window width <= 1345
+                                                    html studio recordings and productions of original music, covers, and mashups
+                                                    css
+                                                        margin-top -17px
+                                        block spotify
+                                            css
+                                                display inline-table
+                                            @query window width > 930
+                                                css
+                                                    width 34%
+                                                    margin-top 0
+                                            @query window width <= 930
+                                                css
+                                                    width 50%
+                                                    margin-top 20px
+                                            @query window width <= 660
+                                                css
+                                                    width 60%
+                                                    margin-top 30px
+                                            a link
+                                                href https://open.spotify.com/user/agwx2
+                                                target _blank
+                                                div img
+                                                    css
+                                                        opacity 0.3
+                                                        cursor pointer
+                                                        transition opacity 0.2s ease
+                                                    image image
+                                                        src img/social-icons/spotify-plain.png
+                                                        height 160px
+                                                        width 160px
+                                                        css
+                                                            margin 0 auto 20px
+                                                    :mouseover
+                                                        css
+                                                            opacity 0.45
+                                                    :mouseout
+                                                        css
+                                                            opacity 0.3
+                                            text text
+                                                html music taste in curated<br/>playlists and favorite<br/>artists/bands
+                                                css
+                                                    display block
+                                                @query window width > 1345
+                                                    css
+                                                        margin-top -12px
+                                                @query window width <= 1345
+                                                    css
+                                                        margin-top -20px
+                            div spacer1
+                                css
+                                    height 35px
+                            div quote
+                                css
+                                    text-align center
+                                    margin 0 auto
+                                @query window width > 1110
+                                    css
+                                        width 75%
+                                @query window width <= 1110
+                                    css
+                                        width 85%
+                                @query window width <= 700
+                                    css
+                                        width 95%
+                                text t1
+                                    html
+                                        `
+                                             “I fell in love with music through film. It was the idea that music commands you how to feel, as opposed to being suggestive, which is what literature and film and fashion are about. You can’t really control the way that you feel when you’re listening to music.”
+                                        `
+                                    css
+                                        font-size 25px
+                                div spacser
+                                    css
+                                        height 5px
+                                text t2
+                                    val Matty Healy of The 1975
+                                    css
+                                        font-size 20px
+                                        font-style italic
+                            div spacer2
+                                css
+                                    height 10px
+                            div blocks
+                                css
+                                    margin 0 auto
+                                    margin-top -85px
+                                    margin-bottom 30px
+                                    width 100%
+                                @query window width > 1060
+                                    css
+                                        margin-top -85px
+                                        max-width 1200px
+                                @query window width <= 1060
+                                    css
+                                        margin-top 20px
+                                        max-width 100%
+                                div block1
+                                    css
+                                        display inline-block
+                                        text-align center
+                                        position relative
+                                        padding-top 30px
+                                    @query window width > 1060
+                                        css
+                                            width 50%
+                                            max-width 600px
+                                            bottom -100px
+                                    @query window width <= 1060
+                                        css
+                                            width 100%
+                                            max-width 100%
+                                            bottom 0
+                                    {
+                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="475" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/399812366&amp;color=%23595656&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"></iframe>');
+                                    }
+                                div block2
+                                    css
+                                        display inline-block
+                                        text-align center
+                                        position relative
+                                        padding-top 30px
+                                    @query window width > 1060
+                                        css
+                                            width 50%
+                                            max-width 600px
+                                            height 375px
+                                    @query window width <= 1060
+                                        css
+                                            width 100%
+                                            max-width 100%
+                                            height 425px
+                                    @query window width <= 700
+                                        css
+                                            width 100%
+                                            max-width 100%
+                                            height 375px
+                                    {
+                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="100%" src="https://www.youtube.com/embed/IG2hy_N-4zs?rel=0&theme=light" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>');
+                                    }
+                                div block3
+                                    css
+                                        display inline-block
+                                        text-align center
+                                        position relative
+                                        padding-top 30px
+                                    @query window width > 1060
+                                        css
+                                            width 50%
+                                            max-width 600px
+                                            height 375px
+                                    @query window width <= 1060
+                                        css
+                                            width 100%
+                                            max-width 100%
+                                            height 425px
+                                    @query window width <= 700
+                                        css
+                                            width 100%
+                                            max-width 100%
+                                            height 375px
+                                    {
+                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="100%" src="https://www.youtube.com/embed/Uh3Gi7kM97E?rel=0&start=130&theme=light" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>');
+                                    }
+                                div block4
+                                    css
+                                        display inline-block
+                                        text-align center
+                                        position relative
+                                        opacity 0.95
+                                        padding-top 30px
+                                    @query window width > 1060
+                                        css
+                                            width 50%
+                                            max-width 600px
+                                    @query window width <= 1060
+                                        css
+                                            width 100%
+                                            max-width 100%
+                                    {
+                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="475" src="https://open.spotify.com/embed?uri=spotify:user:agwx2:playlist:0pkOUo2unpsJVPLkssW6Hp" frameborder="0" allowtransparency="true"></iframe>');
+                                    }
+                        div photography
+                            css
+                                position relative
+                                padding-top 30px
+                                padding-bottom 30px
+                            text t1
+                                val life is full of beautiful moments
+                                css
+                                    color #222
+                                    display block
+                                    padding-bottom 5px
+                                @query window width > 1350
+                                    css
+                                        font-size 25px
+                                @query window width <= 1350
+                                    css
+                                        font-size 22px
+                                @query window width <= 1050
+                                    css
+                                        font-size 20px
+                                @query window height != 0
+                                    {
+                                        block.css('padding-left', ((block.parent().$().width() - block.sibling('image').$().width()) / 2) + 'px');
+                                    }
+                            div image
+                                css
+                                    width 99%
+                                    height auto
+                                    margin 0 auto
+                                    max-width 900px
+                                    opacity 0.975
+                                @query window width != 0
+                                    {
+                                        block.css('height', (block.$().width() * 679/1200) + 'px');
+                                    }
+                                image img
+                                    src img/IMG_9615.png
+                                    width 1200px
+                                    height 679px
+                                    css
+                                        width 100%
+                                        height 100%
+                                        border-radius 7px 14px 7px 14px
+                            text t2
+                                val if we can seize them, why not capture them?
+                                css
+                                    color #222
+                                    font-size 20px
+                                    display block
+                                    padding-top 5px
+                                    text-align right
+                                @query window width > 1350
+                                    css
+                                        font-size 25px
+                                @query window width <= 1350
+                                    css
+                                        font-size 22px
+                                @query window width <= 1050
+                                    css
+                                        font-size 20px
+                                @query window height != 0
+                                    {
+                                        block.css('padding-right', ((block.parent().$().width() - block.sibling('image').$().width()) / 2) + 'px');
+                                    }
+                            div vsco
+                                css
+                                    height auto
+                                    margin 0 auto
+                                    margin-top 30px
+                                    overflow hidden
+                                @query window width > 1150
+                                    css
+                                        width 90%
+                                        max-width 960px
+                                @query window width <= 1150
+                                    css
+                                        width 100%
+                                        max-width 100%
+                                div logo
+                                    css
+                                        height 300px
+                                        width 300px
+                                        position relative
+                                        display inline-block
+                                        float left
+                                        margin 0
+                                    @query window width > 1100
+                                        css
+                                            height 350px
+                                            width 350px
+                                            margin-left 3%
+                                    @query window width <= 1100
+                                        css
+                                            height 300px
+                                            width 300px
+                                            margin-left 2%
+                                    @query window width <= 950
+                                        css
+                                            height 250px
+                                            width 250px
+                                            margin-left 0
+                                    @query window width <= 800
+                                        css
+                                            height 200px
+                                            width 200px
+                                            display inline-block
+                                            margin 0
+                                            float left
+                                    @query window width <= 625
+                                        css
+                                            width 60%
+                                            display block
+                                            float none
+                                            margin 0 auto
+                                            margin-top 20px
+                                        {
+                                            block.css('height', (block.$().width()) + 'px');
+                                        }
+                                    a link1
+                                        href http://vsco.co/anuvgupta
+                                        target _blank
+                                        image logo
+                                            src img/vsco.png
+                                            height 350px
+                                            width 350px
+                                            css
+                                                opacity 0.9
+                                                position absolute
+                                                top 0
+                                                left 0
+                                                z-index 2
+                                                height 100%
+                                                width 100%
+                                        image profile
+                                            src img/vsco2.png
+                                            height 350px
+                                            width 350px
+                                            css
+                                                opacity 0
+                                                border-radius 100%
+                                                position absolute
+                                                top 0
+                                                left 0
+                                                z-index 3
+                                                transition opacity 0.25s ease
+                                            :mouseover
+                                                css
+                                                    opacity 1
+                                                    height 100%
+                                                    width 100%
+                                            :mouseout
+                                                css
+                                                    opacity 0
+                                                    height 100%
+                                                    width 100%
+                                block content
+                                    css
+                                        position relative
+                                        float left
+                                        max-width 475px
+                                        height 100%
+                                        margin-left 65px
+                                    {
+                                        block.__child('content').css('text-align', 'left');
+                                    }
+                                    @query window width > 1170
+                                        css
+                                            width 100%
+                                        {
+                                            block.css('height', (block.sibling('logo').$().height()) + 'px');
+                                        }
+                                    @query window width <= 1170
+                                        css
+                                            width 50%
+                                            margin 0 0 0 65px
+                                        {
+                                            block.css('height', (block.sibling('logo').$().height()) + 'px');
+                                        }
+                                    @query window width <= 835
+                                        css
+                                            width 54%
+                                            margin 0 0 0 35px
+                                            float left
+                                        {
+                                            block.css('height', (block.sibling('logo').$().height()) + 'px');
+                                            block.__child('content').css('text-align', 'left');
+                                        }
+                                    @query window width <= 625
+                                        css
+                                            width 90%
+                                            height auto
+                                            margin 35px auto 0
+                                            float none
+                                        {
+                                            block.__child('content').css('text-align', 'center');
+                                        }
+                                    div spacer1
+                                        css
+                                            height 5px
+                                    text title
+                                        val the world through an iphone lens
+                                        css
+                                            font-family 'VSCO Gothic Medium'
+                                            color black
+                                        @query window width > 955
+                                            css
+                                                font-size 26px
+                                        @query window width <= 955
+                                            css
+                                                font-size 22px
+                                    div spacer2
+                                        css
+                                            height 25px
+                                    text content
+                                        val I travel to places all around the world and capture the beauty I see with a simple phone camera. Check out my travel journals on VSCO – I pair each set of touched up pictures with related song lyrics or a poem or two to artistically express my entire experience. In the future I plan to learn to use more professional equipment.
+                                        css
+                                            font-size 18px
+                                            color black
+                        div dance
+                            css
+                                position relative
+                                padding-top 30px
+                                padding-bottom 30px
+                                overflow hidden
+                            @query window width > 1025
+                                css
+                                    padding-bottom 30px
+                            @query window width <= 1025
+                                css
+                                    padding-bottom 10px
+                            div left
+                                css
+                                    float left
+                                    width 45%
+                                    height 600px
+                                    text-align right
+                                    margin-right 4%
+                                    margin-left 2%
+                                    color #383838
+                                @query window width > 1350
+                                    css
+                                        margin-left 2%
+                                @query window width <= 1350
+                                    css
+                                        margin-left 0
+                                        width 45%
+                                        height 600px
+                                @query window width <= 1025
+                                    css
+                                        width 94%
+                                        height auto
+                                div spacer1
+                                    css
+                                        height 12%
+                                    @query window width > 1350
+                                        css
+                                            height 12%
+                                    @query window width <= 1350
+                                        css
+                                            height 5%
+                                    @query window width <= 1100
+                                        css
+                                            height 0
+                                text t1
+                                    val dance connects
+                                    css
+                                        font-size 45px
+                                        font-weight 300
+                                        letter-spacing 3px
+                                div spacer2
+                                    css
+                                        height 16%
+                                    @query window width > 1350
+                                        css
+                                            height 16%
+                                    @query window width <= 1350
+                                        css
+                                            height 10%
+                                    @query window width <= 1100
+                                        css
+                                            height 3%
+                                    @query window width <= 1025
+                                        css
+                                            height 15px
+                                text t2
+                                    val It connects me to my body, giving me confidence and helping me overcome insecurities. It connects me to my teammates, as we collaborate and share the experience of exhibiting our art onstage. It connects me to my culture, blending my origins with that which surrounds me: Bollywood with hip-hop.
+                                    css
+                                        font-size 22px
+                                        display block
+                                        height auto
+                                        min-height 25%
+                                        margin-bottom 12%
+                                        letter-spacing 1px
+                                    @query window width > 1100
+                                        css
+                                            margin-bottom 12%
+                                    @query window width <= 1100
+                                        css
+                                            margin-bottom 6%
+                                    @query window width <= 1025
+                                        css
+                                            margin-bottom 3%
+                                div video1
+                                    css
+                                        position relative
+                                        width 100%
+                                        height 0
+                                        padding-bottom 55%
+                                        margin-bottom 2.5%
+                                    {
+                                        block.html('<iframe src="https://drive.google.com/file/d/1Bch6eTJBETB4wyX3GoJ-_zqv3zDjZN1S/preview" width="100%" height="100%" style="position: absolute; left: 0; top: 0;"></iframe>');
+                                    }
+                                    @query window width > 1025
+                                        css
+                                            display none
+                                    @query window width <= 1025
+                                        css
+                                            display block
+                                text t3
+                                    val dance is about feeling beautiful, feeling in harmony, feeling yourself
+                                    css
+                                        font-size 30px
+                                        display block
+                                        height auto
+                                        min-height 26%
+                                        font-weight 300
+                                        letter-spacing 2px
+                                    @query window width > 1100
+                                        css
+                                            min-height 26%
+                                            margin-bottom 0
+                                    @query window width <= 1100
+                                        css
+                                            min-height 20%
+                                            margin-bottom 3%
+                                div video2
+                                    css
+                                        position relative
+                                        width 100%
+                                        height 0
+                                        padding-bottom 55%
+                                        margin-bottom 2.5%
+                                    {
+                                        block.html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/BcupN_A-3Cg?rel=0" frameborder="0" allow="autoplay; encrypted-media" style="position: absolute; left: 0; top: 0;" allowfullscreen></iframe>');
+                                    }
+                                    @query window width > 1025
+                                        css
+                                            display none
+                                    @query window width <= 1025
+                                        css
+                                            display block
+                                text t4
+                                    val As captain of my high school's Bollywood-fusion dance team, Fanaa, I enjoy choreographing and teaching, making music mixes, and dancing onstage at local high schools' exhibition shows.
+                                    css
+                                        font-size 22px
+                                        letter-spacing 1px
+                            div right
+                                css
+                                    float left
+                                    height auto
+                                    font-size 0
+                                @query window width > 1270
+                                    css
+                                        width 44%
+                                @query window width <= 1270
+                                    css
+                                        width 50%
+                                        display block
+                                @query window width <= 1025
+                                    css
+                                        display none
+                                div video1
+                                    css
+
+                                    {
+                                        block.html('<iframe src="https://drive.google.com/file/d/1Bch6eTJBETB4wyX3GoJ-_zqv3zDjZN1S/preview" width="100%" height="400px"></iframe>');
+                                    }
+                                    @query window width > 1350
+                                        css
+                                            height 400px
+                                        {
+                                            block.$().children('iframe').css('height', '400px');
+                                        }
+                                    @query window width <= 1350
+                                        css
+                                            height 350px
+                                        {
+                                            block.$().children('iframe').css('height', '350px');
+                                        }
+                                    @query window width <= 1100
+                                        css
+                                            height 300px
+                                        {
+                                            block.$().children('iframe').css('height', '300px');
+                                        }
+                                div video2
+                                    {
+                                        block.html('<iframe width="100%" height="400px" src="https://www.youtube.com/embed/BcupN_A-3Cg?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+                                    }
+                                    @query window width > 1350
+                                        css
+                                            height 400px
+                                        {
+                                            block.$().children('iframe').css('height', '400px');
+                                        }
+                                    @query window width <= 1350
+                                        css
+                                            height 350px
+                                        {
+                                            block.$().children('iframe').css('height', '350px');
+                                        }
+                                    @query window width <= 1100
+                                        css
+                                            height 300px
+                                        {
+                                            block.$().children('iframe').css('height', '300px');
+                                        }
+                        div education
+                            css
+                                position relative
+                                padding-top 30px
+                                padding-bottom 30px
+                                height auto
+                                overflow hidden
+                            div top
+                                css
+                                    height auto
+                                    width 100%
+                                    position relative
+                                    float left
+                                @query window width > 1100
+                                    {
+                                        var topleft = block.child('top-left');
+                                        var topright = block.child('top-right');
+                                        if (topleft.$().height() > topright.$().height()) {
+                                            topright.css('border', 'none');
+                                            topleft.css('border', 'none');
+                                            topleft.css('border-right', '1px solid #bbb');
+                                        } else {
+                                            topleft.css('border', 'none');
+                                            topright.css('border', 'none');
+                                            topright.css('border-left', '1px solid #bbb');
+                                        }
+                                    }
+                                div top-left
+                                    css
+                                        float left
+                                        display block
+                                        margin-left 10px
+                                        height auto
+                                    @query window width > 1100
+                                        css
+                                            min-height 385px
+                                            width 44%
+                                            padding 0 2% 15px
+                                    @query window width <= 1100
+                                        css
+                                            min-height 200px
+                                            width 94%
+                                            border none
+                                            border-bottom 1px solid #bbb
+                                            padding-bottom 20px
+                                            height auto
+                                    text title
+                                        val High School
+                                        css
+                                            font-size 38px
+                                            color #666
+                                            font-weight 500
+                                            letter-spacing 1px
+                                    div spacer
+                                        css
+                                            height 10px
+                                    image sfhs
+                                        src img/sfhs.png
+                                        height 200px
+                                        width 200px
+                                        css
+                                            opacity 0.95
+                                            float right
+                                            margin-right 10px
+                                        @query window width > 1250
+                                            css
+                                                height 200px
+                                                width 200px
+                                        @query window width <= 1250
+                                            css
+                                                height 150px
+                                                width 150px
+                                                float right
+                                                margin 0
+                                                margin-right 10px
+                                        @query window width <= 1100
+                                            css
+                                                height 200px
+                                                width 200px
+                                                float right
+                                                margin 0
+                                                margin-right 10px
+                                        @query window width <= 815
+                                            css
+                                                height 150px
+                                                width 150px
+                                                float right
+                                                margin 0
+                                                margin-right 10px
+                                    text content
+                                        html
+                                            `
+                                                <br/>
+                                                <a href = 'http://sfhs.com' target = '_blank'>Saint Francis High School</a> '18 (2014-2018).<br/>
+                                                <div style = 'height: 20px;'></div>
+                                                Current Cumulative GPA: 4.3.<br/>
+                                                <div style = 'height: 15px;'></div>
+                                                Courses Taken/In Progress:
+                                                <ul style = 'margin: 8px 0; font-size: 18px;'>
+                                                    <li>AP Computer Science A (5 on AP test, <a target = '_blank' href = 'https://github.com/anuvgupta/snapgram'>final group project</a>)</li>
+                                                    <li>AP Computer Science Principles (In Progress)</li>
+                                                    <li>Computer Programming (<a target = '_blank' href = 'https://github.com/anuvgupta/compprog'>projects</a> ie. <a target = '_blank' href = 'http://github.anuv.me/sitarhero/'>Sitar Hero</a>)</li>
+                                                    <li>AP Physics (IP), AP Calculus BC (5), AP Calculus AB (5), AP English Language (5), AP English Literature (IP), AP Statistics (IP)</li>
+                                                </ul>
+                                                <span style = 'font-size: 19px;'>Activities:</span> <span style = 'font-size: 17px;'>sfhacks programming club board member/workshop leader, LancerHacks hackathon tech director, sfcode programming competition organizer, Fanaa (Bollywood/hip-hop fusion dance team) captain, International Club board member, string ensemble 1st/2nd violin and composer, guitar club, robotics, National Honor Society, California Scholarship Federation (TA/tutoring), shadow host.</span>
+                                                <div style = 'height: 0px;'></div>
+                                            `
+                                        css
+                                            color #555
+                                            font-size 22px
+                                            margin-left 10px
+                                div top-right
+                                    css
+                                        float left
+                                        height auto
+                                    @query window width > 1100
+                                        css
+                                            min-height 385px
+                                            width 44%
+                                            display inline-block
+                                            padding 0 2% 15px
+                                    @query window width <= 1100
+                                        css
+                                            min-height 200px
+                                            width 94%
+                                            border none
+                                            border-bottom 1px solid #bbb
+                                            display block
+                                            padding-bottom 20px
+                                            padding-top 20px
+                                            height auto
+                                    text title
+                                        val Programming
+                                        css
+                                            font-size 38px
+                                            color #666
+                                            font-weight 500
+                                            letter-spacing 1px
+                                    image note
+                                        src img/code.png
+                                        height 150px
+                                        width 150px
+                                        css
+                                            opacity 0.7
+                                            float right
+                                        @query window width > 1100
+                                            css
+                                                height 103px
+                                                width 150px
+                                        @query window width <= 1100
+                                            css
+                                                height 69px
+                                                width 100px
+                                        @query window width <= 800
+                                            css
+                                                height 90px
+                                                width 130px
+                                    text content
+                                        html
+                                            `
+                                                <ul style = 'font-size: 18px;'>
+                                                    <li>IPAM development internships in PHP at <a href = 'https://www.6connect.com/' target = '_blank'>6connect</a>
+                                                        <ul>
+                                                            <li>2016 – built PHP connector, eases migration between Infoblox's IPAM to 6connect's <a href = 'https://www.6connect.com/6connect-provision/' target = '_blank'>ProVision</a></li>
+                                                            <li>2017 – Built service to compare/sync data between ProVision and the Internet Routing Registries</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>Web development internships in JavaScript at <a href = 'http://hulaloop.io/' target = '_blank'>HulaLoop</a>. Created Python curriculum (2016) and developed JavaScript user interface (2017) for online Python learning platform, <a href = 'https://pythonroom.com/' target = '_blank'>Pythonroom</a>.</li>
+                                                    <li>Curriculum development internship at <a href = 'https://www.stratfordschools.com' target = '_blank'>Stratford Middle School</a> (2014). Researched and developed curriculum for new engineering course – basic circuit prototyping and programming in python with <a href = 'https://www.raspberrypi.org/' target = '_blank'>Raspberry Pi</a>.</li>
+                                                    <li>ID Tech Summer Courses @ Stanford – Java (2012), C++ (2013), Android App Development (2015, <a target = '_blank' href = 'https://github.com/anuvgupta/drummer'>final project</a>) </li>
+                                                    <li><a target = '_blank' href = 'https://www.amplify.com/newsroom/press-release/amplify-launches-first-mooc-for-ap-computer-science'>Amplify APCS MOOC</a> (Massive Open Online Course, now <a href = 'https://marketbrief.edweek.org/marketplace-k-12/amplifys_mooc_is_sold_and_renamed_as_edhesive/' target = '_blank'>Edhesive</a>) for Java, in 8th grade 2013 - 2014</li>
+                                                    <li>Online courses/self-education in Python, JavaScript, PHP and web development, HTML/CSS/web design, game development in Unity, etc. since age 11</li>
+                                                </ul>
+                                            `
+                                        css
+                                            color #555
+                                            font-size 22px
+                            div bottom-left
+                                css
+                                    float left
+                                    display block
+                                    margin-left 10px
+                                @query window width > 1100
+                                    css
+                                        min-height 385px
+                                        width 44%
+                                        border none
+                                        border-top 1px solid #bbb
+                                        padding 15px 2% 0
+                                @query window width <= 1100
+                                    css
+                                        min-height 200px
+                                        width 94%
+                                        border none
+                                        border-bottom 1px solid #bbb
+                                        padding-bottom 40px
+                                        padding-top 20px
+                                text title
+                                    val Middle School
+                                    css
+                                        font-size 38px
+                                        color #666
+                                        font-weight 500
+                                        letter-spacing 1px
+                                div spacer
+                                    css
+                                        height 10px
+                                image stratford
+                                    src img/stratford.png
+                                    height 200px
+                                    width 200px
+                                    css
+                                        opacity 0.95
+                                        float right
+                                        margin-left 15px
+                                        margin-right 10px
+                                    @query window width > 1250
+                                        css
+                                            height 200px
+                                            width 200px
+                                    @query window width <= 1250
+                                        css
+                                            height 150px
+                                            width 150px
+                                            float right
+                                            margin 0
+                                            margin-left 15px
+                                            margin-right 10px
+                                    @query window width <= 1100
+                                        css
+                                            height 200px
+                                            width 200px
+                                            float right
+                                            margin 0
+                                            margin-left 15px
+                                            margin-right 10px
+                                    @query window width <= 815
+                                        css
+                                            height 150px
+                                            width 150px
+                                            float right
+                                            margin 0
+                                            margin-left 15px
+                                            margin-right 10px
+                                text content
+                                    html
+                                        `
+                                            <br/>
+                                            <a href = 'https://www.stratfordschools.com' target = '_blank'>Stratford Middle School</a>, Santa Clara Pomeroy campus, 2012-2014.<br/>
+                                            <br/>
+                                            Maintained honor roll all three years. Activities: soccer team captain, FLL robotics team, robotics club, National Junior Honor Society.
+                                        `
+                                    css
+                                        color #555
+                                        font-size 22px
+                                        margin-left 10px
+                            div bottom-right
+                                css
+                                    min-height 385px
+                                    float left
+                                @query window width > 1100
+                                    css
+                                        min-height 385px
+                                        width 44%
+                                        border none
+                                        border-top 1px solid #bbb
+                                        border-left 1px solid #bbb
+                                        display inline-block
+                                        padding 15px 2% 0
+                                @query window width <= 1100
+                                    css
+                                        min-height 200px
+                                        width 94%
+                                        border none
+                                        display block
+                                        padding-bottom 20px
+                                        padding-top 20px
+                                text title
+                                    val Music
+                                    css
+                                        font-size 38px
+                                        color #666
+                                        font-weight 500
+                                        letter-spacing 1px
+                                div spacer
+                                    css
+                                        height 5px
+                                image note
+                                    src img/note.png
+                                    height 150px
+                                    width 150px
+                                    css
+                                        opacity 0.7
+                                        float right
+                                    @query window width > 1100
+                                        css
+                                            height 150px
+                                            width 150px
+                                    @query window width <= 1100
+                                        css
+                                            height 100px
+                                            width 100px
+                                    @query window width <= 800
+                                        css
+                                            height 120px
+                                            width 120px
+                                text content
+                                    html
+                                        `
+                                            <ul>
+                                                <li>Violin lessons from 2006 to 2016 (age 6-16) with Anne Chen (Sweet Music Studios), and viola lessons for a year in 2014</li>
+                                                <li>Group multi-instrumental songwriting/performance lessons from 2013 to 2016 (age 13-16) with <a href = 'http://johnsyzygy.com' target = '_blank'>John Syzygy</a> (<a href = 'http://bayareaschoolofmusic.com' target = '_blank'>Bay Area School of Music</a>)</li>
+                                                <li>Orchestral multi-genre composition lessons from 2014 to 2015 (age 14-15) with <a href = 'http://johnsyzygy.com' target = '_blank'>John Syzygy</a> (<a href = 'http://bayareaschoolofmusic.com' target = '_blank'>Bay Area School of Music</a>)</li>
+                                                <li>Singing lessons for a year from 2016 to 2017 with Paul Marenco</li>
+                                            </ul>
+                                        `
+                                    css
+                                        color #555
+                                        font-size 22px
+                        div design
+                            css
+                                position relative
+                                padding-top 20px
+                                padding-bottom 30px
+                                height auto
+                                overflow hidden
+                                text-align center
+                            div intro
+                                css
+                                    position relative
+                                    margin-bottom 10px
+                                    text-align center
+                                    margin-top 20px
+                                text title
+                                        html Handcrafted Originality
+                                    css
+                                        color #555
+                                        font-size 35px
+                                        font-weight bold
+                                        text-transform uppercase
+                                        letter-spacing 4px
+                                break br1
+                                    // break1
+                                text description
+                                    val unique aesthetics contoured with minimalism, efficiency, and harmony
+                                    css
+                                        color #777
+                                        font-size 22px
+                                        letter-spacing 2px
+                            div spacerABCDEFG
+                                css
+                                    height 20px
+                            // text title1
+                            //     val website GUIs built entirely from scratch
+                            //     css
+                            //         color #666
+                            //         font-size 20px
+                            //         text-align center
+                            //         // font-weight bold
+                            //         padding 10px 0
+                            //         display block
+                            !design-image
+                                init
+                                    {
+                                        var block = Block('div');
+                                        return block.css({
+                                            width: '49%',
+                                            paddingBottom: '29%',
+                                            position: 'relative',
+                                            height: '0',
+                                            display: 'inline-block',
+                                            cursor: 'pointer',
+                                            border: '1px solid #f3f3f3',
+                                            borderRadius: '4px'
+                                        })
+                                        .query('window width >= 1100', function () {
+                                            block.css({
+                                                display: 'inline-block',
+                                                width: '49%',
+                                                paddingBottom: '28.5%'
+                                            });
+                                        })
+                                        .query('window width < 1100', function () {
+                                            block.css({
+                                                display: 'block',
+                                                width: '100%',
+                                                paddingBottom: '58%'
+                                            });
+                                        })
+                                        .add(Block('image', 1));
+                                    }
+                                load
+                                    {
+                                        data('name', function (name) {
+                                            block.child('image').data({
+                                                src: 'img/design/' + name + '.png',
+                                                height: '58px',
+                                                weight: '100px',
+                                                css: {
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    position: 'absolute',
+                                                    top: '0',
+                                                    left: '0',
+                                                    borderRadius: '4px'
+                                                }
+                                            });
+                                        });
+                                    }
+                            !design-image2
+                                init
+                                    {
+                                        var block = Block('div');
+                                        return block.css({
+                                            width: '23.15%',
+                                            paddingBottom: '40%',
+                                            position: 'relative',
+                                            height: '0',
+                                            display: 'inline-block',
+                                            cursor: 'pointer',
+                                            border: '1px solid #f3f3f3',
+                                            borderRadius: '7px'
+                                        })
+                                        .query('window width >= 1100', function () {
+                                            block.css({
+                                                display: 'inline-block',
+                                                width: '23.15%',
+                                                paddingBottom: '40%'
+                                            });
+                                        })
+                                        .query('window width < 1100', function () {
+                                            block.css({
+                                                // display: 'block',
+                                                width: '48%',
+                                                paddingBottom: '83%'
+                                            });
+                                        })
+                                        .add(Block('image', 1));
+                                    }
+                                load
+                                    {
+                                        data('name', function (name) {
+                                            block.child('image').data({
+                                                src: 'img/design/' + name + '.png',
+                                                height: '100px',
+                                                weight: '58px',
+                                                css: {
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    position: 'absolute',
+                                                    top: '0',
+                                                    left: '0',
+                                                    borderRadius: '7px'
+                                                }
+                                            });
+                                        });
+                                    }
+                            div anuv.me
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 10px
+                                text name
+                                    val anuv.me
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                div images
+                                    css
+                                        padding 10px 0 25px
+                                        opacity 0.95
+                                        cursor pointer
+                                    :click
+                                        {
+                                            $('html, body').stop().animate({
+                                                scrollTop: 0
+                                            }, 800, 'swing', function () { });
+                                        }
+                                    design-image left
+                                        name anuv-A
+                                    div spacer
+                                        css
+                                            height 20px
+                                            width 1.5%
+                                            display inline-block
+                                    design-image right
+                                        name anuv-D
+                            div lancerhacks
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 10px
+                                text name
+                                    val LancerHacks
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                div images
+                                    css
+                                        padding 10px 0 25px
+                                        opacity 0.95
+                                        cursor pointer
+                                    a link1
+                                        href http://lancerhacks.com
+                                        target _blank
+                                        design-image left1
+                                            name lancerhacks-A
+                                    div spacer1
+                                        css
+                                            height 20px
+                                            width 1.5%
+                                            display inline-block
+                                    a link2
+                                        href http://lancerhacks.com
+                                        target _blank
+                                        design-image right1
+                                            name lancerhacks-B
+                                    div spacer2
+                                        css
+                                            height 17px
+                                    a link3
+                                        href http://lancerhacks.com/live
+                                        target _blank
+                                        design-image left2
+                                            name lancerhacks-C
+                                    div spacer3
+                                        css
+                                            height 20px
+                                            width 1.5%
+                                            display inline-block
+                                    a link4
+                                        href http://lancerhacks.com/ctf
+                                        target _blank
+                                        design-image right2
+                                            name lancerhacks-D
+                            div slop
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 30px
+                                text name
+                                    val slop
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                        padding 10px 0 25px
+                                div images
+                                    css
+                                        padding-top 10px
+                                        opacity 0.95
+                                        cursor pointer
+                                    a link
+                                        href http://github.com/anuvgupta/slop.ml
+                                        target _blank
+                                        design-image2 farleft
+                                            name slop-A
+                                        div spacer1
+                                            css
+                                                height 20px
+                                                width 2.1%
+                                                display inline-block
+                                        design-image2 midleft
+                                            name slop-B
+                                        div spacer2
+                                            css
+                                                height 20px
+                                                width 2.1%
+                                                display inline-block
+                                            @query window width >= 1100
+                                                css
+                                                    display inline-block
+                                            @query window width < 1100
+                                                css
+                                                    display block
+                                        design-image2 midright
+                                            name slop-C
+                                        div spacer3
+                                            css
+                                                height 20px
+                                                width 2.1%
+                                                display inline-block
+                                        design-image2 farright
+                                            name slop-D
+                            div rubbr
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 10px
+                                text name
+                                    val rubbr
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                div images
+                                    css
+                                        padding-top 10px
+                                        opacity 0.95
+                                        cursor pointer
+                                        padding 10px 0 25px
+                                    a link
+                                        href http://rubbr.anuv.me
+                                        target _blank
+                                        design-image left
+                                            name rubbr-A
+                                        div spacer
+                                            css
+                                                height 20px
+                                                width 1.5%
+                                                display inline-block
+                                        design-image right
+                                            name rubbr-B
+                            div pocketjs
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 10px
+                                text name
+                                    val pocketjs
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                div images
+                                    css
+                                        padding-top 10px
+                                        opacity 0.95
+                                        cursor pointer
+                                        padding 10px 0 25px
+                                    a link
+                                        href http://github.anuv.me/pocketjs
+                                        target _blank
+                                        design-image left
+                                            name pocketjs-A
+                                        div spacer
+                                            css
+                                                height 20px
+                                                width 1.5%
+                                                display inline-block
+                                        design-image right
+                                            name pocketjs-B
+                            div sitarhero
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 10px
+                                text name
+                                    val sitar hero
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                div images
+                                    css
+                                        padding-top 10px
+                                        opacity 0.95
+                                        cursor pointer
+                                        padding 10px 0 25px
+                                    a link
+                                        href http://github.anuv.me/sitarhero
+                                        target _blank
+                                        design-image left
+                                            name sitarhero-A
+                                        div spacer
+                                            css
+                                                height 20px
+                                                width 1.5%
+                                                display inline-block
+                                        design-image right
+                                            name sitarhero-B
+                            div chessroom
+                                css
+                                    text-align left
+                                    width 100%
+                                    margin-bottom 10px
+                                text name
+                                    val chessroom
+                                    css
+                                        font-size 38px
+                                        color #626262
+                                        text-transform uppercase
+                                        font-weight 400
+                                        letter-spacing 3px
+                                div images
+                                    css
+                                        padding-top 10px
+                                        opacity 0.95
+                                        cursor pointer
+                                        padding 10px 0 25px
+                                    a link
+                                        href http://chessroom.ml
+                                        target _blank
+                                        design-image left
+                                            name chessroom-A
+                                        div spacer
+                                            css
+                                                height 20px
+                                                width 1.5%
+                                                display inline-block
+                                        design-image right
+                                            name chessroom-B
+                        div programming
+                            css
+                                position relative
+                                padding-top 30px
+                                padding-bottom 30px
+                                height auto
+                                overflow hidden
+                            div cardspace
+                                css
+                                    width 96%
+                                    height auto
+                                    min-height 700px
+                                    background-color #f8f8f8
+                                    padding 40px 2%
+                                    border-radius 5px
+                                    text-align center
+                                !prog-card
+                                    init
+                                        {
+                                            var block = Block('div');
+                                            return block
+                                                .css({
+                                                    minHeight: '500px',
+                                                    height: 'auto',
+                                                    maxWidth: '370px',
+                                                    width: '90%',
+                                                    backgroundColor: 'white',
+                                                    display: 'inline-block',
+                                                    borderRadius: '10px',
+                                                    margin: '20px 20px',
+                                                    boxShadow: '0 1px 5px rgba(0, 0, 0, 0.04), 0 2px 3px rgba(0, 0, 0, 0.08)'
+                                                })
+                                                .add(Block('div', 'imgwrap')
+                                                    .css({
+                                                        width: '99.5%',
+                                                        paddingBottom: '60%',
+                                                        position: 'relative',
+                                                        height: '0',
+                                                        display: 'block',
+                                                        border: '1px solid #f3f3f3',
+                                                        borderRadius: '10px 10px 0 0'
+                                                    })
+                                                    .add(Block('image', 1))
+                                                )
+                                                .add(Block('div', 'spacer1')
+                                                    .css('height', '18px')
+                                                )
+                                                .add(Block('div', 'title')
+                                                    .add(Block('text', 1)
+                                                        .data('Card Title')
+                                                        .css({
+                                                            color: '#666',
+                                                            fontSize: '33px',
+                                                            fontWeight: '300',
+                                                            letterSpacing: '1.5px',
+                                                            fontFamily: 'Lato'
+                                                        })
+                                                    )
+                                                )
+                                                .add(Block('div', 'spacer2')
+                                                    .css('height', '12px')
+                                                )
+                                                .add(Block('div', 'description')
+                                                    .css({
+                                                        width: '90%',
+                                                        padding: '0 5%'
+                                                    })
+                                                    .add(Block('text', 1)
+                                                        .html('description')
+                                                        .css({
+                                                            color: '#666',
+                                                            fontSize: '18px',
+                                                        })
+                                                    )
+                                                )
+                                                .add(Block('div').css('height', '17px'))
+                                                .add(Block('block', 'button')
+                                                    .css({
+                                                        width: 'auto',
+                                                        height: '15px',
+                                                        borderRadius: '4px',
+                                                        padding: '13px 35px',
+                                                        margin: '0 auto',
+                                                        cursor: 'pointer',
+                                                        position: 'relative',
+                                                        // backgroundColor: 'rgba(76, 147, 219, 1)',
+                                                        backgroundColor: '#fdfdfd',
+                                                        transition: 'background-color 0.25s ease, opacity 0.2s ease',
+                                                        border: '1px solid #aaa'
+                                                    })
+                                                    .on('mouseover', function (e, b, d) {
+                                                        // b.css('background-color', 'rgba(76, 147, 219, 0.85)');
+                                                        b.css('background-color', '#f4f4f4');
+                                                    })
+                                                    .on('mouseout', function (e, b, d) {
+                                                        // b.css('background-color', 'rgba(76, 147, 219, 1)');
+                                                        b.css('background-color', '#fdfdfd');
+                                                    })
+                                                    .add(Block('a', 1)
+                                                        .attribute('target', '_blank')
+                                                        .css({
+                                                            textDecoration: 'none',
+                                                            width: 'auto',
+                                                            position: 'absolute',
+                                                            height: '100%',
+                                                            width: '100%',
+                                                            top: '0',
+                                                            left: '0'
+                                                        })
+                                                    )
+                                                    .add(Block('text', 'label')
+                                                        .css({
+                                                            fontSize: '18px',
+                                                            color: '#666'
+                                                        })
+                                                    )
+                                                )
+                                                .add(Block('div')
+                                                    .css('height', '10px')
+                                                )
+                                            ;
+                                        }
+                                    load
+                                        {
+                                            data('title', function (title) {
+                                                block.child('title/text').html('').data(title);
+                                            });
+                                            data('desc', function (desc) {
+                                                block.child('description/text').html(desc);
+                                            });
+                                            block.child('imgwrap/image').data({
+                                                src: 'img/prog/' + block.mark() + '.png',
+                                                height: '400px',
+                                                width: '800px',
+                                                css: {
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    position: 'absolute',
+                                                    top: '0',
+                                                    left: '0',
+                                                    borderRadius: '10px 10px 0 0',
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: 'center center'
+                                                }
+                                            });
+                                            data('link', function (link) {
+                                                block.child('button/a').attribute('href', link);
+                                            });
+                                            data('linklabel', function (linklabel) {
+                                                block.child('button/label').html('').data(linklabel);
+                                            });
+                                        }
+                                text projtitle
+                                    val Projects
+                                    css
+                                        text-transform uppercase
+                                        font-weight 600
+                                        font-size 30px
+                                        display block
+                                        color #555
+                                        text-align left
+                                    @query window width >= 1200
+                                        css
+                                            padding-left 40px
+                                    @query window width < 1200
+                                        css
+                                            padding-left 20px
+                                            text-align left
+                                    @query window width < 1000
+                                        css
+                                            padding-left 0
+                                            text-align center
+                                prog-card blockjs
+                                    title block.js
+                                    desc Lightweight JavaScript library for designing responsive webpages with a streamlined workflow. Combines HTML/CSS/JS into minimalistic hybrid syntax: allows generating customizable element “blocks”, seamlessly integrates DOM events & responsive sizing.
+                                    link http://github.com/anuvgupta/block.js
+                                    linklabel Project Details
+                                    css
+                                        min-height 525px
+                                prog-card github
+                                    title GitHub
+                                    desc Check out the details and source code<br/>of these two and all my other projects<br/>(websites, games, mobile apps, etc.)<br/>on my GitHub profile and<br/>GitHub pages site.<br/><br/>
+                                    link http://github.anuv.me
+                                    linklabel More Projects
+                                    css
+                                        min-height 525px
+                                prog-card pocketjs
+                                    title pocketjs
+                                    desc Lightweight WebSocket library for implementing realtime applications in PHP & JavaScript. Utilizes an event-driven flow model to promote minimalistic design and simplify operations. Easy to append to existing PHP applications.
+                                    link http://github.anuv.me/pocketjs
+                                    linklabel Project Site
+                                    css
+                                        min-height 525px
+                                div spacerKSGDF
+                                    css
+                                        height 20px
+                                text schooltitle
+                                    val High School Involvement
+                                    css
+                                        text-transform uppercase
+                                        font-weight 600
+                                        font-size 30px
+                                        display block
+                                        color #555
+                                        text-align left
+                                    @query window width >= 1200
+                                        css
+                                            padding-left 40px
+                                    @query window width < 1200
+                                        css
+                                            padding-left 20px
+                                            text-align left
+                                    @query window width < 1000
+                                        css
+                                            padding-left 0
+                                            text-align center
+                                prog-card lancerhacks
+                                    title LancerHacks
+                                    desc Tech Director for 12-hour hackathon organized and hosted by sfhacks (created home website, live site, CTF system, and RSVP system from scratch). First hackathon hosted by SFHS/any Catholic high school in the Bay Area.
+                                    link http://lancerhacks.com
+                                    linklabel Home Site
+                                prog-card sfhacks
+                                    title sfhacks
+                                    desc Board member and webdev lead in SFHS programming club. Led novice &amp; intermediate workshops on JavaScript, python, and web design. Set up servers for projects, competitions, and club websites.
+                                    link http://sfhacks.club
+                                    linklabel Club Site
+                                prog-card sfcode
+                                    title sfcode
+                                    desc Organizer for competitive inter-school programming competition organized and hosted by sfhacks (set up website, helped create problems, answer questions). First large-scale STEM event hosted by SFHS.
+                                    link http://sfcode.sfhacks.club
+                                    linklabel Home Site
+                                div spacerIERUY
+                                    css
+                                        height 20px
+                                text worktitle
+                                    val Work Experience
+                                    css
+                                        text-transform uppercase
+                                        font-weight 600
+                                        font-size 30px
+                                        display block
+                                        color #555
+                                        text-align left
+                                    @query window width >= 1200
+                                        css
+                                            padding-left 40px
+                                    @query window width < 1200
+                                        css
+                                            padding-left 20px
+                                            text-align left
+                                    @query window width < 1000
+                                        css
+                                            padding-left 0
+                                            text-align center
+                                prog-card 6connect
+                                    title 6connect
+                                    desc PHP developer/summer intern.<br/>Built service to sync data between ProVision the Internet Routing Registries (2017).<br/>Built connector, eases migration from Infoblox's IPAM to 6connect's ProVision (2016).
+                                    link https://www.6connect.com/6connect-provision/
+                                    linklabel ProVision
+                                prog-card hulaloop
+                                    title HulaLoop
+                                    desc JavaScript developer/summer intern.<br/>Developed UI elements for Pythonroom with HulaLoop's custom framework, View.js (2016).<br/>Created curriculum (lessons, practice problems, quizzes) for Pythonroom (2015).
+                                    link http://pythonroom.com
+                                    linklabel Pythonroom
+                                prog-card stratford
+                                    title Stratford Schools
+                                    desc Created Raspberry Pi (circuit prototyping & Python programming) tutorials and curriculum (lessons, activities, examples) for Stratford Middle School’s new engineering course, and trained teachers (2014).
+                                    link https://www.youtube.com/watch?v=VF_ZQvdNkSU
+                                    linklabel Promo Video
+                                div spacerHGJF
+                                    css
+                                        height 5px
     div why
         css
             width 100%
@@ -954,9 +3044,10 @@ app
                 val Why?
                 css
                     font-size 45px
-                    color #555
+                    color #777
                     text-transform lowercase
-                    letter-spacing 2px
+                    letter-spacing 4px
+                    font-weight 500
                 @query window width > 1450
                     css
                         font-size 49px
@@ -1083,27 +3174,27 @@ app
                     css
                         opacity 0.45
                         width 110px
-            block line
-                css
-                    height 20px
-                    width 90%
-                    padding 0 5%
-                    margin-bottom 25px
-                text text
-                    css
-                        // letter-spacing 1px
-                        font-size 26px
-                        color #444
-                        display block
-                        margin-bottom 5px
-                    html "The&nbsp;only&nbsp;source&nbsp;of knowledge&nbsp;is&nbsp;experience."
-                text author
-                    css
-                        color #333
-                        font-style italic
-                        font-size 23px
-                        opacity 0.9
-                    val Albert Einstein
+            // block line
+            //     css
+            //         height 20px
+            //         width 90%
+            //         padding 0 5%
+            //         margin-bottom 25px
+            //     text text
+            //         css
+            //             // letter-spacing 1px
+            //             font-size 26px
+            //             color #444
+            //             display block
+            //             margin-bottom 5px
+            //         html "The&nbsp;only&nbsp;source&nbsp;of knowledge&nbsp;is&nbsp;experience."
+            //     text author
+            //         css
+            //             color #333
+            //             font-style italic
+            //             font-size 23px
+            //             opacity 0.9
+            //         val Albert Einstein
             block button
                 css
                     width auto
@@ -1123,7 +3214,7 @@ app
                     css
                         background-color rgba(76, 147, 219, 1)
                 a button
-                    href https://drive.google.com/open?id=0B6HEUTBOMYjgdVJaYWlCZnpBNGs
+                    href https://drive.google.com/file/d/1AJCGXVfqq4k5zzNvlEjZMQHkH1dHxvUH/view?usp=sharing
                     target _blank
                     css
                         text-decoration none
@@ -1152,13 +3243,13 @@ app
                     @query window width > 700
                         html
                             `
-                                Please read my résumé for a more detailed look<br/>into how I've pursued my various passions.
+                                Please read my résumé for a more professional look<br/>into how I've pursued my various passions.
                                 I am always<br/>open to new projects and opportunities, whether it be<br/>a job, internship, volunteer position, class, etc.
                             `
                     @query window width < 700
                         html
                             `
-                                Please read my résumé for a more detailed look into how I've pursued my various passions.
+                                Please read my résumé for a more professional look into how I've pursued my various passions.
                                 I am always open to new projects and opportunities, whether it be a job, internship, volunteer position, class, etc.
                             `
     div contact
@@ -1175,7 +3266,9 @@ app
                     font-size 50px
                     opacity 0.65
                     text-transform lowercase
-                    letter-spacing 1px
+                    letter-spacing 2px
+                    font-weight 500
+                    color #555
         div spacer
             css
                 height 30px
@@ -1184,13 +3277,39 @@ app
                 border-bottom 2px solid #d0d0d0
         div left
             css
-                width 44%
+                width 42%
                 min-height 120px
                 height auto
                 display inline-block
                 padding-left 5%
-                // padding-right 1%
+                padding-right 2%
                 float left
+            @query window width >= 1150
+                css
+                    width 40%
+                    padding-left 7%
+            @query window width < 1150
+                css
+                    width 42%
+                    padding-left 5%
+                    padding-right 2%
+                    padding-top 1px
+            @query window width < 1100
+                css
+                    width 35%
+                    padding-left 12%
+                    padding-right 2%
+            @query window width < 725
+                css
+                    width 42%
+                    padding-left 5%
+                    padding-right 2%
+            @query window width < 360
+                css
+                    width 38%
+                    padding-left 9%
+                    padding-right 2%
+                    padding-top 15px
             text text
                 val profiles
                 css
@@ -1211,10 +3330,10 @@ app
                     alt VSCO
                     href https://vsco.co/anuvgupta
                 div break
-                    @query window width > 1030
+                    @query window width > 1100
                         css
                             display inline-block
-                    @query window width < 1030
+                    @query window width < 1100
                         css
                             display block
                             height 12px
@@ -1247,14 +3366,40 @@ app
                 }
         div right
             css
-                width 44%
+                width 42%
                 min-height 120px
                 height auto
                 display inline-block
                 float right
-                // padding-left 1%
+                padding-left 2%
                 padding-right 5%
                 text-align right
+            @query window width >= 1150
+                css
+                    width 40%
+                    padding-right 7%
+            @query window width < 1150
+                css
+                    width 42%
+                    padding-right 5%
+                    padding-left 2%
+                    padding-top 1px
+            @query window width < 1100
+                css
+                    width 35%
+                    padding-right 12%
+                    padding-left 2%
+            @query window width < 725
+                css
+                    width 42%
+                    padding-right 5%
+                    padding-left 2%
+            @query window width < 360
+                css
+                    width 38%
+                    padding-right 9%
+                    padding-left 2%
+                    padding-top 15px
             text text
                 val social
                 css
@@ -1266,30 +3411,51 @@ app
                 css
                     padding-top 20px
                 social-icon facebook
+                    alt Facebook
                     href https://www.facebook.com/profile.php?id=100008309120856
                 social-icon instagram
+                    alt Instagram
                     href https://instagram.com/_anuv
                 social-icon linkedin
+                    alt LinkedIn
                     href https://linkedin.com/in/anuvgupta
                 div break
-                    @query window width > 1030
+                    @query window width > 1100
                         css
                             display inline-block
-                    @query window width < 1030
+                    @query window width < 1100
                         css
                             display block
                             height 12px
                 social-icon snapchat
-                    // href https://open.spotify.com/user/agwx2
+                    alt Snapchat
+                    :click
+                        {
+                            app.block.child('snapcode').on('show');
+                        }
                 social-icon gplus
+                    alt Google+
                     href https://plus.google.com/+AnuvGupta
                 social-icon twitter
+                    alt Twitter
                     // href https://devpost.com/anuvgupta
         div linewrap
             css
                 margin -10px auto
                 width 90%
                 border-bottom 2px solid #d0d0d0
+            @query window width >= 1150
+                css
+                    width 85%
+            @query window width < 1150
+                css
+                    width 90%
+            @query window width < 1100
+                css
+                    width 76%
+            @query window width < 725
+                css
+                    width 89%
             div line
                 css
                     width 2px
@@ -1299,7 +3465,7 @@ app
                     margin 0 auto
         div bottom
             css
-                padding-top 30px
+                padding-top 40px
             div title
                 css
                     margin 0 auto
@@ -1314,60 +3480,196 @@ app
                         color #222
             div icons
                 css
-                    margin 20px auto
+                    margin 15px auto 20px
                     width auto
                     text-align center
-                social-icon email
-                    alt Business Email
-                    href mailto:me@anuv.me
-                    target _self
-                social-icon iphone
-                    alt iPhone
-                    href tel:+1-408-784-9195
-                    target _self
-                social-icon sfhs
-                    alt School Email
-                    href mailto:anuvgupta@sfhs.com
-                    target _self
-                social-icon phone
-                    alt Home Phone
-                    href tel:+1-408-261-2675
-                    target _self
-                social-icon gmail
-                    alt Personal Gmail
-                    href mailto:anuv.ca@gmail.com
-                    target _self
+                div div1
+                    css
+                        display none
+                    social-icon email
+                        alt Business Email
+                        href mailto:me@anuv.me
+                        target _self
+                    // social-icon iphone
+                    //     alt iPhone
+                    //     href tel:+1-408-784-9195
+                    //     target _self
+                    social-icon sfhs
+                        alt School Email
+                        href mailto:anuvgupta@sfhs.com
+                        target _self
+                    // social-icon phone
+                    //     alt Home Phone
+                    //     href tel:+1-408-261-2675
+                    //     target _self
+                    social-icon gmail
+                        alt Personal Gmail
+                        href mailto:anuv.ca@gmail.com
+                        target _self
+                div div2
+                    css
+                        display none
+                    social-icon email
+                        alt Business Email
+                        href mailto:me@anuv.me
+                        target _self
+                    social-icon sfhs
+                        alt School Email
+                        href mailto:anuvgupta@sfhs.com
+                        target _self
+                    social-icon gmail
+                        alt Personal Gmail
+                        href mailto:anuv.ca@gmail.com
+                        target _self
+                    break br1
+                        // break
+                    social-icon iphone
+                        alt iPhone
+                        href tel:+1-408-784-9195
+                        target _self
+                    social-icon phone
+                        alt Home Phone
+                        href tel:+1-408-261-2675
+                        target _self
+                @query window width >= 425
+                    div1
+                        css
+                            display block
+                    div2
+                        css
+                            display none
+                @query window width < 425
+                    div1
+                        css
+                            display none
+                    div2
+                        css
+                            display block
         block copyright
-            title Design: Anuv (Not HTML5 UP)
+            title Website Design - Anuv (Not HTML5 UP)
             css
                 height 30px
                 margin-top 80px
                 text-align center
                 font-size 18px
                 cursor pointer
-            // div div
-            //     title Not HTML5 UP
-            //     css
-            //         color #777
-            //         font-size 15px
-            //         cursor pointer
-            //         margin 5px 0
-            //     text text
-            //         html Website Design by Anuv
+                opacity 0.85
+                transition opacity 0.2s ease
             text text1
                 css
-                    color #888
+                    color #666
                     font-size inherit
                 {
                     block.html('&copy; ' + (new Date().getFullYear()) + ' Anuv Gupta');
                 }
             text text2
                 css
-                    color #ccc
+                    color #bbb
                     font-size 20px
                 html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            div br1
+                //break
             text text3
                 css
-                    color #888
+                    color #666
                     font-size inherit
                 html All Rights Reserved
+            :mouseover
+                css
+                    opacity 1
+            :mouseout
+                css
+                    opacity 0.85
+            @query window width >= 375
+                text2
+                    css
+                        display inline-block
+                br1
+                    css
+                        display none
+            @query window width < 375
+                text2
+                    css
+                        display none
+                br1
+                    css
+                        display block
+    div snapcode
+        css
+            top 0
+            left 0
+            opacity 0
+            width 100%
+            z-index 50
+            height 100%
+            display none
+            position fixed
+            transition opacity 0.2s ease
+            background-color rgba(250, 250, 250, 0.9)
+        :show
+            {
+                setTimeout(function () {
+                    block.css('display', 'block');
+                    setTimeout(function () {
+                        block.css('opacity', '1');
+                    }, 10);
+                }, 10);
+            }
+        :hide
+            {
+                setTimeout(function () {
+                    block.css('opacity', '0');
+                    setTimeout(function () {
+                        block.css('display', 'none');
+                    }, 210);
+                }, 10);
+            }
+        :click
+            {
+                block.on('hide');
+            }
+        block imgwrap
+            css
+                opacity 0.9
+            img img
+                width 400px
+                height 400px
+                src img/snapcodes/snapcodeBitmoji.svg
+                @query window width >= 550
+                    css
+                        width 400px
+                        height 400px
+                @query window width < 550
+                    {
+                        var width = window.innerWidth * 0.727272;
+                        block.css({
+                            width: width + 'px',
+                            height: width + 'px'
+                        });
+                    }
+                :click
+                    {
+                        event.stopPropagation();
+                    }
+        div x
+            css
+                position absolute
+                top 80px
+                left 25px
+                opacity 0.65
+                cursor pointer
+                transition opacity 0.2s ease
+            :mouseover
+                css
+                    opacity 0.75
+            :mouseout
+                css
+                    opacity 0.65
+            :click
+                {
+                    block.parent().on('hide');
+                }
+            image img
+                src img/x.png
+                height 35px
+                width 35px

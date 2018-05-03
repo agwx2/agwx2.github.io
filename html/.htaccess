@@ -3,6 +3,7 @@ RewriteEngine on
 # redirect all but specific urls to index.html
 RewriteCond %{REQUEST_FILENAME} !img/
 RewriteCond %{REQUEST_FILENAME} !js/
+RewriteCond %{REQUEST_FILENAME} !assets/
 RewriteCond %{REQUEST_FILENAME} !google770ec7f03e0434d8.html
 RewriteCond %{REQUEST_FILENAME} !app.block
 RewriteRule . index.html [L]
