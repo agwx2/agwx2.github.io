@@ -2457,6 +2457,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 10px
+                                    position relative
                                 text name
                                     val anuv.me
                                     css
@@ -2465,6 +2466,15 @@ app
                                         text-transform uppercase
                                         font-weight 400
                                         letter-spacing 3px
+                                text desc
+                                    val personal website
+                                    css
+                                        font-size 21px
+                                        color #828282
+                                        letter-spacing 3px
+                                        position absolute
+                                        right 0
+                                        top 15px
                                 div images
                                     css
                                         padding 10px 0 25px
@@ -2490,6 +2500,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 10px
+                                    position relative
                                 text name
                                     val LancerHacks
                                     css
@@ -2498,6 +2509,35 @@ app
                                         text-transform uppercase
                                         font-weight 400
                                         letter-spacing 3px
+                                text desc
+                                    html hackathon home, live, and CTF sites
+                                    css
+                                        color #828282
+                                        position absolute
+                                        right 0
+                                    @query window width > 880
+                                        css
+                                            letter-spacing 3px
+                                            font-size 21px
+                                            top 15px
+                                    @query window width <= 880
+                                        html hackathon home, live, and CTF sites
+                                        css
+                                            letter-spacing 1px
+                                            font-size 20px
+                                            top 15px
+                                    @query window width <= 700
+                                        html hackathon home,<br/>live, and CTF sites
+                                        css
+                                            letter-spacing 2px
+                                            font-size 17px
+                                            top 2px
+                                    @query window width <= 515
+                                        html hackathon home,<br/>live, and CTF sites
+                                        css
+                                            letter-spacing 1px
+                                            font-size 16px
+                                            top 3px
                                 div images
                                     css
                                         padding 10px 0 25px
@@ -2541,6 +2581,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 30px
+                                    position relative
                                 text name
                                     val slop
                                     css
@@ -2550,6 +2591,21 @@ app
                                         font-weight 400
                                         letter-spacing 3px
                                         padding 10px 0 25px
+                                text desc
+                                    val collaborative grocery list app
+                                    css
+                                        color #828282
+                                        position absolute
+                                        right 0
+                                        top 15px
+                                    @query window width > 530
+                                        css
+                                            letter-spacing 3px
+                                            font-size 21px
+                                    @query window width <= 530
+                                        css
+                                            letter-spacing 1px
+                                            font-size 20px
                                 div images
                                     css
                                         padding-top 10px
@@ -2592,6 +2648,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 10px
+                                    position relative
                                 text name
                                     val rubbr
                                     css
@@ -2600,6 +2657,20 @@ app
                                         text-transform uppercase
                                         font-weight 400
                                         letter-spacing 3px
+                                text desc
+                                    val online realtime multiplayer game
+                                    css
+                                        font-size 21px
+                                        color #828282
+                                        position absolute
+                                        right 0
+                                        top 15px
+                                    @query window width > 600
+                                        css
+                                            letter-spacing 3px
+                                    @query window width <= 600
+                                        css
+                                            letter-spacing 1px
                                 div images
                                     css
                                         padding-top 10px
@@ -2623,6 +2694,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 10px
+                                    position relative
                                 text name
                                     val pocketjs
                                     css
@@ -2631,6 +2703,20 @@ app
                                         text-transform uppercase
                                         font-weight 400
                                         letter-spacing 3px
+                                text desc
+                                    val project site/demo
+                                    css
+                                        font-size 21px
+                                        color #828282
+                                        position absolute
+                                        right 0
+                                        top 15px
+                                    @query window width > 600
+                                        css
+                                            letter-spacing 3px
+                                    @query window width <= 600
+                                        css
+                                            letter-spacing 1px
                                 div images
                                     css
                                         padding-top 10px
@@ -2654,6 +2740,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 10px
+                                    position relative
                                 text name
                                     val sitar hero
                                     css
@@ -2662,6 +2749,20 @@ app
                                         text-transform uppercase
                                         font-weight 400
                                         letter-spacing 3px
+                                text desc
+                                    val github project site
+                                    css
+                                        font-size 21px
+                                        color #828282
+                                        position absolute
+                                        right 0
+                                        top 15px
+                                    @query window width > 600
+                                        css
+                                            letter-spacing 3px
+                                    @query window width <= 600
+                                        css
+                                            letter-spacing 1px
                                 div images
                                     css
                                         padding-top 10px
@@ -2685,6 +2786,7 @@ app
                                     text-align left
                                     width 100%
                                     margin-bottom 10px
+                                    position relative
                                 text name
                                     val chessroom
                                     css
@@ -2693,6 +2795,20 @@ app
                                         text-transform uppercase
                                         font-weight 400
                                         letter-spacing 3px
+                                text desc
+                                    val firebase game experiment
+                                    css
+                                        font-size 21px
+                                        color #828282
+                                        position absolute
+                                        right 0
+                                        top 15px
+                                    @query window width > 600
+                                        css
+                                            letter-spacing 3px
+                                    @query window width <= 600
+                                        css
+                                            letter-spacing 1px
                                 div images
                                     css
                                         padding-top 10px
