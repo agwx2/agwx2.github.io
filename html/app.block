@@ -436,7 +436,7 @@ app
                     width 90px
                     transition opacity 0.2s ease
                 image image
-                    src img/downW3.png
+                    src img/down-simple.png
                     height 90px
                     width 90px
                 :mouseover
