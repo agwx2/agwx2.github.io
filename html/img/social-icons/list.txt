@@ -1,5 +1,0 @@
-List
-
-profiles:   github, soundcloud, vsco, spotify, youtube, devpost
-social:     facebook, instagram, linkedin, snapchat, gplus, twitter
-contact:    email, phone, gmail
