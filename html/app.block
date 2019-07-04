@@ -304,7 +304,7 @@ app
                 width 85%
                 background-color #fdfdfd
                 display inline-table
-                box-shadow 0 1px 12px 0 rgba(170, 170, 170 , 0.8)
+                box-shadow 0 1px 12px 0 rgba(170, 170, 170 , 0.21)
                 opacity 0
                 transition opacity 0.8s ease
                 position relative
@@ -577,7 +577,8 @@ app
                     width 90%
                     max-width 700px
                     margin 10px auto 0
-                    text-align center
+                    // text-align center
+                    text-align justify
                     padding 0 20px
                 text text1
                     css
@@ -607,7 +608,7 @@ app
                             grade = "sophomore";
                         else if (now > 1535781600) // 9/1/2018
                             grade = "freshman";
-                        block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California.<br/>I make music—covering songs, recording originals, producing beats. I study computer engineering, and on the side I develop web apps, intern at software companies, and experiment with electronics. In my free time I love cooking fusion cuisine, travelling the world, urban/nature photography, making Spotify playlists, and collegiate competitive dance.");
+                        block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California. I make music—covering songs, recording originals, producing beats. I study computer engineering, and on the side I develop web apps, intern at software companies, and experiment with electronics. In my free time I love cooking fusion cuisine, travelling the world, urban/nature photography, making Spotify playlists, and collegiate competitive dance.");
                     }
             div image
                 css
@@ -642,7 +643,7 @@ app
                             letter-spacing 20px
                             display block
                             margin-bottom 20px
-                            text-shadow 0 0 15px #999
+                            text-shadow 0 0 15px rgba(153, 153, 153, 0.45)
                         @query window width < 1200
                             css
                                 font-size 95px
@@ -715,7 +716,8 @@ app
                                 .css({
                                     display: 'inline-block',
                                     margin: '0',
-                                    position: 'relative'
+                                    position: 'relative',
+                                    cursor: 'pointer'
                                 })
                                 .query('window height != 0', function () {
                                     block.css('width', (window.innerWidth / parseInt(block.key('split'))) + 'px');
@@ -842,7 +844,8 @@ app
                                         width: '100%',
                                         height: '100%',
                                         textDecoration: 'none',
-                                        zIndex: '5'
+                                        zIndex: '5',
+                                        cursor: 'pointer'
                                     })
                                     .on('mouseover', function (e, b) {
                                         b.sibling('background2').on('show');
@@ -961,7 +964,7 @@ app
                     img palm
                     split 2
                     bgpos center center
-                tile programming
+                tile coding
                     img room
                     split 2
                     bgpos center top
@@ -1163,11 +1166,14 @@ app
                             div personal
                                 css
                                     margin 0 auto
-                                    background-color #eaeaea
+                                    // background-color #eaeaea
+                                    background-color #f5f5f5
                                     position relative
                                     overflow hidden
                                     max-width 1190px
-                                    border-radius 3px
+                                    // border-radius 3px
+                                    border-radius 6px
+                                    box-shadow 0 1px 5px rgba(0, 0, 0, 0.04), 0 2px 3px rgba(0, 0, 0, 0.08)
                                 @query window width > 1300
                                     css
                                         max-width 1190px
@@ -1220,18 +1226,19 @@ app
                                             margin 0 auto
                                             height 92%
                                             width 92%
-                                            border-radius 3px
+                                            // border-radius 3px
+                                            border-radius 6px
                                 div content
                                     css
                                         height auto
-                                        padding 25px 10px 18px 25px
+                                        padding 30px 10px 18px 35px
                                         float left
                                         display inline-block
                                     text t1
-                                        html music is the most powerful way to express and feel emotion
+                                        html Music is the most powerful way to express and feel emotion
                                         css
                                             font-size 28px
-                                            color #777
+                                            color #555
                                             font-weight 300
                                             letter-spacing 1px
                                         @query window width > 1400
@@ -1274,7 +1281,7 @@ app
                                             margin 7px auto 0
                                             height 160px
                                             font-size 17px
-                                            color #555
+                                            color #222
                                         @query window width > 1400
                                             css
                                                 margin 7px auto 0
@@ -1324,11 +1331,11 @@ app
                                                 css
                                                     display block
                                                 @query window width > 1345
-                                                    html live performances and<br/>produced videos of original<br/>music and covers
+                                                    html Live performances and<br/>produced videos of original<br/>music and covers
                                                     css
                                                         margin-top -10px
                                                 @query window width <= 1345
-                                                    html live performances and produced videos of original music and covers
+                                                    html Live performances and produced videos of original music and covers
                                                     css
                                                         margin-top -17px
                                         block soundcloud
@@ -1370,11 +1377,11 @@ app
                                                 css
                                                     display block
                                                 @query window width > 1345
-                                                    html studio recordings and<br/>productions of original music,<br/>covers, and mashups
+                                                    html Studio recordings and<br/>productions of original music,<br/>covers, and mashups
                                                     css
                                                         margin-top -10px
                                                 @query window width <= 1345
-                                                    html studio recordings and productions of original music, covers, and mashups
+                                                    html Studio recordings and productions of original music, covers, and mashups
                                                     css
                                                         margin-top -17px
                                         block spotify
@@ -1413,7 +1420,7 @@ app
                                                         css
                                                             opacity 0.3
                                             text text
-                                                html music taste in curated<br/>playlists and favorite<br/>artists/bands
+                                                html Music taste in curated<br/>playlists and favorite<br/>artists/bands
                                                 css
                                                     display block
                                                 @query window width > 1345
@@ -1511,7 +1518,7 @@ app
                                             max-width 100%
                                             height 375px
                                     {
-                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="100%" src="https://www.youtube.com/embed/IG2hy_N-4zs?rel=0&theme=light" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>');
+                                        block.html('<iframe style="margin: 0 auto; border-radius: 4px;" width="95%" height="100%" src="https://www.youtube.com/embed/IG2hy_N-4zs?rel=0&theme=light" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>');
                                     }
                                 div block3
                                     css
@@ -1535,7 +1542,7 @@ app
                                             max-width 100%
                                             height 375px
                                     {
-                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="100%" src="https://www.youtube.com/embed/Uh3Gi7kM97E?rel=0&start=130&theme=light" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>');
+                                        block.html('<iframe style="margin: 0 auto; border-radius: 4px;" width="95%" height="100%" src="https://www.youtube.com/embed/Uh3Gi7kM97E?rel=0&start=130&theme=light" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>');
                                     }
                                 div block4
                                     css
@@ -1553,7 +1560,7 @@ app
                                             width 100%
                                             max-width 100%
                                     {
-                                        block.html('<iframe style="margin: 0 auto;" width="95%" height="475" src="https://open.spotify.com/embed?uri=spotify:user:agwx2:playlist:5ghFHvZmV4FDK5YLeZQRu9" frameborder="0" allowtransparency="true"></iframe>');
+                                        block.html('<iframe style="margin: 0 auto; border-radius: 4px;" width="95%" height="475" src="https://open.spotify.com/embed?uri=spotify:user:agwx2:playlist:5ghFHvZmV4FDK5YLeZQRu9" frameborder="0" allowtransparency="true"></iframe>');
                                     }
                         div photography
                             css
@@ -1769,7 +1776,7 @@ app
                                         css
                                             height 25px
                                     text content
-                                        val I travel to places all around the world and capture the beauty I see with a simple phone camera. Check out my travel journals on VSCO – I pair each set of touched up pictures with related song lyrics or a poem or two to artistically express my entire experience. In the future I plan to learn to use more professional equipment.
+                                        val I travel to places all around the world and capture what I see with a simple phone camera. Check out my travel journals on VSCO.
                                         css
                                             font-size 18px
                                             color black
@@ -1808,10 +1815,10 @@ app
                                         right 15px
                                         top 10px
                                         opacity 0.75
-                                    @query window width >= 470
+                                    @query window width >= 540
                                         css
                                             opacity 0.8
-                                    @query window width < 470
+                                    @query window width < 540
                                         css
                                             opacity 0
                             div nb-desc
@@ -1930,10 +1937,10 @@ app
                                         right 15px
                                         top -5px
                                         opacity 0.75
-                                    @query window width >= 470
+                                    @query window width >= 540
                                         css
                                             opacity 0.8
-                                    @query window width < 470
+                                    @query window width < 540
                                         css
                                             opacity 0
                             div fn-desc
@@ -2614,7 +2621,7 @@ app
                                                 display inline-block
                                         design-image right
                                             name chessroom-B
-                        div programming
+                        div coding
                             css
                                 position relative
                                 padding-top 30px
@@ -2909,6 +2916,8 @@ app
                 color #444
                 padding 5px 40px 25px
                 text-align center
+                margin 0 auto
+                width 80%
             text text1
                 css
                     font-size 30px
@@ -2923,7 +2932,7 @@ app
                 css
                     font-size 20px
                     text-transform lowercase
-                val bringing into being that which has never existed before, born of imagination, a manifestation of the self expressed in art, is exhilarating
+                html bringing into being that which has never existed before, born of<br/>imagination, a manifestation of the self expressed in art, is exhilarating
     div resume
         css
             width 100%
@@ -3083,7 +3092,8 @@ app
                     css
                         width 2px
                         height 120px
-                        background-color #d0d0d0
+                        // background-color #d0d0d0
+                        background-color rgb(220, 220, 220)
                         margin 0 auto
                 @query window height != 0
                     {
@@ -3162,7 +3172,8 @@ app
                     css
                         width 2px
                         height 20px
-                        background-color #d0d0d0
+                        // background-color #d0d0d0
+                        background-color rgb(220, 220, 220)
                         margin 0 auto
             div bottom
                 css
