@@ -2854,7 +2854,7 @@ app
                                 prog-card lancerhacks
                                     title LancerHacks
                                     desc Tech Director for 12-hour hackathon organized and hosted by sfhacks (created home website, live site, CTF system, and RSVP system from scratch). First hackathon hosted by SFHS/any Catholic high school in the Bay Area.
-                                    link http://lancerhacks.com
+                                    link http://lancerhacks.com/2018
                                     linklabel Home Site
                                 prog-card sfhacks
                                     title sfhacks
