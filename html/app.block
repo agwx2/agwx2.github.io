@@ -2932,7 +2932,10 @@ app
                 css
                     font-size 20px
                     text-transform lowercase
-                html bringing into being that which has never existed before, born of<br/>imagination, a manifestation of the self expressed in art, is exhilarating
+                @query window width > 720
+                    html bringing into being that which has never existed before, born of<br/>imagination, a manifestation of the self expressed in art, is exhilarating
+                @query window width <= 720
+                    html bringing into being that which has never existed before, born of imagination, a manifestation of the self expressed in art, is exhilarating
     div resume
         css
             width 100%
