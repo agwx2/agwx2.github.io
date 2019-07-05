@@ -18,32 +18,40 @@
         <style type="text/css">
             @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
             @import url("https://fonts.googleapis.com/css?family=Lato:100,200,300,400,600");
+
             @font-face {
                 font-family: "VSCO Gothic Medium";
                 src: url("assets/VSCOGothic-Medium.ttf") format("truetype");
                 font-style: normal;
                 font-weight: 500;
             }
+
             * {
                 font-family: "Source Sans Pro", Arial, sans-serif;
                 font-weight: 200;
             }
+
             html,
             body {
                 margin: 0;
                 height: 100%;
                 width: 100%;
-                background-color: #efefef;
+                /* background-color: #efefef; */
+                background-color: #f8f8f8;
             }
+
             ::-webkit-scrollbar {
                 display: none;
             }
+
             a {
                 text-decoration: none;
             }
+
             a:visited {
                 color: #356bc4;
             }
+
             span {
                 cursor: default;
             }
@@ -133,54 +141,64 @@
                 }
             };
             window.addEventListener("load", function() {
-                // setTimeout(function () {
-                app.block.load(
-                    function() {
-                        app.block.fill(document.body);
-                        setTimeout(function() {
-                            app.block.on("open");
-                        }, 20);
-                        Block.queries();
-                        setTimeout(function() {
+                setTimeout(function() {
+                    app.block.load(
+                        function() {
+                            app.block.fill(document.body);
+                            setTimeout(function() {
+                                app.block.on("open");
+                            }, 20);
                             Block.queries();
-                        }, 500);
-                        if (app.mobile() || app.mobileAndTablet()) {
-                            Block.queries("off");
-                            $(window).on("orientationchange", function() {
-                                setTimeout(function() {
-                                    Block.queries();
-                                }, 250);
-                                setTimeout(function() {
-                                    Block.queries();
-                                }, 500);
+                            setTimeout(function() {
                                 Block.queries();
-                            });
-                        }
-                        var previousScrollTop = app.cookie("scrolltop");
-                        if (previousScrollTop != null) {
-                            $("html, body")
-                                .stop()
-                                .animate(
-                                    {
-                                        scrollTop:
-                                            (parseFloat(previousScrollTop) /
-                                                100) *
-                                            app.block.$().height()
-                                    },
-                                    0,
-                                    "swing"
-                                );
-                        }
-                        $(window).scroll(app.logScroll);
-                    },
-                    "app",
-                    "jQuery"
-                );
-                // }, 1000);
+                            }, 500);
+                            if (app.mobile() || app.mobileAndTablet()) {
+                                Block.queries("off");
+                                $(window).on("orientationchange", function() {
+                                    setTimeout(function() {
+                                        Block.queries();
+                                    }, 250);
+                                    setTimeout(function() {
+                                        Block.queries();
+                                    }, 500);
+                                    Block.queries();
+                                });
+                            }
+                            var previousScrollTop = app.cookie("scrolltop");
+                            if (previousScrollTop != null) {
+                                $("html, body")
+                                    .stop()
+                                    .animate(
+                                        {
+                                            scrollTop:
+                                                (parseFloat(previousScrollTop) /
+                                                    100) *
+                                                app.block.$().height()
+                                        },
+                                        0,
+                                        "swing"
+                                    );
+                            }
+                            $(window).scroll(app.logScroll);
+                        },
+                        "app",
+                        "jQuery"
+                    );
+                }, 300);
             });
         </script>
     </head>
+
     <body>
         <!-- anuv.me -->
+        <div id="loading" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: table; text-align: center; opacity: 1; transition: opacity 0.1s ease;">
+            <div style="display: table-cell; vertical-align: middle; margin: 0 auto;">
+                <img
+                    src="img/loading.svg"
+                    id="loadingimg"
+                    style="width: 45%; max-width: 45px; opacity: 0.8; transition: opacity 0.5s ease;"
+                />
+            </div>
+        </div>
     </body>
 </html>
