@@ -576,7 +576,7 @@ app
                     border-radius 2px
             div about
                 css
-                    width 90%
+                    width 55%
                     max-width 700px
                     margin 10px auto 0
                     // text-align center
@@ -587,15 +587,19 @@ app
                         letter-spacing 1px
                         color #555
                         text-transform lowercase
-                    @query window width >= 515
+                        line-height 160%
+                    @query window width >= 615
                         css
                             font-size 18px
-                    @query window width < 515
+                            line-height 160%
+                    @query window width < 615
                         css
                             font-size 17px
+                            line-height 135%
                     @query window width < 315
                         css
                             font-size 12px
+                            line-height 120%
                     {
                         // var birthday = 955539000;
                         var now = Math.floor(Date.now() / 1000);
@@ -610,7 +614,7 @@ app
                             grade = "sophomore";
                         else if (now > 1535781600) // 9/1/2018
                             grade = "freshman";
-                        block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California. I make music—covering songs, recording originals, producing beats. I study computer engineering, and on the side I develop web apps, intern at software companies, and experiment with electronics. In my free time I love cooking fusion cuisine, travelling the world, urban/nature photography, making Spotify playlists, and collegiate competitive dance.");
+                        block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California. I make music—originals, covers, beats. At school I study computer engineering, and on the side I develop web apps and experiment with electronics. In my free time I travel the world, cook fusion cuisine, take urban/nature photos, make Spotify playlists, and dance.");
                     }
             div image
                 css
@@ -621,18 +625,25 @@ app
                     right 0
                     background #fff url(img/peru2.jpg) no-repeat bottom right scroll
                     background-size cover
-                @query window width >= 900
+                @query window width >= 1150
                     css
-                        top 320px
+                        top 350px
+                        border-radius 0 0 10px 10px
+                @query window width < 1150
+                    css
+                        top 370px
                         border-radius 0 0 10px 10px
                 @query window width < 900
                     css
                         top 310px
                         border-radius 0
-                @query window width < 610
+                @query window width < 850
                     css
                         top 370px
-                @query window width < 400
+                @query window width < 630
+                    css
+                        top 370px
+                @query window width < 475
                     css
                         top 420px
                 block description
@@ -2809,25 +2820,19 @@ app
                                             text-align center
                                 prog-card blockjs
                                     title block.js
-                                    desc Lightweight JavaScript library for designing responsive webpages with a streamlined workflow. Combines HTML/CSS/JS into minimalistic hybrid syntax: allows generating customizable element “blocks”, seamlessly integrates DOM events & responsive sizing.
+                                    desc Lightweight JavaScript library for designing responsive, event-driven web apps. Combines HTML/CSS into minimalistic, extensible hybrid markup. Helps me build my other projects with a streamlined workflow.<br/>
                                     link http://github.com/anuvgupta/block.js
                                     linklabel Project Details
-                                    css
-                                        min-height 525px
-                                prog-card github
-                                    title GitHub
-                                    desc Check out the details and source code<br/>of these two and all my other projects<br/>(websites, games, mobile apps, etc.)<br/>on my GitHub profile and<br/>GitHub pages site.<br/><br/>
-                                    link http://github.anuv.me
-                                    linklabel More Projects
-                                    css
-                                        min-height 525px
                                 prog-card pocketjs
                                     title pocketjs
-                                    desc Lightweight WebSocket library for implementing realtime applications in PHP & JavaScript. Utilizes an event-driven flow model to promote minimalistic design and simplify operations. Easy to append to existing PHP applications.
+                                    desc WebSocket framework for building realtime apps in PHP & JavaScript. An experiment into how WebSockets work internally. Helpful for appending realtime features to existing PHP applications.<br/>
                                     link http://github.anuv.me/pocketjs
                                     linklabel Project Site
-                                    css
-                                        min-height 525px
+                                prog-card github
+                                    title GitHub
+                                    desc Check out the details and source code of these and all my other projects (websites, games, mobile apps, etc.) on my GitHub profile and GitHub pages site.<br/><br/>
+                                    link http://github.anuv.me
+                                    linklabel More Projects
                                 div spacerKSGDF
                                     css
                                         height 20px
