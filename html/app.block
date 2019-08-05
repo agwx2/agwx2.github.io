@@ -264,9 +264,12 @@ app
                 }
     div background
         {
-            app.loadImage('img/peru2T5.jpg', function () {
+            var images = ['img/peru2T5.jpg', 'img/skyline_strum.jpg'];
+            var rand = Math.floor(Math.random() * images.length);
+            var image = images[rand];
+            app.loadImage(image, function () {
                 block
-                    .css('background-image', 'url(img/peru2T5.jpg)')
+                    .css('background-image', 'url(' + image + ')')
                     .css('opacity', '1')
                 ;
             });
@@ -623,6 +626,7 @@ app
                     bottom 0
                     left 0
                     right 0
+                    // background #fff url(img/peru2.jpg) no-repeat bottom right scroll
                     background #fff url(img/peru2.jpg) no-repeat bottom right scroll
                     background-size cover
                 @query window width >= 1150
