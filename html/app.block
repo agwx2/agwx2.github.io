@@ -264,9 +264,10 @@ app
                 }
     div background
         {
-            var images = ['img/peru2T5.jpg', 'img/skyline_strum.jpg'];
-            var rand = Math.floor(Math.random() * images.length);
-            var image = images[rand];
+            // var images = ['img/peru2T5.jpg', 'img/skyline_strum.jpg'];
+            // var rand = Math.floor(Math.random() * images.length);
+            // var image = images[rand];
+            var image = 'img/skyline_strum.jpg';
             app.loadImage(image, function () {
                 block
                     .css('background-image', 'url(' + image + ')')
