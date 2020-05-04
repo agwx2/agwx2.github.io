@@ -709,7 +709,7 @@ app
                         font-size 20px
                         color #666
                         // font-weight 500
-                    html no limitations // uninhibited creation
+                    html no limitations / uninhibited creation
             block description
                 css
                     margin-top 18px
@@ -1200,7 +1200,7 @@ app
                                         // float none
                                         width 99%
                                     {
-                                        block.child('content').css('width', (block.$().width() - 400 - 27 - 9) + 'px');
+                                        block.child('content').css('width', (block.$().width() - 250 - 30 - 27 - 9) + 'px');
                                     }
                                 @query window width <= 1300
                                     css
@@ -1214,19 +1214,20 @@ app
                                     }
                                 block image
                                     css
-                                        height 370px
-                                        width 370px
-                                        max-height 370px
-                                        max-width 370px
+                                        height 250px
+                                        width 250px
+                                        max-height 250px
+                                        max-width 250px
                                         display inline-table
                                         opacity 0.9
+                                        margin 0 auto
                                     @query window width > 1300
                                         css
                                             margin 0
                                             float left
                                     @query window width <= 1300
                                         css
-                                            margin 0 auto
+                                            margin 30px auto 0
                                             float none
                                     @query window width <= 565
                                         {
@@ -1238,14 +1239,23 @@ app
                                         }
                                     image image
                                         src img/me-e2.png
-                                        height 370px
-                                        width 370px
+                                        height 250px
+                                        width 250px
                                         css
                                             margin 0 auto
-                                            height 92%
-                                            width 92%
-                                            // border-radius 3px
+                                            height 100%
+                                            width 100%
                                             border-radius 6px
+                                        @query window width > 1300
+                                            css
+                                                height 100%
+                                                width 100%
+                                                border-radius 6px 1px 1px 6px
+                                        @query window width <= 1300
+                                            css
+                                                height 100%
+                                                width 100%
+                                                border-radius 6px
                                 div content
                                     css
                                         height auto
@@ -1259,25 +1269,24 @@ app
                                             color #555
                                             font-weight 300
                                             letter-spacing 1px
-                                        @query window width > 1400
-                                            css
-                                                font-size 28px
-                                        @query window width <= 1400
-                                            css
-                                                font-size 26px
-                                        @query window width <= 1310
-                                            css
-                                                font-size 23px
+                                            font-size 10px
+                                            opacity 0.005
+                                            display none
+                                        // @query window width > 1400
+                                        //     css
+                                        //         font-size 28px
+                                        // @query window width <= 1400
+                                        //     css
+                                        //         font-size 26px
+                                        // @query window width <= 1310
+                                        //     css
+                                        //         font-size 23px
                                     break br2
                                         // break
                                     div spacer1
                                         css
                                             height 10px
                                     // text t2
-                                    //     html
-                                    //         `
-                                    //             I spend most of my free time listening to indie/alternative rock, hip hop, classic rock, and other genres, singing at the top of my voice and practicing guitar riffs along to songs, collaborating with my friends and my a capella group to create mashups and cover songs, and writing and recording my own music.
-                                    //         `
                                     //     css
                                     //         font-size 18px
                                     //         color #404040
@@ -1347,11 +1356,14 @@ app
                                                             opacity 0.3
                                             text text
                                                 css
-                                                    display block
+                                                    // display block
+                                                    display none
                                                 @query window width > 1345
                                                     html Live performances and<br/>produced videos of original<br/>music and covers
                                                     css
                                                         margin-top -10px
+                                                        font-size 10px
+                                                        opacity 0.01
                                                 @query window width <= 1345
                                                     html Live performances and produced videos of original music and covers
                                                     css
@@ -1393,11 +1405,14 @@ app
                                                             opacity 0.3
                                             text text
                                                 css
-                                                    display block
+                                                    // display block
+                                                    display none
                                                 @query window width > 1345
                                                     html Studio recordings and<br/>productions of original music,<br/>covers, and mashups
                                                     css
                                                         margin-top -10px
+                                                        font-size 10px
+                                                        opacity 0.01
                                                 @query window width <= 1345
                                                     html Studio recordings and productions of original music, covers, and mashups
                                                     css
@@ -1440,7 +1455,10 @@ app
                                             text text
                                                 html Music taste in curated<br/>playlists and favorite<br/>artists/bands
                                                 css
-                                                    display block
+                                                    // display block
+                                                    display none
+                                                    font-size 10px
+                                                    opacity 0.01
                                                 @query window width > 1345
                                                     css
                                                         margin-top -12px
@@ -1727,7 +1745,7 @@ app
                                                 transition opacity 0.25s ease
                                             :mouseover
                                                 css
-                                                    opacity 1
+                                                    opacity 0.2
                                                     height 100%
                                                     width 100%
                                             :mouseout
@@ -2936,6 +2954,7 @@ app
                     text-transform lowercase
                     letter-spacing 3px
                     font-weight 500
+                    opacity 0.03
                 val why create?
             div spacer1
                 css
@@ -2944,6 +2963,7 @@ app
                 css
                     font-size 20px
                     text-transform lowercase
+                    opacity 0.03
                 @query window width > 720
                     html bringing into being that which has never existed before, born of<br/>imagination, a manifestation of the self expressed in art, is exhilarating
                 @query window width <= 720
