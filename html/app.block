@@ -3014,7 +3014,7 @@ app
                     css
                         background-color rgba(76, 147, 219, 1)
                 a button
-                    href https://drive.google.com/file/d/1gPEEUFTtbEmofQYXAsCA-Vj8Oubd0vYE/view?usp=sharing
+                    href https://drive.google.com/file/d/1L9-5yRQmXaf9erfV40H1kyUzf8aDVRc3/view
                     target _blank
                     css
                         text-decoration none
@@ -3025,7 +3025,7 @@ app
                         top 0
                         left 0
                 text text
-                    val résumé
+                    val resume
                     css
                         font-size 24px
                         color white
