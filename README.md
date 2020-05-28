@@ -1,5 +1,5 @@
 # me.anuv.me
-Personal profile website.  
+Personal portfolio website.  
 *Visit [me.anuv.me](http://me.anuv.me/)*  
 
 Libraries Used  
