@@ -1,6 +1,6 @@
-# anuv.me
-This is my personal website.  
-*Visit [anuv.me](http://anuv.me/)*  
+# me.anuv.me
+Personal profile website.  
+*Visit [me.anuv.me](http://me.anuv.me/)*  
 
 Libraries Used  
 &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;[jQuery](https://jquery.com/) - v2.2.4  
