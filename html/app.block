@@ -244,18 +244,22 @@ app
             page contact
         block logo
             css
-                width 90px
+                width 95px
                 position absolute
                 left 0
                 top 0
                 bottom 0
                 cursor pointer
             image img
-                height 32px
-                width 32px
-                src img/icon-w-o.png
+                //height 32px
+                //width 32px
+                //src img/icon-w-o.png
+                height 37px
+                width 37px
+                src img/profile-small.png
                 css
                     display inline-block
+                    border-radius 100%
             :click
                 {
                     $('html, body').stop().animate({
@@ -344,7 +348,7 @@ app
             div profile
                 image image
                     // src img/me7.jpeg
-                    src img/profile-current.png
+                    src img/profile-medium.png
                     height 120px
                     width 120px
                     css
@@ -394,20 +398,20 @@ app
                 span images
                     // social-icon instagram
                     //     href https://instagram.com/_anuv
-                    social-icon soundcloud
-                        alt SoundCloud
-                        href https://soundcloud.com/anuvgupta
-                        css
-                            margin-bottom 0
-                    social-icon linkedin
-                        alt LinkedIn
-                        href https://www.linkedin.com/in/anuvgupta
+                    social-icon music
+                        alt Music
+                        href http://anuv.me/music
                         css
                             margin-bottom 0
                     social-icon github
                         alt GitHub
                         // href https://github.com/anuvgupta
                         href http://github.anuv.me
+                        css
+                            margin-bottom 0
+                    social-icon linkedin
+                        alt LinkedIn
+                        href https://www.linkedin.com/in/anuvgupta
                         css
                             margin-bottom 0
             text hook
@@ -567,7 +571,7 @@ app
                         font-size 48px
                         color #606060
                         opacity 0.8
-                    html hey
+                    html hi
             div hr1
                 css
                     width 90%
@@ -618,7 +622,8 @@ app
                             grade = "sophomore";
                         else if (now > 1535781600) // 9/1/2018
                             grade = "freshman";
-                        block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California. I make music—originals, covers, beats. At school I study computer engineering, and on the side I develop web apps and experiment with electronics. In my free time I travel the world, cook fusion cuisine, take urban/nature photos, make Spotify playlists, and dance.");
+                        // block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California. I make music—originals, covers, beats. At school I study computer engineering, and on the side I develop web apps and experiment with electronics. In my free time I travel the world, cook fusion cuisine, take urban/nature photos, make Spotify playlists, and dance.");
+                        block.html("I'm a " + grade + " at UT Austin from Silicon Valley, California. I make music. At school I study computer engineering, and on the side I work on computer science projects and experiment with electronics. In my free time I travel the world, cook fusion cuisine, take urban & nature photos, make playlists, and dance.");
                     }
             div image
                 css
@@ -986,6 +991,7 @@ app
                     img room
                     split 2
                     bgpos center top
+                    text cs
                 tile education
                     img sfhs
                     split 2ßß
@@ -1018,7 +1024,10 @@ app
                     :show
                         {
                             var section = data.title;
-                            block.child('bar/title').html('').data(section).key('title', section);
+                            var display_title = section;
+                            if (display_title == "coding")
+                                display_title = "computer science";
+                            block.child('bar/title').html('').data(display_title).key('title', section);
                             var tiles = block.parent().children();
                             block.child('content').on('show', { section: section });
                             block.on('top');
@@ -2059,9 +2068,8 @@ app
                                             <span style="font-size:22px;"><a target="_blank" href="https://www.utexas.edu/">University of Texas at Austin</a> '22 (2018—present)</span>
                                             <ul style = 'margin: 4px 0; font-size: 18px; letter-spacing: 0.5px;'>
                                                 <li>Major: Computer Engineering</li>
-                                                <li>Current Cumulative GPA: 3.9/4.0</li>
-                                                <li>Courses: Software Design I, Intro Embedded Systems, Intro Computing, Intro Elec Eng</li>
-                                                <li>Activities: Nach Baliye dance team board, IEEE</li>
+                                                <li>Current Cumulative GPA: 3.7/4.0</li>
+                                                <li>Activities: IEEE Computer Society board (project mentor), Nach Baliye dance team & board (social/tech chair)</li>
                                             </ul>
                                         `
                             text title1
@@ -2081,7 +2089,7 @@ app
                                             <ul style = 'margin: 4px 0; font-size: 18px; letter-spacing: 0.5px;'>
                                                 <li>Cumulative Weighted GPA: 4.3/4.0</li>
                                                 <li>APs: CS A, CS Prin, Phys C (K + E&M), Calc BC, Calc AB, Eng Lang, Eng Lit, Stats</li>
-                                                <li>Activities: hackathon tech director, coding club board, dance captain, intl club board, string ensemble, NHS, CSF</li>
+                                                <li>Activities: hackathon tech director, computer science club board, dance captain, international club board, string ensemble, NHS, CSF</li>
                                             </ul>
                                         `
                             text title2
@@ -2103,7 +2111,7 @@ app
                                             </ul>
                                         `
                             text title3
-                                val Programming
+                                val Computer Science
                                 css
                                     font-size 35px
                                     color #666
@@ -2289,7 +2297,7 @@ app
                                     margin-bottom 10px
                                     position relative
                                 text name
-                                    val anuv.me
+                                    val me.anuv.me
                                     css
                                         font-size 38px
                                         color #626262
@@ -2374,7 +2382,7 @@ app
                                         opacity 0.95
                                         cursor pointer
                                     a link1
-                                        href http://lancerhacks.com/2018
+                                        href http://lancerhacks.com/2019/2018
                                         target _blank
                                         design-image left1
                                             name lancerhacks-A
@@ -2384,7 +2392,7 @@ app
                                             width 1.5%
                                             display inline-block
                                     a link2
-                                        href http://lancerhacks.com/2018
+                                        href http://lancerhacks.com/2019/2018
                                         target _blank
                                         design-image right1
                                             name lancerhacks-B
@@ -2392,7 +2400,7 @@ app
                                         css
                                             height 17px
                                     a link3
-                                        href http://lancerhacks.com/2018/live
+                                        href http://lancerhacks.com/2019/2018/live
                                         target _blank
                                         design-image left2
                                             name lancerhacks-C
@@ -2402,7 +2410,7 @@ app
                                             width 1.5%
                                             display inline-block
                                     a link4
-                                        href http://lancerhacks.com/2018/ctf
+                                        href http://lancerhacks.com/2019/2018/ctf
                                         target _blank
                                         design-image right2
                                             name lancerhacks-D
@@ -2442,7 +2450,7 @@ app
                                         opacity 0.95
                                         cursor pointer
                                     a link
-                                        href http://github.com/anuvgupta/slop.ml
+                                        href http://github.com/anuvgupta/slop
                                         target _blank
                                         design-image2 farleft
                                             name slop-A
@@ -2646,7 +2654,7 @@ app
                                         cursor pointer
                                         padding 10px 0 25px
                                     a link
-                                        href http://chessroom.ml
+                                        href http://chessroom.anuv.me
                                         target _blank
                                         design-image left
                                             name chessroom-A
@@ -2882,16 +2890,16 @@ app
                                 prog-card lancerhacks
                                     title LancerHacks
                                     desc Tech Director for 12-hour hackathon organized and hosted by sfhacks (created home website, live site, CTF system, and RSVP system from scratch). First hackathon hosted by SFHS/any Catholic high school in the Bay Area.
-                                    link http://lancerhacks.com/2018
+                                    link http://lancerhacks.com/2019/2018
                                     linklabel Home Site
                                 prog-card sfhacks
                                     title sfhacks
-                                    desc Board member and webdev lead in SFHS programming club. Led novice &amp; intermediate workshops on JavaScript, python, and web design. Set up servers for projects, competitions, and club websites.
+                                    desc Board member and webdev lead in SFHS computer science club. Led novice &amp; intermediate workshops on JavaScript, python, and web design. Set up servers for projects, competitions, and club websites.
                                     link http://sfhacks.club
                                     linklabel Club Site
                                 prog-card sfcode
                                     title sfcode
-                                    desc Organizer for competitive inter-school programming competition organized and hosted by sfhacks (set up website, helped create problems, answer questions). First large-scale STEM event hosted by SFHS.
+                                    desc Organizer for competitive inter-school  competition organized and hosted by sfhacks (set up website, helped create problems, answer questions). First large-scale STEM event hosted by SFHS.
                                     link http://sfcode.sfhacks.club
                                     linklabel Home Site
                                 div spacerIERUY
@@ -2925,7 +2933,7 @@ app
                                 prog-card hulaloop
                                     title HulaLoop
                                     desc JavaScript developer/summer intern.<br/>Developed UI elements for Pythonroom with HulaLoop's custom framework, View.js (2016).<br/>Created curriculum (lessons, practice problems, quizzes) for Pythonroom (2015).
-                                    link http://pythonroom.com
+                                    link https://pythonroom.firebaseapp.com/
                                     linklabel Pythonroom
                                 prog-card stratford
                                     title Stratford Schools
@@ -3109,15 +3117,15 @@ app
                     social-icon github
                         alt GitHub
                         href https://github.com/anuvgupta
+                    social-icon spotify
+                        alt Spotify
+                        href https://open.spotify.com/artist/27MP5FyfMUhMmHxlTxBKop?si=UsXe2wOSSQazirGH5EmJ6w
                     social-icon soundcloud
                         alt SoundCloud
                         href https://soundcloud.com/anuvgupta
                     social-icon vsco
                         alt VSCO
                         href https://vsco.co/anuvgupta
-                    social-icon youtube
-                        alt YouTube
-                        href https://www.youtube.com/channel/UCcNHYtKwbFnnO6BTFTSmapA
             div middle
                 css
                     width 2%
@@ -3175,15 +3183,15 @@ app
                 div div
                     css
                         // padding-top 20px
-                    social-icon spotify
-                        alt Spotify
-                        href https://open.spotify.com/user/agwx2
+                    social-icon youtube
+                        alt YouTube
+                        href https://www.youtube.com/channel/UCcNHYtKwbFnnO6BTFTSmapA
                     social-icon facebook
                         alt Facebook
                         href https://www.facebook.com/profile.php?id=100008309120856
                     social-icon instagram
                         alt Instagram
-                        href https://instagram.com/_anuv
+                        href https://instagram.com/anuvmusic
                     social-icon linkedin
                         alt LinkedIn
                         href https://linkedin.com/in/anuvgupta
