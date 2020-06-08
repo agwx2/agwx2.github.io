@@ -1344,7 +1344,7 @@ app
                                                     width 60%
                                                     margin-top 30px
                                             a link
-                                                href https://www.youtube.com/channel/UCcNHYtKwbFnnO6BTFTSmapA
+                                                href https://www.youtube.com/anuvgupta
                                                 target _blank
                                                 div img
                                                     css
@@ -1442,7 +1442,7 @@ app
                                                     width 60%
                                                     margin-top 30px
                                             a link
-                                                href https://open.spotify.com/user/agwx2
+                                                href https://open.spotify.com/artist/27MP5FyfMUhMmHxlTxBKop?si=UsXe2wOSSQazirGH5EmJ6w
                                                 target _blank
                                                 div img
                                                     css
@@ -3185,7 +3185,7 @@ app
                         // padding-top 20px
                     social-icon youtube
                         alt YouTube
-                        href https://www.youtube.com/channel/UCcNHYtKwbFnnO6BTFTSmapA
+                        href https://www.youtube.com/anuvgupta
                     social-icon facebook
                         alt Facebook
                         href https://www.facebook.com/profile.php?id=100008309120856
